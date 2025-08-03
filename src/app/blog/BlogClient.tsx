@@ -13,7 +13,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
   const [searchTerm, setSearchTerm] = useState<string>('')
   
   const categories = useMemo(() => {
-    const cats = ['todos', ...new Set(initialPosts.map(post => post.category.toLowerCase()))]
+    const cats = ['todos', ...Array.from(new Set(initialPosts.map(post => post.category.toLowerCase())))]
     return cats
   }, [initialPosts])
 
