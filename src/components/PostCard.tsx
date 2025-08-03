@@ -49,12 +49,12 @@ export default function PostCard({ post }: PostCardProps) {
         </p>
 
         <div className="flex flex-wrap gap-1 mb-4">
-          {post.tags.slice(0, 3).map((tag, index) => (
+          {Array.isArray(post.tags) && post.tags.slice(0, 3).map((tag, index) => (
             <span key={index} className="text-xs bg-neutral-light text-gray-600 px-2 py-1 rounded">
               #{tag}
             </span>
           ))}
-          {post.tags.length > 3 && (
+          {Array.isArray(post.tags) && post.tags.length > 3 && (
             <span className="text-xs text-gray-500">+{post.tags.length - 3}</span>
           )}
         </div>

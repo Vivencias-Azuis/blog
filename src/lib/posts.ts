@@ -44,7 +44,7 @@ export function getAllPosts(): PostMeta[] {
         date: data.date || new Date().toISOString(),
         author: data.author || 'Vivências Azuis',
         category: data.category || 'Geral',
-        tags: data.tags || [],
+        tags: Array.isArray(data.tags) ? data.tags : [],
         featured: data.featured || false,
         readingTime: stats.text,
       } as PostMeta
@@ -67,7 +67,7 @@ export function getPostBySlug(slug: string): Post | null {
       date: data.date || new Date().toISOString(),
       author: data.author || 'Vivências Azuis',
       category: data.category || 'Geral',
-      tags: data.tags || [],
+      tags: Array.isArray(data.tags) ? data.tags : [],
       featured: data.featured || false,
       readingTime: stats.text,
       content,
@@ -90,6 +90,6 @@ export function getPostsByCategory(category: string): PostMeta[] {
 export function getPostsByTag(tag: string): PostMeta[] {
   const allPosts = getAllPosts()
   return allPosts.filter(post => 
-    post.tags.some(postTag => postTag.toLowerCase() === tag.toLowerCase())
+    Array.isArray(post.tags) && post.tags.some(postTag => postTag.toLowerCase() === tag.toLowerCase())
   )
 }
