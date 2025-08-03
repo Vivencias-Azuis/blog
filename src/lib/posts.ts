@@ -28,6 +28,9 @@ export function getAllPosts(): PostMeta[] {
   }
 
   const fileNames = fs.readdirSync(postsDirectory)
+  const today = new Date()
+  today.setHours(23, 59, 59, 999) // Set to end of today to include today's posts
+
   const allPostsData = fileNames
     .filter((fileName) => fileName.endsWith('.mdx'))
     .map((fileName) => {
@@ -49,6 +52,11 @@ export function getAllPosts(): PostMeta[] {
         readingTime: stats.text,
       } as PostMeta
     })
+    .filter((post) => {
+      // Filter out posts with future dates
+      const postDate = new Date(post.date)
+      return postDate <= today
+    })
 
   return allPostsData.sort((a, b) => (new Date(b.date).getTime() - new Date(a.date).getTime()))
 }
@@ -60,7 +68,7 @@ export function getPostBySlug(slug: string): Post | null {
     const { data, content } = matter(fileContents)
     const stats = readingTime(content)
 
-    return {
+    const post = {
       slug,
       title: data.title || slug,
       excerpt: data.excerpt || '',
@@ -72,6 +80,17 @@ export function getPostBySlug(slug: string): Post | null {
       readingTime: stats.text,
       content,
     }
+
+    // Check if post date is in the future
+    const today = new Date()
+    today.setHours(23, 59, 59, 999) // Set to end of today to include today's posts
+    const postDate = new Date(post.date)
+    
+    if (postDate > today) {
+      return null // Return null for future posts, which will trigger 404
+    }
+
+    return post
   } catch (error) {
     return null
   }
