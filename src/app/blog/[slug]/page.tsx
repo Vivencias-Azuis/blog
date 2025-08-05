@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     title: `${post.title} | Vivências Azuis`,
     description: post.excerpt,
     authors: [{ name: post.author }],
-    keywords: Array.isArray(post.tags) ? post.tags : [],
+    keywords: post.tags,
   }
 }
 
@@ -153,12 +153,12 @@ export default function PostPage({ params }: PostPageProps) {
           <div className="flex flex-wrap items-center gap-4 text-blue-200">
             <span>Por {post.author}</span>
             <span>•</span>
-            <span>{formatDate(post.date)}</span>
+            <span>{formatDate(post.datetime)}</span>
             <span>•</span>
             <span>{post.readingTime}</span>
           </div>
 
-          {Array.isArray(post.tags) && post.tags.length > 0 && (
+          {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-6">
               {post.tags.map((tag, index) => (
                 <span key={index} className="text-xs bg-white bg-opacity-20 text-white px-2 py-1 rounded">
