@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- Generated automatically by generate-sitemap.js -->
+
+<url>
+  <loc>https://www.vivenciasazuis.com.br/</loc>
+  <lastmod>2025-08-03T15:23:44.375Z</lastmod>
+  <priority>1.00</priority>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://www.vivenciasazuis.com.br/blog</loc>
+  <lastmod>2025-08-03T15:30:02.898Z</lastmod>
+  <priority>0.90</priority>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://www.vivenciasazuis.com.br/sobre</loc>
+  <lastmod>2025-08-03T15:23:54.471Z</lastmod>
+  <priority>0.80</priority>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>https://www.vivenciasazuis.com.br/contato</loc>
+  <lastmod>2025-08-03T15:23:55.063Z</lastmod>
+  <priority>0.80</priority>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>https://www.vivenciasazuis.com.br/blog?categoria=educação</loc>
+  <lastmod>2025-08-05T11:28:54.585Z</lastmod>
+  <priority>0.70</priority>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://www.vivenciasazuis.com.br/blog/conhecimento-essenciais-autismo-niveis-2-3</loc>
+  <lastmod>2025-08-03T16:53:14.959Z</lastmod>
+  <priority>0.80</priority>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>https://www.vivenciasazuis.com.br/blog/como-funciona-picture-exchange-communication-system-pecs</loc>
+  <lastmod>2025-08-05T11:13:42.309Z</lastmod>
+  <priority>0.80</priority>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>https://www.vivenciasazuis.com.br/blog/dicionario-para-pais-de-criancas-autistas</loc>
+  <lastmod>2025-08-03T16:55:25.360Z</lastmod>
+  <priority>0.80</priority>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>https://www.vivenciasazuis.com.br/blog/bem-vindos-ao-vivencias-azuis</loc>
+  <lastmod>2025-08-03T16:33:38.109Z</lastmod>
+  <priority>0.80</priority>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
+  <loc>https://www.vivenciasazuis.com.br/blog/o-que-e-ecolalia</loc>
+  <lastmod>2025-08-05T11:17:16.301Z</lastmod>
+  <priority>0.80</priority>
+  <changefreq>monthly</changefreq>
+</url>
+
+</urlset>
