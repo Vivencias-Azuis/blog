@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "sitemap": "node scripts/generate-sitemap.js",
-    "build:sitemap": "npm run sitemap && npm run build"
+    "llms": "node scripts/generate-llms.js",
+    "build:sitemap": "npm run sitemap && npm run build",
+    "build:full": "npm run sitemap && npm run llms && npm run build"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.0",

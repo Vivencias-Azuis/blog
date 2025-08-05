@@ -1,0 +1,51 @@
+# Vivências Azuis
+
+> Blog dedicado à comunidade do autismo, oferecendo apoio, conhecimento e recursos para famílias, educadores e pessoas no espectro autista. Nosso espaço digital promove inclusão, compartilha experiências reais e fornece ferramentas práticas para uma jornada mais acolhedora e informada no universo do autismo.
+
+## Sobre o Vivências Azuis
+
+- [Página Inicial](https://www.vivenciasazuis.com.br/) — Portal principal com conteúdo destacado e navegação para todas as seções do site.
+- [Sobre Nós](https://www.vivenciasazuis.com.br/sobre) — Conheça nossa missão de dar voz, visibilidade e suporte a cada trajetória dentro do espectro autista.
+- [Contato](https://www.vivenciasazuis.com.br/contato) — Entre em contato conosco para dúvidas, sugestões ou colaborações.
+- [Blog](https://www.vivenciasazuis.com.br/blog) — Central de conteúdo com artigos, guias e recursos sobre autismo.
+
+## Geral
+
+> Conteúdo geral sobre autismo e comunidade
+
+- [Bem-vindos ao Vivências Azuis](https://www.vivenciasazuis.com.br/blog/bem-vindos-ao-vivencias-azuis) — Conheça nosso espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo.
+
+## Educação
+
+> Recursos educacionais e materiais didáticos sobre autismo
+
+- [Ver todos os posts de Educação](https://www.vivenciasazuis.com.br/blog?categoria=educacao) — Navegue por todo o conteúdo da categoria Educação.
+
+- [Conhecimentos Essenciais sobre Autismo Níveis 2 e 3: Guia Completo para Pais](https://www.vivenciasazuis.com.br/blog/conhecimento-essenciais-autismo-niveis-2-3) — Um guia completo com termos essenciais relacionados ao autismo para ajudar pais a compreender melhor o universo de seus filhos.
+- [Como funciona o Picture Exchange Communication System (PECS)?](https://www.vivenciasazuis.com.br/blog/como-funciona-picture-exchange-communication-system-pecs) — O PECS é um sistema de comunicação alternativa que utiliza imagens para facilitar a comunicação de pessoas com dificuldades de fala, especialmente crianças com autismo.
+- [Dicionário para Pais de Crianças Autistas: Um A a Z Essencial](https://www.vivenciasazuis.com.br/blog/dicionario-para-pais-de-criancas-autistas) — Um guia completo com termos essenciais relacionados ao autismo para ajudar pais a compreender melhor o universo de seus filhos.
+- [O que é Ecolalia?](https://www.vivenciasazuis.com.br/blog/o-que-e-ecolalia) — Ecolalia é a repetição de palavras, frases ou sons que uma pessoa ouviu de outra pessoa ou de fontes externas, como a televisão.
+
+## Conteúdo em Destaque
+
+> Artigos e recursos especialmente importantes para a comunidade do autismo.
+
+- [Conhecimentos Essenciais sobre Autismo Níveis 2 e 3: Guia Completo para Pais](https://www.vivenciasazuis.com.br/blog/conhecimento-essenciais-autismo-niveis-2-3) — Um guia completo com termos essenciais relacionados ao autismo para ajudar pais a compreender melhor o universo de seus filhos.
+- [Como funciona o Picture Exchange Communication System (PECS)?](https://www.vivenciasazuis.com.br/blog/como-funciona-picture-exchange-communication-system-pecs) — O PECS é um sistema de comunicação alternativa que utiliza imagens para facilitar a comunicação de pessoas com dificuldades de fala, especialmente crianças com autismo.
+- [Dicionário para Pais de Crianças Autistas: Um A a Z Essencial](https://www.vivenciasazuis.com.br/blog/dicionario-para-pais-de-criancas-autistas) — Um guia completo com termos essenciais relacionados ao autismo para ajudar pais a compreender melhor o universo de seus filhos.
+- [Bem-vindos ao Vivências Azuis](https://www.vivenciasazuis.com.br/blog/bem-vindos-ao-vivencias-azuis) — Conheça nosso espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo.
+- [O que é Ecolalia?](https://www.vivenciasazuis.com.br/blog/o-que-e-ecolalia) — Ecolalia é a repetição de palavras, frases ou sons que uma pessoa ouviu de outra pessoa ou de fontes externas, como a televisão.
+
+## Principais Tópicos
+
+> Temas frequentemente abordados no blog para facilitar a navegação por assunto.
+
+**Comunicação**: PECS, comunicação, ecolalia
+**Educação**: educação
+**Família**: pais
+**Diagnóstico**: níveis
+**Recursos**: dicionário
+
+---
+
+*Este arquivo LLMs.txt foi gerado automaticamente para ajudar inteligências artificiais a compreenderem melhor o conteúdo do Vivências Azuis. Para mais informações, visite [www.vivenciasazuis.com.br](https://www.vivenciasazuis.com.br)*
