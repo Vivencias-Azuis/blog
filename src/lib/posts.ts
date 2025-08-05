@@ -7,7 +7,7 @@ export interface PostMeta {
   slug: string
   title: string
   excerpt: string
-  date: string
+  datetime: string
   author: string
   category: string
   tags: string[]
@@ -44,7 +44,7 @@ export function getAllPosts(): PostMeta[] {
         slug,
         title: data.title || slug,
         excerpt: data.excerpt || '',
-        date: data.date || new Date().toISOString(),
+        datetime: data.datetime || data.date || new Date().toISOString(),
         author: data.author || 'Vivências Azuis',
         category: data.category || 'Geral',
         tags: Array.isArray(data.tags) ? data.tags : [],
@@ -54,11 +54,11 @@ export function getAllPosts(): PostMeta[] {
     })
     .filter((post) => {
       // Filter out posts with future dates
-      const postDate = new Date(post.date)
+      const postDate = new Date(post.datetime)
       return postDate <= today
     })
 
-  return allPostsData.sort((a, b) => (new Date(b.date).getTime() - new Date(a.date).getTime()))
+  return allPostsData.sort((a, b) => (new Date(b.datetime).getTime() - new Date(a.datetime).getTime()))
 }
 
 export function getPostBySlug(slug: string): Post | null {
@@ -72,7 +72,7 @@ export function getPostBySlug(slug: string): Post | null {
       slug,
       title: data.title || slug,
       excerpt: data.excerpt || '',
-      date: data.date || new Date().toISOString(),
+      datetime: data.datetime || data.date || new Date().toISOString(),
       author: data.author || 'Vivências Azuis',
       category: data.category || 'Geral',
       tags: Array.isArray(data.tags) ? data.tags : [],
@@ -84,7 +84,7 @@ export function getPostBySlug(slug: string): Post | null {
     // Check if post date is in the future
     const today = new Date()
     today.setHours(23, 59, 59, 999) // Set to end of today to include today's posts
-    const postDate = new Date(post.date)
+    const postDate = new Date(post.datetime)
     
     if (postDate > today) {
       return null // Return null for future posts, which will trigger 404

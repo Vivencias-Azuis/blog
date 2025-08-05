@@ -66,7 +66,7 @@ export default function PostCard({ post }: PostCardProps) {
           <span>{post.readingTime}</span>
         </div>
         <div className="text-sm text-gray-500 mt-1">
-          {formatDate(post.date)}
+          {formatDate(post.datetime)}
         </div>
       </div>
     </article>
