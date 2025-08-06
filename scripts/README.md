@@ -163,3 +163,157 @@ npm run build
 ```
 
 Both scripts respect the same post filtering logic as your blog (filtering future posts, etc).
+
+## 3. Filename Normalization Script
+
+This script automatically normalizes blog post filenames to follow a consistent kebab-case naming convention.
+
+### Features
+
+- **Kebab-case Conversion**: Converts filenames to lowercase with hyphens (e.g., "My Post.mdx" → "my-post.mdx")
+- **Space Removal**: Replaces spaces with hyphens
+- **Accent Removal**: Removes diacritics and accents (e.g., "São Paulo" → "sao-paulo")
+- **Special Character Cleanup**: Removes or converts special characters
+- **Conflict Detection**: Prevents overwriting existing files
+- **Dry-run Mode**: Preview changes before applying them
+- **Safe Execution**: Only processes .md and .mdx files
+
+### Usage
+
+#### Preview changes (dry-run mode):
+```bash
+npm run normalize-filenames
+```
+
+#### Execute the renaming:
+```bash
+npm run normalize-filenames:execute
+```
+
+#### Direct execution:
+```bash
+# Dry-run mode (default)
+node scripts/normalize-filenames.js --dry-run
+
+# Execute the renaming
+node scripts/normalize-filenames.js --execute
+```
+
+### What gets normalized:
+
+- **Uppercase letters** → lowercase
+- **Spaces** → hyphens
+- **Accented characters** → unaccented equivalents
+- **Special characters** → removed or converted
+- **Multiple hyphens** → single hyphen
+
+### Example transformations:
+
+```
+"Melhores Planos de Saúde para Crianças com Autismo.md"
+→ "melhores-planos-de-saude-para-criancas-com-autismo.md"
+
+"Gratuidades-Autistas-Garantidas-por-Lei-no-Brasil.mdx"
+→ "gratuidades-autistas-garantidas-por-lei-no-brasil.mdx"
+
+"O que é Ecolalia?.mdx"
+→ "o-que-e-ecolalia.mdx"
+```
+
+### Safety Features
+
+- **Dry-run by default**: Shows what would be renamed without making changes
+- **Conflict detection**: Won't overwrite existing files
+- **File type filtering**: Only processes markdown files (.md, .mdx)
+- **Directory skipping**: Ignores subdirectories
+- **Backup recommendation**: Always backup your files before bulk operations
+
+### Best Practices
+
+1. **Always run dry-run first** to preview changes
+2. **Backup your content** before executing
+3. **Update internal links** in your posts if they reference renamed files
+4. **Run after adding new content** to maintain consistency
+
+### Integration with Other Scripts
+
+This script works well with the sitemap and LLMs.txt generators, as consistent filenames improve:
+- SEO through clean URLs
+- AI system understanding
+- Development workflow efficiency
+
+## 4. MD to MDX Conversion Script
+
+This script automatically converts `.md` files to `.mdx` files in the posts directory.
+
+### Features
+
+- **File Extension Conversion**: Changes `.md` files to `.mdx` extension
+- **Content Preservation**: Maintains all content exactly as-is (MDX is a superset of Markdown)
+- **Frontmatter Support**: Handles YAML frontmatter correctly
+- **Conflict Detection**: Won't overwrite existing `.mdx` files
+- **Dry-run Mode**: Preview conversions before applying them
+- **Safe Execution**: Only processes `.md` files, preserves existing `.mdx` files
+
+### Usage
+
+#### Preview conversions (dry-run mode):
+```bash
+npm run convert-md-to-mdx
+```
+
+#### Execute the conversion:
+```bash
+npm run convert-md-to-mdx:execute
+```
+
+#### Direct execution:
+```bash
+# Dry-run mode (default)
+node scripts/convert-md-to-mdx.js --dry-run
+
+# Execute the conversion
+node scripts/convert-md-to-mdx.js --execute
+```
+
+### What happens during conversion:
+
+1. **Scans** the posts directory for `.md` files
+2. **Reads** the content of each `.md` file
+3. **Creates** a new `.mdx` file with identical content
+4. **Removes** the original `.md` file
+5. **Preserves** all frontmatter, content, and formatting
+
+### Example conversion:
+
+```
+"melhores-planos-de-saude-para-criancas-com-autismo.md"
+→ "melhores-planos-de-saude-para-criancas-com-autismo.mdx"
+```
+
+### Why convert to MDX?
+
+- **React Components**: Ability to use React components within your content
+- **Interactive Elements**: Add dynamic functionality to your posts
+- **Consistent Format**: Standardize on one file format across your blog
+- **Future Flexibility**: MDX supports everything Markdown does, plus more
+
+### Safety Features
+
+- **Dry-run by default**: Shows what would be converted without making changes
+- **Conflict prevention**: Won't overwrite existing `.mdx` files
+- **Content integrity**: Preserves all content exactly as-is
+- **File type filtering**: Only processes `.md` files
+- **Error handling**: Reports any conversion failures
+
+### Integration with Other Scripts
+
+This script works well with the filename normalization script:
+
+1. **First**: Run filename normalization to clean up file names
+2. **Then**: Run MD to MDX conversion to standardize file format
+
+```bash
+npm run normalize-filenames:execute
+npm run convert-md-to-mdx:execute
+```

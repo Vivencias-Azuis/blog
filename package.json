@@ -10,6 +10,10 @@
     "lint": "next lint",
     "sitemap": "node scripts/generate-sitemap.js",
     "llms": "node scripts/generate-llms.js",
+    "normalize-filenames": "node scripts/normalize-filenames.js --dry-run",
+    "normalize-filenames:execute": "node scripts/normalize-filenames.js --execute",
+    "convert-md-to-mdx": "node scripts/convert-md-to-mdx.js --dry-run",
+    "convert-md-to-mdx:execute": "node scripts/convert-md-to-mdx.js --execute",
     "build:sitemap": "npm run sitemap && npm run build",
     "build:full": "npm run sitemap && npm run llms && npm run build"
   },
