@@ -180,6 +180,74 @@ O projeto é compatível com qualquer plataforma que suporte Next.js:
 - `npm run start` - Servidor de produção
 - `npm run lint` - Verificação de código
 
+## 🧰 Pasta `scripts/` (automação)
+
+Automatizações para geração de arquivos e organização do conteúdo. Para detalhes completos, veja `scripts/README.md`.
+
+### Sitemap (`scripts/generate-sitemap.js`)
+- **O que faz**: Gera `sitemap.xml` com páginas estáticas, categorias e posts (filtra posts com data futura).
+- **Usar**:
+  - Gerar manualmente:
+    ```bash
+    npm run sitemap
+    ```
+  - Gerar e fazer build:
+    ```bash
+    npm run build:sitemap
+    ```
+
+### LLMs.txt (`scripts/generate-llms.js`)
+- **O que faz**: Cria `llms.txt` (mapa para IAs) com descrição do site, categorias, destaques e tópicos.
+- **Usar**:
+  - Gerar manualmente:
+    ```bash
+    npm run llms
+    ```
+  - Gerar tudo e build:
+    ```bash
+    npm run build:full
+    ```
+
+### Normalização de nomes de arquivos (`scripts/normalize-filenames.js`)
+- **O que faz**: Renomeia arquivos `.md/.mdx` em `src/content/posts/` para kebab-case, removendo acentos e caracteres especiais. Não sobrescreve arquivos existentes.
+- **Usar**:
+  - Pré-visualizar (dry-run, padrão):
+    ```bash
+    npm run normalize-filenames
+    ```
+  - Executar renomeações:
+    ```bash
+    npm run normalize-filenames:execute
+    ```
+
+### Conversão de MD para MDX (`scripts/convert-md-to-mdx.js`)
+- **O que faz**: Converte `.md` para `.mdx` preservando conteúdo e frontmatter. Evita conflito se o `.mdx` já existir.
+- **Usar**:
+  - Pré-visualizar (dry-run, padrão):
+    ```bash
+    npm run convert-md-to-mdx
+    ```
+  - Executar conversões:
+    ```bash
+    npm run convert-md-to-mdx:execute
+    ```
+
+### Fluxo recomendado
+1. Normalizar nomes dos arquivos
+   ```bash
+   npm run normalize-filenames:execute
+   ```
+2. Converter `.md` para `.mdx`
+   ```bash
+   npm run convert-md-to-mdx:execute
+   ```
+3. Regenerar sitemap e LLMs.txt
+   ```bash
+   npm run sitemap && npm run llms
+   # ou tudo junto com build
+   npm run build:full
+   ```
+
 ## 🤝 Contribuindo
 
 Contribuições são bem-vindas! Para contribuir:
