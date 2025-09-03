@@ -4,7 +4,7 @@ import AboutSection from '@/components/AboutSection'
 
 export default function Home() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Hero />
       <FeaturedPosts />
       <AboutSection />

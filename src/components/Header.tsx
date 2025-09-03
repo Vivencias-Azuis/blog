@@ -11,42 +11,46 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-white shadow-sm border-b border-neutral-light sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">V</span>
+    <header className="bg-white/95 backdrop-blur-md shadow-lg border-b border-neutral-light sticky top-0 z-50">
+      <div className="container-custom">
+        <div className="flex justify-between items-center h-18">
+          {/* Enhanced Logo */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-azul-profundo rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <span className="text-white font-bold text-xl">V</span>
             </div>
-            <span className="text-xl font-bold text-primary-dark">Vivências Azuis</span>
+            <span className="text-xl font-bold gradient-text group-hover:scale-105 transition-transform duration-300">Vivências Azuis</span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Enhanced Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link 
               href="/" 
-              className="text-gray-700 hover:text-primary transition-colors"
+              className="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group"
             >
               Início
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </Link>
             <Link 
               href="/blog" 
-              className="text-gray-700 hover:text-primary transition-colors"
+              className="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group"
             >
               Blog
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </Link>
             <Link 
               href="/sobre" 
-              className="text-gray-700 hover:text-primary transition-colors"
+              className="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group"
             >
               Sobre
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </Link>
             <Link 
               href="/contato" 
-              className="text-gray-700 hover:text-primary transition-colors"
+              className="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group"
             >
               Contato
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </nav>
 
@@ -80,34 +84,34 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Enhanced Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-neutral-light">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="md:hidden border-t border-neutral-light bg-white/95 backdrop-blur-md">
+            <div className="px-4 pt-4 pb-6 space-y-2">
               <Link
                 href="/"
-                className="block px-3 py-2 text-gray-700 hover:text-primary transition-colors"
+                className="block px-4 py-3 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Início
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2 text-gray-700 hover:text-primary transition-colors"
+                className="block px-4 py-3 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blog
               </Link>
               <Link
                 href="/sobre"
-                className="block px-3 py-2 text-gray-700 hover:text-primary transition-colors"
+                className="block px-4 py-3 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sobre
               </Link>
               <Link
                 href="/contato"
-                className="block px-3 py-2 text-gray-700 hover:text-primary transition-colors"
+                className="block px-4 py-3 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contato
