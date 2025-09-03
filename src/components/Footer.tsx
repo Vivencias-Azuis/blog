@@ -75,13 +75,22 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-blue-600 mt-8 pt-8 text-center">
-          <p className="text-blue-200">
-            © {new Date().getFullYear()} Vivências Azuis. Todos os direitos reservados.
-          </p>
-          <p className="text-blue-300 text-sm mt-2">
-            Construindo um mundo mais azul, inclusivo e humano. 💙
-          </p>
+        <div className="border-t border-blue-600 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="text-center md:text-left mb-4 md:mb-0">
+              <p className="text-blue-200">
+                © {new Date().getFullYear()} Vivências Azuis. Todos os direitos reservados.
+              </p>
+              <p className="text-blue-300 text-sm mt-2">
+                Construindo um mundo mais azul, inclusivo e humano. 💙
+              </p>
+            </div>
+            <div className="flex space-x-6">
+              <Link href="/termos-de-uso" className="text-blue-200 hover:text-white transition-colors text-sm">
+                Termos de Uso
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
