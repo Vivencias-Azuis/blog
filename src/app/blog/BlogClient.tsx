@@ -79,43 +79,63 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-dark mb-4">
-            Blog
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Compartilhando experiências, conhecimento e apoio para toda a comunidade do autismo
-          </p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary via-azul-profundo to-primary-dark">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-verde-menta/10 rounded-full blur-3xl animate-float-delayed"></div>
         </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center text-white">
+            <div className="inline-block p-4 bg-white/10 backdrop-blur-sm rounded-2xl mb-8 animate-fade-in-up">
+              <span className="text-5xl">📚</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              Blog
+            </h1>
+            <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+              Compartilhando experiências, conhecimento e apoio para toda a comunidade do autismo
+            </p>
+            <div className="w-32 h-1 bg-gradient-to-r from-verde-menta to-amarelo-quente mx-auto mt-8 rounded-full animate-fade-in-up" style={{ animationDelay: '0.6s' }}></div>
+          </div>
+        </div>
+      </div>
 
-        {/* Filtros */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            {/* Busca */}
-            <div className="w-full md:w-96">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
+        {/* Enhanced Filters */}
+        <div className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 p-8 mb-12 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+            {/* Enhanced Search */}
+            <div className="w-full lg:w-96 relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
               <input
                 type="text"
-                placeholder="Buscar posts..."
+                placeholder="Buscar posts, tags, autores..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-neutral-light rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-lg placeholder-gray-500"
               />
             </div>
 
-            {/* Categorias */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
+            {/* Enhanced Categories */}
+            <div className="flex flex-wrap gap-3">
+              {categories.map((category, index) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
                     selectedCategory === category
-                      ? 'bg-primary text-white'
-                      : 'bg-neutral-light text-gray-700 hover:bg-primary hover:text-white'
+                      ? 'bg-gradient-to-r from-primary to-azul-profundo text-white shadow-lg'
+                      : 'bg-white/80 text-gray-700 hover:bg-primary hover:text-white border border-gray-200 hover:border-primary'
                   }`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {formatCategoryName(category)}
                 </button>
@@ -124,43 +144,96 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
           </div>
         </div>
 
-        {/* Resultados */}
-        <div className="mb-6">
-          <p className="text-gray-600">
-            {filteredPosts.length === 1 
-              ? '1 post encontrado' 
-              : `${filteredPosts.length} posts encontrados`
-            }
-            {selectedCategory !== 'todos' && ` na categoria "${formatCategoryName(selectedCategory)}"`}
-            {searchTerm && ` para "${searchTerm}"`}
-          </p>
+        {/* Enhanced Results Counter */}
+        <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '1s' }}>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+              <p className="text-gray-600 text-lg">
+                {filteredPosts.length === 1 
+                  ? '1 post encontrado' 
+                  : `${filteredPosts.length} posts encontrados`
+                }
+                {selectedCategory !== 'todos' && (
+                  <span className="ml-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                    {formatCategoryName(selectedCategory)}
+                  </span>
+                )}
+                {searchTerm && (
+                  <span className="ml-2 px-3 py-1 bg-verde-menta/20 text-azul-profundo rounded-full text-sm font-medium">
+                    "{searchTerm}"
+                  </span>
+                )}
+              </p>
+            </div>
+            {filteredPosts.length > 0 && (
+              <div className="text-sm text-gray-500">
+                Última atualização: {new Date().toLocaleDateString('pt-BR')}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Posts */}
+        {/* Enhanced Posts Grid */}
         {filteredPosts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map((post) => (
-              <PostCard key={post.slug} post={post} />
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
+            {filteredPosts.map((post, index) => (
+              <div 
+                key={post.slug} 
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${1.2 + index * 0.1}s` }}
+              >
+                <PostCard post={post} />
+              </div>
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-6">🔍</div>
-            <h2 className="text-2xl font-semibold text-primary-dark mb-4">
-              Nenhum post encontrado
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Tente ajustar seus filtros ou termo de busca.
-            </p>
-            <button
-              onClick={() => {
-                setSelectedCategory('todos')
-                setSearchTerm('')
-              }}
-              className="btn-primary"
-            >
-              Limpar Filtros
-            </button>
+          <div className="text-center py-20 animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-12 border border-white/20 shadow-xl">
+              <div className="text-8xl mb-8 animate-bounce">🔍</div>
+              <h2 className="text-3xl font-bold text-primary-dark mb-6">
+                Nenhum post encontrado
+              </h2>
+              <p className="text-lg text-gray-600 mb-8 max-w-md mx-auto">
+                Tente ajustar seus filtros ou termo de busca para encontrar o conteúdo que procura.
+              </p>
+              <button
+                onClick={() => {
+                  setSelectedCategory('todos')
+                  setSearchTerm('')
+                }}
+                className="btn-primary text-lg px-8 py-4"
+              >
+                Limpar Filtros
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Newsletter CTA */}
+        {filteredPosts.length > 0 && (
+          <div className="bg-gradient-to-r from-primary to-azul-profundo rounded-3xl p-8 md:p-12 text-white text-center animate-fade-in-up" style={{ animationDelay: '1.4s' }}>
+            <div className="max-w-2xl mx-auto">
+              <div className="inline-block p-4 bg-white/10 rounded-2xl mb-6">
+                <span className="text-4xl">📧</span>
+              </div>
+              <h3 className="text-3xl font-bold mb-4">
+                Fique por dentro das novidades
+              </h3>
+              <p className="text-xl text-blue-100 mb-8">
+                Receba nossos melhores conteúdos sobre autismo e inclusão diretamente no seu e-mail
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="Seu melhor e-mail"
+                  className="flex-1 px-6 py-4 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+                />
+                <button className="bg-white text-primary font-semibold px-8 py-4 rounded-xl hover:bg-gray-100 transition-colors">
+                  Inscrever-se
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
