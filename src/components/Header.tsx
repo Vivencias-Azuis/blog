@@ -11,56 +11,66 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-white/95 backdrop-blur-md shadow-lg border-b border-neutral-light sticky top-0 z-50">
+    <header className="bg-white/90 backdrop-blur-xl shadow-sm border-b border-gray-100 sticky top-0 z-50">
       <div className="container-custom">
-        <div className="flex justify-between items-center h-18">
+        <div className="flex justify-between items-center h-20">
           {/* Enhanced Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-azul-profundo rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-              <span className="text-white font-bold text-xl">V</span>
+          <Link href="/" className="flex items-center space-x-4 group">
+            <div className="relative">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary via-primary to-azul-profundo rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                <span className="text-white font-bold text-2xl">V</span>
+              </div>
+              <div className="absolute -inset-1 bg-gradient-to-br from-primary to-azul-profundo rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300 -z-10"></div>
             </div>
-            <span className="text-xl font-bold gradient-text group-hover:scale-105 transition-transform duration-300">Vivências Azuis</span>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold gradient-text group-hover:scale-105 transition-transform duration-300 leading-tight">
+                Vivências Azuis
+              </span>
+              <span className="text-xs text-gray-500 font-medium tracking-wide">
+                Autismo & Desenvolvimento
+              </span>
+            </div>
           </Link>
 
           {/* Enhanced Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-1">
             <Link 
               href="/" 
-              className="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group"
+              className="px-4 py-2 text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group rounded-lg hover:bg-primary/5"
             >
               Início
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-azul-profundo transition-all duration-300 group-hover:w-3/4"></span>
             </Link>
             <Link 
               href="/blog" 
-              className="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group"
+              className="px-4 py-2 text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group rounded-lg hover:bg-primary/5"
             >
               Blog
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-azul-profundo transition-all duration-300 group-hover:w-3/4"></span>
             </Link>
             <Link 
               href="/sobre" 
-              className="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group"
+              className="px-4 py-2 text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group rounded-lg hover:bg-primary/5"
             >
               Sobre
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-azul-profundo transition-all duration-300 group-hover:w-3/4"></span>
             </Link>
             <Link 
               href="/contato" 
-              className="text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group"
+              className="px-4 py-2 text-gray-700 hover:text-primary transition-all duration-300 font-medium relative group rounded-lg hover:bg-primary/5"
             >
               Contato
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-primary to-azul-profundo transition-all duration-300 group-hover:w-3/4"></span>
             </Link>
           </nav>
 
-          {/* Mobile menu button */}
+          {/* Enhanced Mobile menu button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden p-2 rounded-md text-gray-600 hover:text-primary focus:outline-none"
+            className="md:hidden p-3 rounded-xl text-gray-600 hover:text-primary hover:bg-primary/5 focus:outline-none transition-all duration-300"
           >
             <svg
-              className="h-6 w-6"
+              className="h-6 w-6 transition-transform duration-300"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -85,40 +95,54 @@ export default function Header() {
         </div>
 
         {/* Enhanced Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-neutral-light bg-white/95 backdrop-blur-md">
-            <div className="px-4 pt-4 pb-6 space-y-2">
+        <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+          isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}>
+          <div className="border-t border-gray-100 bg-white/95 backdrop-blur-md">
+            <div className="px-4 pt-6 pb-8 space-y-1">
               <Link
                 href="/"
-                className="block px-4 py-3 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg font-medium"
+                className="block px-4 py-4 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-xl font-medium group"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Início
+                <span className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span>Início</span>
+                </span>
               </Link>
               <Link
                 href="/blog"
-                className="block px-4 py-3 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg font-medium"
+                className="block px-4 py-4 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-xl font-medium group"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Blog
+                <span className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span>Blog</span>
+                </span>
               </Link>
               <Link
                 href="/sobre"
-                className="block px-4 py-3 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg font-medium"
+                className="block px-4 py-4 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-xl font-medium group"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Sobre
+                <span className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span>Sobre</span>
+                </span>
               </Link>
               <Link
                 href="/contato"
-                className="block px-4 py-3 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg font-medium"
+                className="block px-4 py-4 text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-xl font-medium group"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Contato
+                <span className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span>Contato</span>
+                </span>
               </Link>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </header>
   )
