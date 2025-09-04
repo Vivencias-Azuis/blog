@@ -1,5 +1,6 @@
 import remarkGfm from 'remark-gfm'
 import createMDX from '@next/mdx'
+import withPWA from 'next-pwa'
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
@@ -17,4 +18,24 @@ const nextConfig = {
   },
 }
 
-export default withMDX(nextConfig)
+const pwaConfig = withPWA({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+  buildExcludes: [/middleware-manifest\.json$/],
+  runtimeCaching: [
+    {
+      urlPattern: /^https?.*/,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'offlineCache',
+        expiration: {
+          maxEntries: 200,
+        },
+      },
+    },
+  ],
+})
+
+export default withMDX(pwaConfig(nextConfig))
