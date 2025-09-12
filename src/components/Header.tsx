@@ -15,20 +15,13 @@ export default function Header() {
       <div className="container-custom">
         <div className="flex justify-between items-center h-20">
           {/* Enhanced Logo */}
-          <Link href="/" className="flex items-center space-x-4 group">
-            <div className="relative">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary via-primary to-azul-profundo rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                <span className="text-white font-bold text-2xl">V</span>
-              </div>
-              <div className="absolute -inset-1 bg-gradient-to-br from-primary to-azul-profundo rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300 -z-10"></div>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold gradient-text group-hover:scale-105 transition-transform duration-300 leading-tight">
-                Vivências Azuis
-              </span>
-              <span className="text-xs text-gray-500 font-medium tracking-wide">
-                Autismo & Desenvolvimento
-              </span>
+          <Link href="/" className="flex items-center group">
+            <div className="relative h-16 w-auto group-hover:scale-105 transition-transform duration-300">
+              <img
+                src="/logo-text.svg"
+                alt="Vivências Azuis"
+                className="h-full w-auto object-contain"
+              />
             </div>
           </Link>
 
