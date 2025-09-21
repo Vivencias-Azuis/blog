@@ -92,7 +92,7 @@ export function generatePostMetadata({
           width: 1200,
           height: 630,
           alt: title,
-          type: coverImage ? 'image/jpeg' : 'image/svg+xml',
+          type: coverImage && coverImage.endsWith('.png') ? 'image/png' : coverImage && coverImage.endsWith('.jpg') ? 'image/jpeg' : 'image/svg+xml',
         },
       ],
     },
