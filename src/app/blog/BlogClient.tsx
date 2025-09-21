@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react'
 import PostCard from '@/components/PostCard'
 import { PostMeta } from '@/lib/posts'
+import AdPosition from '@/components/AdPosition'
 
 interface BlogClientProps {
   initialPosts: PostMeta[]
@@ -174,18 +175,45 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
           </div>
         </div>
 
-        {/* Enhanced Posts Grid */}
+        {/* Enhanced Posts Grid with Sidebar */}
         {filteredPosts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
-            {filteredPosts.map((post, index) => (
-              <div 
-                key={post.slug} 
-                className="animate-fade-in-up"
-                style={{ animationDelay: `${1.2 + index * 0.1}s` }}
-              >
-                <PostCard post={post} />
+          <div className="grid grid-cols-1 xl:grid-cols-4 gap-8 mb-16">
+            {/* Posts Grid */}
+            <div className="xl:col-span-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {filteredPosts.map((post, index) => (
+                  <div 
+                    key={post.slug} 
+                    className="animate-fade-in-up"
+                    style={{ animationDelay: `${1.2 + index * 0.1}s` }}
+                  >
+                    <PostCard post={post} />
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Sidebar com Anúncios */}
+            <div className="xl:col-span-1">
+              <div className="sticky top-24 space-y-6">
+                {/* Anúncio Sidebar */}
+                <AdPosition
+                  position="sidebar"
+                  currentPage="blog"
+                  currentCategory={selectedCategory !== 'todos' ? selectedCategory : undefined}
+                  currentTags={searchTerm ? [searchTerm] : undefined}
+                  className="mb-6"
+                />
+
+                {/* Anúncio Content-Top */}
+                <AdPosition
+                  position="content-top"
+                  currentPage="blog"
+                  currentCategory={selectedCategory !== 'todos' ? selectedCategory : undefined}
+                  className="mb-6"
+                />
+              </div>
+            </div>
           </div>
         ) : (
           <div className="text-center py-20 animate-fade-in-up" style={{ animationDelay: '1.2s' }}>

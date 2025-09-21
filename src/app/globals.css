@@ -14,6 +14,65 @@
   }
 }
 
+/* Ad System Styles */
+.ad-banner {
+  @apply transition-all duration-300;
+}
+
+.ad-banner:hover {
+  @apply transform scale-[1.02];
+}
+
+.ad-position {
+  @apply relative;
+}
+
+.ad-position-sidebar {
+  @apply sticky top-24;
+}
+
+.ad-position-content-top,
+.ad-position-content-bottom {
+  @apply w-full max-w-4xl mx-auto;
+}
+
+.ad-position-header {
+  @apply w-full;
+}
+
+.ad-position-footer {
+  @apply w-full;
+}
+
+/* Ad Banner Themes */
+.ad-banner-theme-light {
+  @apply bg-white border border-gray-200 shadow-lg;
+}
+
+.ad-banner-theme-primary {
+  @apply bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 shadow-lg;
+}
+
+.ad-banner-theme-custom {
+  /* Custom colors will be applied via inline styles */
+  @apply shadow-lg border border-gray-200;
+}
+
+/* Ad Banner Responsive */
+@media (max-width: 768px) {
+  .ad-banner {
+    @apply text-sm;
+  }
+  
+  .ad-banner h3 {
+    @apply text-base;
+  }
+  
+  .ad-banner p {
+    @apply text-sm;
+  }
+}
+
 @keyframes float-delayed {
   0%, 100% {
     transform: translateY(0px);

@@ -3,6 +3,7 @@ import { getAllPosts, getPostBySlug } from '@/lib/posts'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { Metadata } from 'next'
+import AdPosition from '@/components/AdPosition'
 
 interface PostPageProps {
   params: {
@@ -203,11 +204,50 @@ export default function PostPage({ params }: PostPageProps) {
       </div>
 
       {/* Enhanced Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 md:p-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
-          <div className="prose prose-lg max-w-none prose-headings:text-primary-dark prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-primary-dark prose-blockquote:border-l-primary prose-blockquote:bg-gray-50 prose-blockquote:p-6 prose-blockquote:rounded-r-xl">
-            <MDXRemote source={post.content} components={components} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
+          {/* Conteúdo Principal */}
+          <div className="xl:col-span-3">
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 md:p-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
+              <div className="prose prose-lg max-w-none prose-headings:text-primary-dark prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-primary-dark prose-blockquote:border-l-primary prose-blockquote:bg-gray-50 prose-blockquote:p-6 prose-blockquote:rounded-r-xl">
+                <MDXRemote source={post.content} components={components} />
+              </div>
+            </div>
           </div>
+
+          {/* Sidebar com Anúncios */}
+          <div className="xl:col-span-1">
+            <div className="sticky top-24 space-y-6">
+              {/* Anúncio Sidebar */}
+              <AdPosition
+                position="sidebar"
+                currentPage="blog"
+                currentCategory={post.category}
+                currentTags={post.tags}
+                className="mb-6"
+              />
+
+              {/* Anúncio Content-Top */}
+              <AdPosition
+                position="content-top"
+                currentPage="blog"
+                currentCategory={post.category}
+                currentTags={post.tags}
+                className="mb-6"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Anúncio Content-Bottom */}
+        <div className="mt-12">
+          <AdPosition
+            position="content-bottom"
+            currentPage="blog"
+            currentCategory={post.category}
+            currentTags={post.tags}
+            className="mb-8"
+          />
         </div>
 
         {/* Enhanced Call to Action */}

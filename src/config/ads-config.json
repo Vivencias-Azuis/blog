@@ -1,0 +1,138 @@
+{
+  "banners": [
+    {
+      "id": "banner-001",
+      "name": "Terapia Ocupacional Premium",
+      "type": "image",
+      "content": {
+        "image": "/ads/terapia-ocupacional.jpg",
+        "title": "Terapia Ocupacional Especializada",
+        "description": "Atendimento especializado para crianças autistas com profissionais qualificados",
+        "cta": "Agendar Consulta",
+        "url": "https://exemplo.com/terapia"
+      },
+      "targeting": {
+        "positions": ["sidebar", "content-bottom"],
+        "categories": ["educacao", "dicas"],
+        "tags": ["terapia", "ocupacional"],
+        "pages": ["blog", "home"]
+      },
+      "schedule": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31",
+        "enabled": true
+      },
+      "styling": {
+        "theme": "light",
+        "customColors": {
+          "background": "#F8F9FA",
+          "text": "#335C81",
+          "button": "#7DB8E5"
+        }
+      }
+    },
+    {
+      "id": "banner-002",
+      "name": "Curso Completo sobre Autismo",
+      "type": "card",
+      "content": {
+        "image": "/ads/curso-autismo.jpg",
+        "title": "Curso Completo sobre TEA",
+        "description": "Aprenda sobre Transtorno do Espectro Autista com especialistas renomados",
+        "price": "R$ 199,90",
+        "cta": "Inscreva-se Agora",
+        "url": "https://exemplo.com/curso"
+      },
+      "targeting": {
+        "positions": ["content-top", "sidebar"],
+        "categories": ["educacao"],
+        "tags": ["curso", "aprendizado"],
+        "pages": ["blog", "home"]
+      },
+      "schedule": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-06-30",
+        "enabled": true
+      },
+      "styling": {
+        "theme": "primary",
+        "customColors": {
+          "background": "#E3F2FD",
+          "text": "#1976D2",
+          "button": "#FFD066"
+        }
+      }
+    },
+    {
+      "id": "banner-003",
+      "name": "Produto Inclusivo",
+      "type": "image",
+      "content": {
+        "image": "/ads/produto-inclusivo.jpg",
+        "title": "Kit Sensorial Especial",
+        "description": "Produtos desenvolvidos especialmente para crianças autistas",
+        "cta": "Comprar Agora",
+        "url": "https://exemplo.com/produto"
+      },
+      "targeting": {
+        "positions": ["sidebar"],
+        "categories": ["dicas"],
+        "tags": ["produto", "inclusivo"],
+        "pages": ["blog"]
+      },
+      "schedule": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31",
+        "enabled": true
+      },
+      "styling": {
+        "theme": "light"
+      }
+    },
+    {
+      "id": "banner-004",
+      "name": "Livro sobre Autismo",
+      "type": "text",
+      "content": {
+        "title": "Guia Completo do Autismo",
+        "description": "O livro mais completo sobre TEA para pais e profissionais",
+        "cta": "Ver Livro",
+        "url": "https://exemplo.com/livro"
+      },
+      "targeting": {
+        "positions": ["content-bottom"],
+        "categories": ["educacao"],
+        "tags": ["livro", "leitura"],
+        "pages": ["blog"]
+      },
+      "schedule": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31",
+        "enabled": true
+      },
+      "styling": {
+        "theme": "primary"
+      }
+    }
+  ],
+  "positions": {
+    "header": { "enabled": false, "priority": 1 },
+    "sidebar": { "enabled": true, "priority": 2 },
+    "content-top": { "enabled": true, "priority": 3 },
+    "content-middle": { "enabled": true, "priority": 4 },
+    "content-bottom": { "enabled": true, "priority": 5 },
+    "footer": { "enabled": false, "priority": 6 }
+  },
+  "settings": {
+    "defaultTheme": "light",
+    "brandColors": {
+      "primary": "#7DB8E5",
+      "secondary": "#83D0C9",
+      "accent": "#FFD066"
+    },
+    "rotation": {
+      "type": "random",
+      "enabled": true
+    }
+  }
+}
