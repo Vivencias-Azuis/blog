@@ -112,3 +112,52 @@ export function getPostsByTag(tag: string): PostMeta[] {
     Array.isArray(post.tags) && post.tags.some(postTag => postTag.toLowerCase() === tag.toLowerCase())
   )
 }
+
+export function getRelatedPosts(currentPostSlug: string, limit: number = 3): PostMeta[] {
+  const allPosts = getAllPosts()
+  const currentPost = allPosts.find(post => post.slug === currentPostSlug)
+  
+  if (!currentPost) {
+    return []
+  }
+
+  // Filter out the current post
+  const otherPosts = allPosts.filter(post => post.slug !== currentPostSlug)
+  
+  // Score posts based on similarity
+  const scoredPosts = otherPosts.map(post => {
+    let score = 0
+    
+    // Same category gets higher score
+    if (post.category.toLowerCase() === currentPost.category.toLowerCase()) {
+      score += 3
+    }
+    
+    // Shared tags get points
+    if (Array.isArray(post.tags) && Array.isArray(currentPost.tags)) {
+      const sharedTags = post.tags.filter(tag => 
+        currentPost.tags.some(currentTag => 
+          currentTag.toLowerCase() === tag.toLowerCase()
+        )
+      )
+      score += sharedTags.length * 2
+    }
+    
+    // Recent posts get slight preference
+    const currentDate = new Date(currentPost.datetime)
+    const postDate = new Date(post.datetime)
+    const daysDiff = Math.abs(currentDate.getTime() - postDate.getTime()) / (1000 * 60 * 60 * 24)
+    
+    if (daysDiff <= 30) {
+      score += 1
+    }
+    
+    return { post, score }
+  })
+  
+  // Sort by score (descending) and return top posts
+  return scoredPosts
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(item => item.post)
+}

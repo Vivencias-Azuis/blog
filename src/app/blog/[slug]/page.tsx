@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation'
-import { getAllPosts, getPostBySlug } from '@/lib/posts'
+import { getAllPosts, getPostBySlug, getRelatedPosts } from '@/lib/posts'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { Metadata } from 'next'
+import PostCard from '@/components/PostCard'
 
 interface PostPageProps {
   params: {
@@ -102,6 +103,8 @@ export default function PostPage({ params }: PostPageProps) {
   if (!post) {
     notFound()
   }
+
+  const relatedPosts = getRelatedPosts(params.slug, 3)
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -248,24 +251,29 @@ export default function PostPage({ params }: PostPageProps) {
         </div>
 
         {/* Related Posts Section */}
-        <div className="mt-16 animate-fade-in-up" style={{ animationDelay: '1.4s' }}>
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-primary-dark mb-4">
-              Posts Relacionados
-            </h3>
-            <p className="text-gray-600 text-lg">
-              Continue explorando conteúdos que podem interessar você
-            </p>
-          </div>
-          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-            <div className="text-center py-12">
-              <div className="text-6xl mb-6">📚</div>
+        {relatedPosts.length > 0 && (
+          <div className="mt-16 animate-fade-in-up" style={{ animationDelay: '1.4s' }}>
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold text-primary-dark mb-4">
+                Posts Relacionados
+              </h3>
               <p className="text-gray-600 text-lg">
-                Em breve, posts relacionados serão exibidos aqui automaticamente
+                Continue explorando conteúdos que podem interessar você
               </p>
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {relatedPosts.map((relatedPost, index) => (
+                <div 
+                  key={relatedPost.slug} 
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${1.5 + index * 0.1}s` }}
+                >
+                  <PostCard post={relatedPost} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </article>
   )
