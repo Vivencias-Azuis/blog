@@ -1,9 +1,12 @@
 import { Metadata } from 'next'
+import { generatePageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'Termos de Uso | Vivências Azuis',
-  description: 'Termos de uso e condições para utilização do site Vivências Azuis.',
-}
+export const metadata: Metadata = generatePageMetadata({
+  title: 'Termos de Uso - Vivências Azuis',
+  description: 'Conheça nossos termos de uso e condições para utilização do site Vivências Azuis. Diretrizes claras para uma experiência segura e respeitosa.',
+  path: '/termos-de-uso',
+  keywords: ['termos de uso', 'condições de uso', 'diretrizes', 'regras', 'responsabilidades', 'uso do site'],
+})
 
 export default function TermosDeUsoPage() {
   return (

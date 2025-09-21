@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getAllPosts, getPostBySlug, getRelatedPosts } from '@/lib/posts'
+import { generatePostMetadata } from '@/lib/metadata'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { Metadata } from 'next'
@@ -23,16 +24,21 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   
   if (!post) {
     return {
-      title: 'Post não encontrado | Vivências Azuis'
+      title: 'Post não encontrado | Vivências Azuis',
+      description: 'O post solicitado não foi encontrado.',
     }
   }
 
-  return {
-    title: `${post.title} | Vivências Azuis`,
+  return generatePostMetadata({
+    title: post.title,
     description: post.excerpt,
-    authors: [{ name: post.author }],
-    keywords: post.tags,
-  }
+    slug: post.slug,
+    author: post.author,
+    category: post.category,
+    tags: post.tags,
+    publishedTime: new Date(post.datetime).toISOString(),
+    coverImage: post.coverImage,
+  })
 }
 
 const components = {

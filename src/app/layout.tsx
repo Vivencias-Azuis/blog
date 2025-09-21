@@ -9,13 +9,28 @@ import PWAStatus from '@/components/PWAStatus'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Vivências Azuis',
-  description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo.',
-  keywords: ['autismo', 'inclusão', 'blog', 'experiências', 'apoio'],
-  authors: [{ name: 'Vivências Azuis' }],
+  title: {
+    default: 'Vivências Azuis',
+    template: '%s | Vivências Azuis'
+  },
+  description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo. Artigos, dicas e experiências sobre TEA, inclusão e desenvolvimento.',
+  keywords: ['autismo', 'TEA', 'inclusão', 'blog', 'experiências', 'apoio', 'família', 'desenvolvimento', 'síndrome de asperger', 'transtorno do espectro autista'],
+  authors: [{ name: 'Vivências Azuis', url: 'https://vivenciasazuis.com' }],
+  creator: 'Vivências Azuis',
+  publisher: 'Vivências Azuis',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://vivenciasazuis.com'),
+  alternates: {
+    canonical: '/',
+  },
   viewport: 'width=device-width, initial-scale=1',
   manifest: '/site.webmanifest',
   themeColor: '#4b7aa1',
+  colorScheme: 'light',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -29,19 +44,54 @@ export const metadata: Metadata = {
     apple: [
       { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/safari-pinned-tab.svg',
+        color: '#4b7aa1',
+      },
+    ],
   },
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
     url: 'https://vivenciasazuis.com',
-    title: 'Vivências Azuis',
-    description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo.',
+    title: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
+    description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo. Artigos, dicas e experiências sobre TEA, inclusão e desenvolvimento.',
     siteName: 'Vivências Azuis',
+    images: [
+      {
+        url: '/logo-text.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
+        type: 'image/svg+xml',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Vivências Azuis',
+    site: '@vivenciasazuis',
+    creator: '@vivenciasazuis',
+    title: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
     description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo.',
+    images: ['/logo-text.svg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+    yahoo: 'your-yahoo-verification-code',
   },
 }
 

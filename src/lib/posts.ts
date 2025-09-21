@@ -13,6 +13,7 @@ export interface PostMeta {
   tags: string[]
   featured?: boolean
   readingTime: string
+  coverImage?: string
 }
 
 export interface Post extends PostMeta {
@@ -50,6 +51,7 @@ export function getAllPosts(): PostMeta[] {
         tags: Array.isArray(data.tags) ? data.tags : [],
         featured: data.featured || false,
         readingTime: stats.text,
+        coverImage: data.coverImage || data.image || undefined,
       } as PostMeta
     })
     .filter((post) => {
@@ -78,6 +80,7 @@ export function getPostBySlug(slug: string): Post | null {
       tags: Array.isArray(data.tags) ? data.tags : [],
       featured: data.featured || false,
       readingTime: stats.text,
+      coverImage: data.coverImage || data.image || undefined,
       content,
     }
 

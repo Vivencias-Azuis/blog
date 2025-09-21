@@ -1,9 +1,12 @@
 import { Metadata } from 'next'
+import { generatePageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'Sobre | Vivências Azuis',
-  description: 'Conheça a missão e valores do Vivências Azuis, um espaço digital dedicado ao universo do autismo.',
-}
+export const metadata: Metadata = generatePageMetadata({
+  title: 'Sobre o Vivências Azuis',
+  description: 'Conheça a missão e valores do Vivências Azuis, um espaço digital dedicado ao universo do autismo. Nossa história, valores e compromisso com a inclusão.',
+  path: '/sobre',
+  keywords: ['sobre', 'missão', 'valores', 'história', 'inclusão', 'comunidade', 'autismo'],
+})
 
 export default function SobrePage() {
   const valores = [
