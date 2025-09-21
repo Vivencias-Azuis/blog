@@ -59,7 +59,7 @@ export default function Hero() {
           {/* Stats Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-amarelo-quente mb-2">50+</div>
+              <div className="text-3xl md:text-4xl font-bold text-amarelo-quente mb-2">34</div>
               <div className="text-blue-200 text-sm md:text-base">Artigos Publicados</div>
             </div>
             <div className="text-center">
