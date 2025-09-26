@@ -93,6 +93,9 @@ export const metadata: Metadata = {
     yandex: 'your-yandex-verification-code',
     yahoo: 'your-yahoo-verification-code',
   },
+  other: {
+    'google-adsense-account': 'ca-pub-4134431815923665',
+  },
 }
 
 export default function RootLayout({
@@ -102,6 +105,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
+      <head>
+        <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4134431815923665"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${inter.className} min-h-screen bg-white text-gray-900`}>
         <div className="flex flex-col min-h-screen">
           <Header />
