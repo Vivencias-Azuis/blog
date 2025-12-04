@@ -101,6 +101,10 @@ const components = {
       {children}
     </pre>
   ),
+  img: ({ alt, ...props }: any) => (
+    // Ensure responsive images and lazy loading inside MDX content
+    <img loading="lazy" decoding="async" alt={alt || ''} className="w-full h-auto rounded-lg shadow-md my-6" {...props} />
+  ),
 }
 
 export default function PostPage({ params }: PostPageProps) {
@@ -111,6 +115,8 @@ export default function PostPage({ params }: PostPageProps) {
   }
 
   const relatedPosts = getRelatedPosts(params.slug, 3)
+  const earlyRelated = relatedPosts.slice(0, 2)
+  const remainingRelated = relatedPosts.slice(2)
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -214,6 +220,26 @@ export default function PostPage({ params }: PostPageProps) {
       {/* Enhanced Content */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 md:p-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
+          {earlyRelated.length > 0 && (
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-2 bg-primary rounded-full"></div>
+                <p className="text-sm font-semibold text-primary-dark uppercase tracking-wide">Leia também</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {earlyRelated.map((item) => (
+                  <Link
+                    key={item.slug}
+                    href={`/blog/${item.slug}`}
+                    className="block rounded-xl border border-neutral-light bg-gray-50/70 px-4 py-3 hover:border-primary hover:bg-primary/5 transition-colors"
+                  >
+                    <p className="text-sm text-primary-dark font-semibold line-clamp-2">{item.title}</p>
+                    <p className="text-xs text-gray-500 line-clamp-2 mt-1">{item.excerpt}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
           <div className="prose prose-lg max-w-none prose-headings:text-primary-dark prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-primary-dark prose-blockquote:border-l-primary prose-blockquote:bg-gray-50 prose-blockquote:p-6 prose-blockquote:rounded-r-xl">
             <MDXRemote source={post.content} components={components} />
           </div>
@@ -257,7 +283,7 @@ export default function PostPage({ params }: PostPageProps) {
         </div>
 
         {/* Related Posts Section */}
-        {relatedPosts.length > 0 && (
+        {(remainingRelated.length > 0 || relatedPosts.length > 0) && (
           <div className="mt-16 animate-fade-in-up" style={{ animationDelay: '1.4s' }}>
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold text-primary-dark mb-4">
@@ -268,7 +294,7 @@ export default function PostPage({ params }: PostPageProps) {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {relatedPosts.map((relatedPost, index) => (
+              {(remainingRelated.length > 0 ? remainingRelated : relatedPosts).map((relatedPost, index) => (
                 <div 
                   key={relatedPost.slug} 
                   className="animate-fade-in-up"
