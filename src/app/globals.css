@@ -191,7 +191,7 @@
 }
 
 .prose img {
-  @apply rounded-lg shadow-md my-6;
+  @apply rounded-lg shadow-md my-6 w-full h-auto;
 }
 
 /* Componentes customizados */

@@ -20,6 +20,12 @@ Contributor quick-start for the Vivências Azuis blog. Keep changes focused, rev
 - Styling uses Tailwind utility classes in JSX; avoid new global CSS unless shared. Maintain semantic HTML and accessibility attributes.
 - Naming: PascalCase components/files in `components`, camelCase helpers, kebab-case routes and content filenames, lower-case routes for slugs. Use single quotes and 2-space indentation to match existing code.
 
+## Mobile & Performance Checks
+- Use Chrome DevTools (emulação mobile) + Lighthouse (mobile) antes de subir UI; mire LCP < 2.5s e CLS mínimo.
+- Mantenha imagens responsivas (`w-full h-auto` já padrão nas páginas MDX) e comprima assets grandes; prefira SVG em `public/`.
+- Evite componentes client-side quando possível; carregue widgets pesados abaixo da dobra ou sob interações.
+- Garanta navegação por teclado, alvos de toque adequados e `alt` em todas as imagens.
+
 ## Testing Guidelines
 - No automated test suite yet; rely on `npm run lint` and manual QA. For UI changes, verify home, blog listing, and a sample post render without hydration errors.
 - When adding new logic, prefer lightweight unit tests colocated with code (e.g., `*.test.ts`) if dependencies are added; otherwise include reproduction steps in the PR description.
