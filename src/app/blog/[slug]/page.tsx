@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getAllPosts, getPostBySlug, getRelatedPosts } from '@/lib/posts'
-import { generatePostMetadata } from '@/lib/metadata'
+import { generateImageUrl, generatePostMetadata, generatePostUrl } from '@/lib/metadata'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { Metadata } from 'next'
@@ -114,6 +114,60 @@ export default function PostPage({ params }: PostPageProps) {
     notFound()
   }
 
+  const postUrl = generatePostUrl(post.slug)
+  const imageUrl = post.coverImage ? generateImageUrl(post.coverImage) : generateImageUrl('/logo-text.svg')
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': postUrl,
+    },
+    headline: post.title,
+    description: post.excerpt,
+    image: [imageUrl],
+    datePublished: new Date(post.datetime).toISOString(),
+    dateModified: new Date(post.datetime).toISOString(),
+    author: {
+      '@type': 'Person',
+      name: post.author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Vivências Azuis',
+      logo: {
+        '@type': 'ImageObject',
+        url: generateImageUrl('/logo-text.svg'),
+      },
+    },
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Início',
+        item: generateImageUrl('/'),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: generateImageUrl('/blog'),
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: postUrl,
+      },
+    ],
+  }
+
   const relatedPosts = getRelatedPosts(params.slug, 3)
   const earlyRelated = relatedPosts.slice(0, 2)
   const remainingRelated = relatedPosts.slice(2)
@@ -140,6 +194,14 @@ export default function PostPage({ params }: PostPageProps) {
 
   return (
     <article className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Enhanced Header */}
       <div className="relative overflow-hidden bg-gradient-to-br from-primary via-azul-profundo to-primary-dark text-white">
         <div className="absolute inset-0 bg-black/10"></div>

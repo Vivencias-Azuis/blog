@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Header() {
@@ -17,9 +18,12 @@ export default function Header() {
           {/* Enhanced Logo */}
           <Link href="/" className="flex items-center group">
             <div className="relative h-16 w-auto group-hover:scale-105 transition-transform duration-300">
-              <img
+              <Image
                 src="/logo-text.svg"
                 alt="Vivências Azuis"
+                width={180}
+                height={64}
+                priority
                 className="h-full w-auto object-contain"
               />
             </div>
