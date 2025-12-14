@@ -1,38 +1,45 @@
 # Repository Guidelines
 
-Contributor quick-start for the Vivências Azuis blog. Keep changes focused, reversible, and aligned with the existing Next.js + MDX stack.
-
-##BlOG docs
-- `docs`: 
-
 ## Project Structure & Module Organization
-- `src/app/`: Next.js App Router pages (`page.tsx` home, `blog/page.tsx`, `contato`, `sobre`, `politica-de-privacidade`, `termos-de-uso`, `not-found.tsx`, `sitemap.ts`) and global styles in `globals.css`.
-- `src/components/`: Reusable UI (Header, Footer, Hero, AboutSection, FeaturedPosts, PostCard, PWAInstallPrompt, PWAStatus). Favor composition over new global styles.
-- `src/content/posts/`: MDX articles; future-dated posts are ignored by `src/lib/posts.ts` (reading time + filtering). Use kebab-case filenames and include frontmatter: `title`, `excerpt`, `datetime` (or `date`), `author`, `category`, `tags`, optional `featured`, `coverImage`.
-- `src/lib/`: `posts.ts` handles loading/filtering; `metadata.ts` centralizes SEO/OpenGraph helpers. Prefer these utilities before adding new ones.
-- `public/`: Static assets (logos, icons). `scripts/`: automation for content normalization and `llms.txt` generation.
+
+- `src/app/`: Next.js App Router pages, layouts, and API routes (e.g., `src/app/api/*/route.ts`).
+- `src/components/`: Reusable React components (UI + content blocks).
+- `src/lib/`: Content and utility modules (e.g., `src/lib/posts.ts` for MDX loading/filtering).
+- `src/content/posts/`: Blog posts in `.mdx` (filename becomes the post slug).
+- `public/`: Static assets served at `/` (icons, `site.webmanifest`, `sw.js`, generated `llms.txt`).
+- `scripts/`: Content/SEO automation (see `scripts/README.md`).
+- `docs/`: Editorial/SEO playbooks and planning notes.
 
 ## Build, Test, and Development Commands
-- `npm run dev`: Start local dev server (port 3000).
-- `npm run build`: Production build; use before deploy. `npm run start`: Serve the build.
-- `npm run lint`: ESLint with Next.js config; run before pushes.
-- Content helpers: `npm run normalize-filenames` (dry-run) / `normalize-filenames:execute` (rename MD/MDX to kebab-case); `npm run convert-md-to-mdx` (dry-run) / `convert-md-to-mdx:execute`; `npm run llms` regenerates `public/llms.txt`; `npm run build:full` runs `llms` then `build`.
+
+- `npm run dev`: Run locally at `http://localhost:3000`.
+- `npm run build`: Production build (validates routes/content at build time).
+- `npm run start`: Serve the built app.
+- `npm run lint`: Run Next.js ESLint rules (`next/core-web-vitals`).
+- `npm run build:full`: Generate `llms.txt` then build.
+- `npm run llms`: Regenerate `public/llms.txt` from `src/content/posts/`.
+- `npm run calendar:check`: Validate publication schedule rules (see `scripts/check-publication-calendar.js`).
+- `npm run normalize-filenames`: Preview post filename normalization to kebab-case.
+- `npm run normalize-filenames:execute`: Apply filename normalization (review slugs/redirects first).
 
 ## Coding Style & Naming Conventions
-- TypeScript + React function components; prefer server components unless client hooks are needed. Keep imports absolute via `@/`.
-- Styling uses Tailwind utility classes in JSX; avoid new global CSS unless shared. Maintain semantic HTML and accessibility attributes.
-- Naming: PascalCase components/files in `components`, camelCase helpers, kebab-case routes and content filenames, lower-case routes for slugs. Use single quotes and 2-space indentation to match existing code.
 
-## Mobile & Performance Checks
-- Use Chrome DevTools (emulação mobile) + Lighthouse (mobile) antes de subir UI; mire LCP < 2.5s e CLS mínimo.
-- Mantenha imagens responsivas (`w-full h-auto` já padrão nas páginas MDX) e comprima assets grandes; prefira SVG em `public/`.
-- Evite componentes client-side quando possível; carregue widgets pesados abaixo da dobra ou sob interações.
-- Garanta navegação por teclado, alvos de toque adequados e `alt` em todas as imagens.
+- TypeScript + React (Next.js 14). Prefer the `@/*` path alias for `src/*`.
+- Match existing style: 2-space indentation, single quotes, no semicolons.
+- Posts: keep filenames lowercase kebab-case (no accents), e.g. `src/content/posts/aba-para-pais.mdx`.
+- MDX frontmatter: prefer `datetime` (ISO8601 with timezone). `date` is supported for legacy posts.
 
 ## Testing Guidelines
-- No automated test suite yet; rely on `npm run lint` and manual QA. For UI changes, verify home, blog listing, and a sample post render without hydration errors.
-- When adding new logic, prefer lightweight unit tests colocated with code (e.g., `*.test.ts`) if dependencies are added; otherwise include reproduction steps in the PR description.
+
+- No dedicated test runner is configured. Before opening a PR, run `npm run lint` and `npm run build`.
+- For content changes, sanity-check key routes in `npm run dev` (home, `/blog`, and an edited post).
 
 ## Commit & Pull Request Guidelines
-- Recent history favors short, imperative titles in English (e.g., “Add new article on…”). Keep scope tight; group content edits by topic.
-- PRs should include: summary of changes, affected pages/routes, screenshots for UI tweaks, and a checklist of commands run (`lint`, `build` if applicable). Link related issues or content requests when available.
+
+- Commit messages follow an imperative style (e.g., “Add…”, “Update…”, “Enhance…”). Keep subject lines concise.
+- PRs should include: a clear description of intent, manual verification steps, and screenshots for UI changes.
+- If a post slug/filename changes, add a redirect in `next.config.mjs` to preserve existing URLs.
+
+## Security & Configuration Tips
+
+- Form submissions use Formspree endpoints; set `FORMSPREE_EBOOK_ENDPOINT` and/or `FORMSPREE_NEWSLETTER_ENDPOINT` in `.env.local` for non-production testing.
