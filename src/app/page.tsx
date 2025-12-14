@@ -3,6 +3,7 @@ import { generatePageMetadata } from '@/lib/metadata'
 import Hero from '@/components/Hero'
 import FeaturedPosts from '@/components/FeaturedPosts'
 import AboutSection from '@/components/AboutSection'
+import EbookLeadPopup from '@/components/EbookLeadPopup'
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
@@ -17,6 +18,7 @@ export default function Home() {
       <Hero />
       <FeaturedPosts />
       <AboutSection />
+      <EbookLeadPopup />
     </div>
   )
 }
