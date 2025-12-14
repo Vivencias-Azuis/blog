@@ -3,6 +3,10 @@
 ║     EXEMPLOS PRÁTICOS: ANTES × DEPOIS (7 PÁGINAS CRÍTICAS)               ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
+NOTA:
+- “CTR esperado” e “impacto” abaixo são **estimativas** (variam por SERP e concorrência).
+- O Google pode **reescrever** title/description; valide no Search Console.
+
 PÁGINA 1: "Hospitais e Clínicas Gratuitas para Autistas"
 ==========================================================
 Impressões: 202 | Cliques: 0 | Posição: 4.5 | CTR esperado: 25-35%
@@ -19,7 +23,7 @@ DEPOIS (OTIMIZADO):
 ├─ Caracteres: 59 ✓ (começou com número + poder word)
 ├─ Meta Description: "Descubra 15+ hospitais com atendimento especializado para autistas. Acesso via SUS e convênios em todo Brasil. Saiba seus direitos."
 ├─ Caracteres: 155 ✓
-└─ Benefício: +50-70% CTR esperado nesta página = ~10-14 cliques adicionais
+└─ Potencial (estimativa): +50-70% CTR nesta página = ~10-14 cliques adicionais
 
 ───────────────────────────────────────────────────────────────────────────
 
@@ -40,7 +44,7 @@ DEPOIS (OTIMIZADO):
 ├─ Caracteres: 58 ✓
 ├─ Meta Description: "Conheça os 3 níveis de suporte do autismo (DSM-5). Exemplos práticos, diferenças e como afeta tratamento. Atualizado 2025."
 ├─ Caracteres: 146 ✓
-└─ Impacto: +30-50 cliques
+└─ Potencial (estimativa): aumento de CTR e cliques se houver ranking adequado
 
 2º PASSO - Melhorar Conteúdo:
 
@@ -66,8 +70,8 @@ ADICIONAR SEÇÃO: "Por que a Posição 69 É Injusta?"
 → Adicione mais exemplos reais, casos de crianças (anônimas)
 → Inclua FAQ: "Qual nível meu filho tem?" com exemplos
 
-Impacto esperado: Trazer de posição 69 para posição 5-8 em 4 semanas
-= +300-500% de cliques adicionais
+Objetivo: sair de posições 50+ com melhora de estrutura (o tempo varia; pode levar semanas/meses)
+= mais cliques se houver ganho de ranking
 
 ───────────────────────────────────────────────────────────────────────────
 
@@ -86,7 +90,7 @@ DEPOIS (OTIMIZADO):
 ├─ Caracteres: 60 ✓
 ├─ Meta Description: "Guia prático: Quanto é o BPC para autistas? Como pedir? Documentos necessários. Passo a passo para solicitar em 2025."
 ├─ Caracteres: 158 ✓
-└─ Impacto: +15-25 cliques adicionais nesta página
+└─ Potencial (estimativa): +15-25 cliques adicionais nesta página
 
 ADICIONAR SEÇÃO: "Passo a Passo para Solicitar"
 1. Agendar no INSS (presencialmente ou online)
@@ -105,19 +109,19 @@ DIR FLOORTIME:
 ├─ Impressões: 84 | Posição: 6.6 | Cliques: 0
 ├─ ANTES Title: "O que é DIR Floortime"
 ├─ DEPOIS Title: "DIR Floortime: Método Prático para Autismo [Guia Completo]"
-└─ Impacto: +12-20 cliques
+└─ Potencial (estimativa): +12-20 cliques
 
 PECS (Picture Exchange Communication System):
 ├─ Impressões: 81 | Posição: 19.9 | Cliques: 0
 ├─ ANTES Title: "Como Funciona PECS"
 ├─ DEPOIS Title: "PECS Autismo: Sistema de Comunicação por Imagens [Passo a Passo]"
-└─ Impacto: +8-15 cliques
+└─ Potencial (estimativa): +8-15 cliques
 
 TEACCH:
 ├─ Impressões: 73 | Posição: 4.6 | Cliques: 0
 ├─ ANTES Title: "O que é TEACCH Tratamento para Autismo"
 ├─ DEPOIS Title: "Método TEACCH: Estrutura & Rotina para Autistas [Guia 2025]"
-└─ Impacto: +15-25 cliques
+└─ Potencial (estimativa): +15-25 cliques
 
 ═════════════════════════════════════════════════════════════════════════════
 
@@ -134,7 +138,7 @@ ANTES:
 DEPOIS:
 ├─ Título: "Risperidona no Autismo: Efeitos, Colaterais e Quando Usar"
 ├─ Meta Description: "Guia para pais: Como a risperidona ajuda autistas? Efeitos colaterais? Doses? Respostas diretas e baseadas em evidências."
-└─ Impacto esperado: Alto CTR porque tem alta intenção de busca
+└─ Potencial (estimativa): CTR tende a ser melhor por ser busca de alta intenção
 
 ═════════════════════════════════════════════════════════════════════════════
 
@@ -152,11 +156,11 @@ PÁGINA                              IMPRESSÕES    CLIQUES     POTENCIAL
 6. TEACCH                          73            0           +15-25
 7. Risperidona                     [variável]    0           +5-10
 ─────────────────────────────────────────────────────────────────────────
-TOTAL IMPACTO ESPERADO:            + 80-134 cliques adicionais em 4 semanas
+TOTAL POTENCIAL (estimativa):      + 80-134 cliques adicionais em 4 semanas
 
 ATUAL: 33 cliques/mês
-ESPERADO APÓS SEMANA 4: 113-167 cliques/mês
-CRESCIMENTO: 3.4-5x
+CENÁRIO APÓS SEMANA 4 (estimativa): 113-167 cliques/mês
+ORDEM DE GRANDEZA (estimativa): ~3-5x
 
 ═════════════════════════════════════════════════════════════════════════════
 
@@ -173,8 +177,8 @@ SEGUNDA-FEIRA - 9:00 AM:
 SEGUNDA-FEIRA - 10:00 AM:
 1. Escolha o melhor título
 2. Escolha a melhor meta description
-3. Copie para seu WordPress
-4. Publica (ou agenda para amanhã)
+3. Atualize `title` + `excerpt` no frontmatter do `.mdx`
+4. Faça deploy/publicação do site
 5. Tempo total: 15 minutos
 
 SEGUNDA-FEIRA - 10:15 AM:
@@ -195,6 +199,6 @@ CHECKLIST DE IMPLEMENTAÇÃO:
 ☐ Sexta: Revisar tudo, publicar finais, verificar no Google
 
 TEMPO TOTAL: ~5-7 horas
-IMPACTO: 5-7x aumento de tráfego em 4-6 semanas
+POTENCIAL (estimativa): aumento de tráfego em 4-6 semanas
 
 ═════════════════════════════════════════════════════════════════════════════

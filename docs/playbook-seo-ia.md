@@ -6,6 +6,37 @@
 
 ---
 
+## 0. IMPORTANTE: este playbook para Next.js + MDX
+
+Este blog **não usa WordPress/Yoast**. Ele é feito em **Next.js + MDX**.
+
+Na prática:
+- **Title** = `title` no frontmatter do arquivo `.mdx`
+- **Meta description** = `excerpt` no frontmatter do arquivo `.mdx`
+- **H1** = o primeiro `# ...` dentro do conteúdo MDX
+
+Regra recomendada:
+- Mantenha **Title** e **H1** alinhados (não precisam ser idênticos, mas devem começar com a mesma keyword e prometer o mesmo resultado).
+- Mantenha `excerpt` entre **140–160 caracteres** (o Google pode reescrever, mas isso ajuda).
+
+Onde editar:
+- Posts: `src/content/posts/*.mdx`
+- Rotas: `/blog/[slug]` (o slug é o nome do arquivo)
+
+Observação: posts com data futura são filtrados e podem não aparecer/publicar (ver `src/lib/posts.ts`).
+
+---
+
+## 0.1 CHECKLIST TÉCNICO (faça antes de mexer em CTR)
+
+Se isso estiver errado, otimizar title/description pode não surtir efeito:
+- Domínio canônico único (ex.: `https://www.vivenciasazuis.com.br`)
+- `robots.txt` aponta para o `sitemap.xml` correto
+- `sitemap.xml` gera URLs no mesmo domínio canônico
+- Slugs em kebab-case (sem acentos/maiúsculas) + redirects 301 quando renomear
+
+---
+
 ## 1. TEMPLATE: AUDIT E REESCRITA DE TITLES + DESCRIPTIONS
 
 ### PASSO 1: Use este prompt com sua IA
@@ -18,7 +49,7 @@ Você é um especialista em SEO com 10+ anos de experiência.
 Vou te passar o título e descrição ATUAIS de um post do meu blog de autismo.
 Você vai analisar e me propor versões MELHORES.
 
-BLOG: Vivências Azuis (vivenciasazuis.com.br)
+BLOG: Vivências Azuis (https://www.vivenciasazuis.com.br)
 NICHO: Autismo, inclusão, direitos, tratamentos
 PÚBLICO: Pais, educadores, profissionais de saúde
 
@@ -51,7 +82,7 @@ CONTEXTO DO POST:
 
 ```
 Post: "O que é Ecolalia"
-URL: vivenciasazuis.com.br/blog/o-que-e-ecolalia
+URL: https://www.vivenciasazuis.com.br/blog/o-que-e-ecolalia
 Título atual: "O que é Ecolalia no Autismo"
 Description atual: "Saiba mais sobre ecolalia no autismo"
 Palavra-chave: ecolalia
@@ -69,14 +100,18 @@ Critérios:
 - ✓ É clicável (despertaria curiosidade?)
 - ✓ Promete resultado prático
 
-### PASSO 3: Implemente no seu CMS
+### PASSO 3: Implemente no repositório (Next.js + MDX)
 
-Se estiver usando **WordPress**:
-1. Vá para o post
-2. Procure por "Yoast SEO" ou "All in One SEO"
-3. Cole o novo título em "SEO Title"
-4. Cole a nova description em "Meta Description"
-5. Salve o post
+1. Abra o post em `src/content/posts/<slug>.mdx`
+2. Atualize o frontmatter:
+   ```mdx
+   ---
+   title: "Seu novo title (50-60 chars)"
+   excerpt: "Sua nova meta description (140-160 chars)"
+   ---
+   ```
+3. Garanta que o **H1** (primeira linha `# ...`) começa com a keyword principal e conversa com o title
+4. Evite mudar o slug (nome do arquivo) nessa etapa; se mudar, crie redirect 301
 
 ---
 
@@ -168,12 +203,13 @@ Razão: "[Por que este link melhora a experiência]"
 
 ### PASSO 2: Implemente em cada post
 
-1. Abra o post no WordPress
+1. Abra o post em `src/content/posts/<slug>.mdx`
 2. Encontre o parágrafo relevante
-3. Selecione o texto âncora
-4. Clique em "Link" (Ctrl+K ou Cmd+K)
-5. Procure o outro post pelo título
-6. Salve
+3. Use links MDX internos no padrão:
+   ```mdx
+   Veja também: [BPC/LOAS](/blog/beneficio-de-prestacao-continuada-bpcloas-para)
+   ```
+4. Prefira âncoras descritivas (não use “clique aqui”)
 
 ---
 
@@ -299,7 +335,7 @@ Para cada item NÃO marcado, sugira uma melhoria específica.
 - **Google Analytics 4** - Complementa o Search Console
 - **Ubersuggest (free)** - 3 buscas/dia grátis, pesquise keywords
 - **Screaming Frog (free)** - Até 500 URLs, verifique canonicalização
-- **Yoast SEO ou All in One SEO** - Plugins WordPress (recomendado)
+- **Editor de texto + Git** - Para editar `src/content/posts/*.mdx` e publicar as mudanças
 
 ---
 
@@ -372,8 +408,8 @@ R: Não! Use julgamento. IA é ferramenta, você é o editor.
 
 **Tempo total para semana 1-2**: ~5-10 horas de trabalho real (o resto é IA fazendo)
 
-**Retorno esperado**: +50-100 cliques em 30 dias = mais receita + mais autoridade
+**Retorno potencial (estimativa)**: aumento de cliques em 30 dias, dependendo de SERP, concorrência e recrawl
 
 ---
 
-**Boa sorte! 🚀**
+**Boa sorte!**

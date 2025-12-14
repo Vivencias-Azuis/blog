@@ -17,6 +17,18 @@ Posição média       61.67          20-30
 Pages com 0 cliques 16 de 23       0-2
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+0. CHECKLIST TÉCNICO (ANTES DE OTIMIZAR CTR)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Se isso estiver errado, otimizar title/description pode não surtir efeito:
+1. Domínio canônico único (ex.: https://www.vivenciasazuis.com.br)
+2. robots.txt aponta para o sitemap correto
+3. sitemap.xml gera URLs no mesmo domínio canônico
+4. Slugs em kebab-case (sem acentos/maiúsculas)
+5. Se renomear slug, criar redirects 301
+6. Post com data futura pode não publicar (filtro por data)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 2. OS 7 POSTS CRÍTICOS (RECUPERE AGORA)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -180,9 +192,7 @@ IMPRESCINDÍVEL:
 RECOMENDADO:
 4. Ubersuggest (ubersuggest.com) - 3 buscas grátis/dia
    └─ Pesquise volume e dificuldade de keywords
-5. Yoast SEO (plugin WordPress)
-   └─ Score de SEO em tempo real
-6. Screaming Frog (free até 500 URLs)
+5. Screaming Frog (free até 500 URLs)
    └─ Verificar canonicalização e links
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -254,9 +264,9 @@ DIA 60-90:
 ✅ Peça para reescrever: "Isso é muito genérico. Crie algo com número e mais
    específico para pais de autistas."
 
-❌ "Não consigo implementar no WordPress"
-✅ Procure pelo plugin "Yoast SEO" ou "All in One SEO". Lá tem campos específicos
-   para "SEO Title" e "Meta Description".
+❌ "Não sei onde mudar title/description"
+✅ Este blog é Next.js + MDX: edite o post em `src/content/posts/<slug>.mdx`
+   e ajuste o frontmatter `title` (SEO title) e `excerpt` (meta description).
 
 ❌ "Meus posts não estão ranking"
 ✅ Blog tem 5 meses (novo domínio). Autoridade cresce com tempo + backlinks.
@@ -275,10 +285,10 @@ DIA 60-90:
 7. ☐ Cole no ChatGPT e ENVIE
 8. ☐ Receba 3 sugestões de título
 9. ☐ Escolha a melhor
-10. ☐ Vá ao WordPress e atualize o título + description
-11. ☐ PUBLICA
+10. ☐ Atualize `title` + `excerpt` no frontmatter do `.mdx`
+11. ☐ Faça deploy/publicação do site
 12. ☐ Espera 5-10 dias
-13. ☐ Volta ao Search Console e VÊ o CTR subir!
+13. ☐ Volta ao Search Console e avalie se o CTR subiu
 14. ☐ Repete para os outros 6 posts
 
 TEMPO TOTAL: ~1-2 horas para a primeira página
@@ -292,11 +302,11 @@ Depois de 1 página pronta, fica fácil! Você já sabe como fazer.
 Você começou em agosto com 1 clique.
 Você alcançou novembro com 15 cliques.
 
-Com este playbook, você deve chegar a:
-├─ SEMANA 2: 50-100 cliques/mês ✓
-├─ SEMANA 4: 75-150 cliques/mês ✓
-├─ SEMANA 12: 150-250 cliques/mês ✓
+Metas (estimativas, variam por SERP e concorrência):
+├─ SEMANA 2: 50-100 cliques/mês
+├─ SEMANA 4: 75-150 cliques/mês
+├─ SEMANA 12: 100-150 cliques/mês (objetivo original)
 
-Isto é crescimento exponencial. Parabéns por estar tomando ação! 🚀
+Importante: valide no Search Console e ajuste titles/conteúdo conforme os dados.
 
 ═══════════════════════════════════════════════════════════════════════════════
