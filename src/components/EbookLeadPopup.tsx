@@ -4,7 +4,7 @@ import Link from 'next/link'
 import type { FormEvent } from 'react'
 import { useEffect, useId, useRef, useState } from 'react'
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xldqvepq'
+const LEAD_ENDPOINT = '/api/ebook-lead'
 const DISMISS_KEY = 'va_ebook_popup_dismissed_at'
 const SUBMITTED_KEY = 'va_ebook_popup_submitted'
 const DISMISS_DAYS = 7
@@ -28,13 +28,19 @@ export default function EbookLeadPopup() {
   const [formData, setFormData] = useState({ nome: '', email: '' })
 
   useEffect(() => {
+    const forceOpen =
+      typeof window !== 'undefined' &&
+      (new URLSearchParams(window.location.search).get('ebook') === '1' ||
+        new URLSearchParams(window.location.search).get('ebook') === 'true' ||
+        new URLSearchParams(window.location.search).get('ebook') === 'force')
+
     try {
-      if (localStorage.getItem(SUBMITTED_KEY) === '1') return
+      if (!forceOpen && localStorage.getItem(SUBMITTED_KEY) === '1') return
 
       const dismissedAtRaw = localStorage.getItem(DISMISS_KEY)
       if (dismissedAtRaw) {
         const dismissedAt = Number(dismissedAtRaw)
-        if (Number.isFinite(dismissedAt) && isWithinDays(dismissedAt, DISMISS_DAYS)) return
+        if (!forceOpen && Number.isFinite(dismissedAt) && isWithinDays(dismissedAt, DISMISS_DAYS)) return
       }
     } catch {
       // ignore
@@ -43,7 +49,7 @@ export default function EbookLeadPopup() {
     const t = window.setTimeout(() => {
       lastActiveElementRef.current = document.activeElement as HTMLElement | null
       setIsOpen(true)
-    }, 4500)
+    }, forceOpen ? 0 : 4500)
 
     return () => window.clearTimeout(t)
   }, [])
@@ -92,7 +98,7 @@ export default function EbookLeadPopup() {
       body.set('_subject', 'E-book - Guia Prático: Primeiros 30 Dias Após o Diagnóstico (1º capítulo)')
       body.set('origem', 'popup-home')
 
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch(LEAD_ENDPOINT, {
         method: 'POST',
         body,
         headers: { Accept: 'application/json' }
@@ -104,11 +110,15 @@ export default function EbookLeadPopup() {
         return
       }
 
-      const json = (await res.json()) as { ok?: boolean }
-      if (!json.ok) {
-        setSubmitStatus('error')
-        setSubmitMessage('Não foi possível enviar agora. Verifique os campos e tente novamente.')
-        return
+      try {
+        const json = (await res.json()) as { ok?: boolean; message?: string }
+        if (json.ok === false) {
+          setSubmitStatus('error')
+          setSubmitMessage(json.message || 'Não foi possível confirmar seu envio agora. Tente novamente em instantes.')
+          return
+        }
+      } catch {
+        // ignore (treat as success if status is OK)
       }
 
       setSubmitStatus('success')
@@ -195,7 +205,7 @@ export default function EbookLeadPopup() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} action={FORMSPREE_ENDPOINT} method="POST" className="mt-6 space-y-4">
+          <form onSubmit={handleSubmit} action={LEAD_ENDPOINT} method="POST" className="mt-6 space-y-4">
             <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" />
             <input type="hidden" name="tipo" value="ebook-primeiros-30-dias" />
 
