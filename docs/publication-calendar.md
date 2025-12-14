@@ -48,6 +48,21 @@ Como funciona o “Criado”:
 | 2026-03-02 | Seg | Educação | inclusão escolar autismo | Inclusão escolar no autismo: PEI, adaptações e exemplos | inclusao-escolar-no-autismo-pei-adaptacoes-e-exemplos | [ ] | [ ] |
 | 2026-03-04 | Qua | Educação | autismo e finanças | Autismo e educação financeira: como ensinar dinheiro | autismo-e-educacao-financeira-como-ensinar-dinheiro | [ ] | [ ] |
 | 2026-03-06 | Sex | Direitos | processo judicial plano autismo | Plano negou terapia no TEA: caminhos (ANS, Defensoria, ação) | plano-negou-terapia-no-tea-caminhos-ans-defensoria-acao | [ ] | [ ] |
+| 2026-03-09 | Seg | Educação | aba vs dir floortime | ABA vs DIR Floortime: Diferenças, Resultados e Qual Escolher [2025] | aba-vs-dir-floortime-comparativo-2025 | [x] | [ ] |
+| 2026-03-11 | Qua | Educação | escola regular vs especial autismo | Escola Regular vs Escola Especial para Autismo: Prós, Contras e Como Decidir [2025] | escola-regular-vs-escola-especial-autismo-guia-2025 | [x] | [ ] |
+| 2026-03-13 | Sex | Saúde | diagnóstico autismo privado vs sus | Diagnóstico de Autismo: Privado vs SUS (Tempo, Custo e Qualidade) | diagnostico-privado-vs-sus-autismo-tempo-custo-qualidade | [x] | [ ] |
+| 2026-03-16 | Seg | Educação | terapia online vs presencial autismo | Terapia Online vs Presencial para Autismo: Prós, Contras e Quando Vale a Pena | terapia-online-vs-presencial-autismo-pros-contras | [x] | [ ] |
+| 2026-03-18 | Qua | Saúde | medicamentos autismo risperidona fluoxetina melatonina | Medicamentos no Autismo: Risperidona vs Fluoxetina vs Melatonina (Quando é Indicado) | medicamentos-para-autismo-risperidona-vs-fluoxetina-vs-melatonina | [x] | [ ] |
+| 2026-03-20 | Sex | Educação | como começar pecs em casa | Como Começar PECS em Casa: Passo a Passo em 30 Dias + Templates | como-comecar-pecs-em-casa-guia-30-dias | [x] | [ ] |
+| 2026-03-23 | Seg | Educação | atividades terapia ocupacional em casa autismo | 30 Atividades de Terapia Ocupacional em Casa para Autismo (Organizadas por Objetivo) | 30-atividades-terapia-ocupacional-em-casa-autismo | [x] | [ ] |
+| 2026-03-25 | Qua | Educação | aba em casa exercícios | ABA em Casa: 10 Exercícios Práticos Para Fazer Agora (Sem Materiais Caros) | aba-em-casa-10-exercicios-praticos | [x] | [ ] |
+| 2026-03-27 | Sex | Geral | explicar autismo para avós | Como Explicar Autismo para Avós e Familiares (Sem Brigas): Guia Prático | como-explicar-autismo-para-avos-e-familia | [x] | [ ] |
+| 2026-03-30 | Seg | Saúde | checklist primeira consulta autismo | Checklist: Preparando a Primeira Consulta de Autismo (O Que Levar e O Que Perguntar) | checklist-primeira-consulta-autismo | [x] | [ ] |
+| 2026-04-01 | Qua | Educação | filho autista bate em mim | Filho Autista Bate em Mim: O Que Fazer no Momento + Plano de 7 Dias | filho-autista-bate-em-mim-o-que-fazer | [x] | [ ] |
+| 2026-04-03 | Sex | Educação | crises de agressividade autismo | Crises de Agressividade no Autismo: O Que Fazer na Hora (Guia Prático) | crises-de-agressividade-no-autismo-o-que-fazer | [x] | [ ] |
+| 2026-04-06 | Seg | Saúde | autismo e ansiedade | Autismo e Ansiedade: Sinais, Causas e 20 Estratégias Práticas | autismo-e-ansiedade-sinais-causas-estrategias | [x] | [ ] |
+| 2026-04-08 | Qua | Educação | sensibilidade ao barulho autismo | Sensibilidade ao Barulho no Autismo: 25 Soluções Práticas (Casa, Escola e Rua) | sensibilidade-ao-barulho-no-autismo-solucoes-praticas | [x] | [ ] |
+| 2026-04-10 | Sex | Geral | autista no restaurante | Autista no Restaurante: Como Preparar a Criança e Evitar Crises (Guia Prático) | autista-no-restaurante-dicas-praticas | [x] | [ ] |
 <!-- CALENDAR:END -->
 
 ## Checklist de cada post (PROMPT D + E)
