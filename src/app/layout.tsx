@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
@@ -7,6 +7,13 @@ import PWAInstallPrompt from '@/components/PWAInstallPrompt'
 import PWAStatus from '@/components/PWAStatus'
 
 const inter = Inter({ subsets: ['latin'] })
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#4b7aa1',
+  colorScheme: 'light',
+}
 
 export const metadata: Metadata = {
   title: {
@@ -27,10 +34,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  viewport: 'width=device-width, initial-scale=1',
   manifest: '/site.webmanifest',
-  themeColor: '#4b7aa1',
-  colorScheme: 'light',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
