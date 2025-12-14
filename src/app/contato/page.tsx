@@ -1,6 +1,9 @@
 'use client'
 
+import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xldqvepq'
 
 export default function ContatoPage() {
   const [formData, setFormData] = useState({
@@ -11,24 +14,58 @@ export default function ContatoPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | ''>('')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     })
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simular envio (aqui você implementaria a integração real)
-    setTimeout(() => {
-      setIsSubmitting(false)
+    setSubmitMessage('')
+    setSubmitStatus('')
+
+    try {
+      const formEl = e.currentTarget
+      const body = new FormData(formEl)
+      body.set('_replyto', formData.email)
+      body.set('_subject', `Contato - Vivências Azuis (${formData.assunto || 'sem assunto'})`)
+
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body,
+        headers: {
+          Accept: 'application/json'
+        }
+      })
+
+      if (!res.ok) {
+        setSubmitStatus('error')
+        setSubmitMessage('Não foi possível enviar agora. Tente novamente em instantes.')
+        return
+      }
+
+      const json = (await res.json()) as { ok?: boolean }
+      if (!json.ok) {
+        setSubmitStatus('error')
+        setSubmitMessage('Não foi possível enviar agora. Verifique os campos e tente novamente.')
+        return
+      }
+
+      setSubmitStatus('success')
       setSubmitMessage('Mensagem enviada com sucesso! Entraremos em contato em breve. 💙')
       setFormData({ nome: '', email: '', assunto: '', mensagem: '' })
-    }, 2000)
+      formEl.reset()
+    } catch {
+      setSubmitStatus('error')
+      setSubmitMessage('Falha de conexão ao enviar. Verifique sua internet e tente novamente.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -79,19 +116,49 @@ export default function ContatoPage() {
                 </div>
                 
                 {submitMessage && (
-                  <div className="bg-gradient-to-r from-secondary to-verde-menta p-6 rounded-2xl mb-8 text-primary-dark border border-secondary/20 animate-scale-in">
+                  <div
+                    className={`p-6 rounded-2xl mb-8 text-primary-dark border animate-scale-in ${
+                      submitStatus === 'success'
+                        ? 'bg-gradient-to-r from-secondary to-verde-menta border-secondary/20'
+                        : 'bg-gradient-to-r from-red-100 to-orange-100 border-red-200'
+                    }`}
+                    role={submitStatus === 'error' ? 'alert' : 'status'}
+                    aria-live="polite"
+                  >
                     <div className="flex items-center">
-                      <div className="w-8 h-8 bg-white/50 rounded-full flex items-center justify-center mr-3">
-                        <svg className="w-5 h-5 text-primary-dark" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </div>
+                      {submitStatus === 'success' ? (
+                        <div className="w-8 h-8 bg-white/50 rounded-full flex items-center justify-center mr-3">
+                          <svg className="w-5 h-5 text-primary-dark" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      ) : (
+                        <div className="w-8 h-8 bg-white/70 rounded-full flex items-center justify-center mr-3">
+                          <svg className="w-5 h-5 text-red-700" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                              fillRule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-1 1v2a1 1 0 002 0V8a1 1 0 00-1-1zm0 6a1 1 0 100 2 1 1 0 000-2z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      )}
                       <span className="font-medium">{submitMessage}</span>
                     </div>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form
+                  onSubmit={handleSubmit}
+                  action={FORMSPREE_ENDPOINT}
+                  method="POST"
+                  className="space-y-6"
+                >
+                  <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" />
                   <div className="group">
                     <label htmlFor="nome" className="block text-sm font-semibold text-primary-dark mb-3 group-focus-within:text-primary transition-colors">
                       Nome *
