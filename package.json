@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "llms": "node scripts/generate-llms.js",
+    "calendar:check": "node scripts/check-publication-calendar.js",
     "normalize-filenames": "node scripts/normalize-filenames.js --dry-run",
     "normalize-filenames:execute": "node scripts/normalize-filenames.js --execute",
     "convert-md-to-mdx": "node scripts/convert-md-to-mdx.js --dry-run",
