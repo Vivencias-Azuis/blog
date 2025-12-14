@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import PostCard from '@/components/PostCard'
+import NewsletterSignup from '@/components/NewsletterSignup'
 import { PostMeta } from '@/lib/posts'
 
 interface BlogClientProps {
@@ -223,15 +224,8 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
               <p className="text-xl text-blue-100 mb-8">
                 Receba nossos melhores conteúdos sobre autismo e inclusão diretamente no seu e-mail
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Seu melhor e-mail"
-                  className="flex-1 px-6 py-4 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
-                />
-                <button className="bg-white text-primary font-semibold px-8 py-4 rounded-xl hover:bg-gray-100 transition-colors">
-                  Inscrever-se
-                </button>
+              <div className="max-w-md mx-auto">
+                <NewsletterSignup origem="blog-cta" />
               </div>
             </div>
           </div>
