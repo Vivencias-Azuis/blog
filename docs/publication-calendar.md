@@ -15,7 +15,7 @@ Como funciona o “Criado”:
 | 2025-12-15 | Seg | Direitos | autismo em adultos diagnóstico tardio | Autismo em adultos: diagnóstico tardio e trabalho [2025] | autismo-em-adultos-diagnostico-tardio-e-mercado-de-trabalho | [x] | [ ] |
 | 2025-12-17 | Qua | Direitos | qual plano de saúde cobre autismo | Qual plano de saúde cobre tratamento para autismo? [2025] | qual-plano-de-saude-cobre-tratamento-para-autismo | [x] | [ ] |
 | 2025-12-19 | Sex | Educação | ecolalia autismo | Ecolalia no autismo: tipos, causas e como ajudar (guia) | ecolalia-no-autismo-tipos-causas-e-como-ajudar | [ ] | [ ] |
-| 2025-12-22 | Seg | Saúde | sono no autismo | Sono no autismo: rotina, melatonina e quando buscar ajuda | sono-no-autismo-rotina-melatonina-e-quando-buscar-ajuda | [ ] | [ ] |
+| 2025-12-22 | Seg | Saúde | sono no autismo | Sono no autismo: rotina, melatonina e quando buscar ajuda | sono-no-autismo-rotina-melatonina-e-quando-buscar-ajuda | [x] | [ ] |
 | 2025-12-24 | Qua | Direitos | plano de saúde reembolso autismo | Reembolso do plano para terapias no TEA: passo a passo | reembolso-do-plano-para-terapias-no-tea-passo-a-passo | [ ] | [ ] |
 | 2025-12-26 | Sex | Educação | seletividade alimentar autismo | Seletividade alimentar no autismo: estratégias práticas | seletividade-alimentar-no-autismo-estrategias-praticas | [ ] | [ ] |
 | 2025-12-29 | Seg | Direitos | mediador escolar autismo | Mediador/AT no autismo: quando pedir e como funciona | mediador-escolar-autismo-quando-pedir-e-como-funciona | [ ] | [ ] |
