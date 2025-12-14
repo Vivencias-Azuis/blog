@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getAllPosts, getPostBySlug, getRelatedPosts } from '@/lib/posts'
-import { generateImageUrl, generatePostMetadata, generatePostUrl } from '@/lib/metadata'
+import { generateCanonicalUrl, generateImageUrl, generatePostMetadata, generatePostUrl } from '@/lib/metadata'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { Metadata } from 'next'
@@ -151,13 +151,13 @@ export default function PostPage({ params }: PostPageProps) {
         '@type': 'ListItem',
         position: 1,
         name: 'Início',
-        item: generateImageUrl('/'),
+        item: generateCanonicalUrl('/'),
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Blog',
-        item: generateImageUrl('/blog'),
+        item: generateCanonicalUrl('/blog'),
       },
       {
         '@type': 'ListItem',
