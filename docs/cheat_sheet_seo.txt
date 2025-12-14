@@ -1,0 +1,302 @@
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    CHEAT SHEET SEO - REFERÊNCIA RÁPIDA                   ║
+║                          Vivências Azuis                                  ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. DIAGNÓSTICO RÁPIDO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MÉTRICA             VALOR ATUAL    META (90 DIAS)
+─────────────────────────────────────────────────
+Cliques/mês         33             100-150
+CTR                 0.31%          2-5%
+Impressões/mês      3.149          5.000+
+Posição média       61.67          20-30
+Pages com 0 cliques 16 de 23       0-2
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. OS 7 POSTS CRÍTICOS (RECUPERE AGORA)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Hospitais e Clínicas Gratuitas      202 impressões → Use PROMPT A
+2. Níveis de Suporte                    171 impressões → Use PROMPT B
+3. Benefício BPC                        92 impressões  → Use PROMPT A
+4. DIR Floortime                        84 impressões  → Use PROMPT A
+5. PECS                                 81 impressões  → Use PROMPT A
+6. TEACCH                               73 impressões  → Use PROMPT A
+7. Risperidona                          ~50 impressões → Use PROMPT A
+
+TEMPO TOTAL: 5-7 horas para otimizar todos
+IMPACTO: +80-134 cliques adicionais em 4 semanas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. QUICK WINS (Oportunidades de Ranking Rápido)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PALAVRA-CHAVE              IMPRESSÕES   POSIÇÃO    AÇÃO
+─────────────────────────────────────────────────────────
+ecolalia                   19           73.47      PROMPT B
+qual plano saúde cobre     17           65.65      PROMPT B
+método denver              15           76.67      PROMPT B
+
+Trazer estas de posição 70+ para top 10 = +300-500% mais cliques
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. PROMPTS: QUANDO USAR?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROMPT A - Title + Description (RÁPIDO, 15 MIN)
+├─ Quando: Página tem 50+ impressões mas 0 cliques
+├─ Tempo: 15-20 minutos por post
+├─ Impacto: +30-100% CTR imediato
+└─ Use para: 7 páginas críticas
+
+PROMPT B - Reescrever Conteúdo (MÉDIO, 1 HORA)
+├─ Quando: Post está em posição 50+ e quer top 10
+├─ Tempo: 45-60 minutos por post
+├─ Impacto: -20 a -40 posições em 2-4 semanas
+└─ Use para: 3 quick wins (ecolalia, denver, plano saúde)
+
+PROMPT C - Links Internos (RÁPIDO, 10 MIN)
+├─ Quando: Quer distribuir autoridade entre posts
+├─ Tempo: 10-15 minutos
+├─ Impacto: +10-20% mais tráfego em médio prazo
+└─ Use para: 1x após otimizar 7 páginas
+
+PROMPT D - Novo Post (LONGO, 3-4 HORAS)
+├─ Quando: Quer criar conteúdo novo em low-comp keyword
+├─ Tempo: 2-3 horas para escrever
+├─ Impacto: +5-15 cliques/mês por post novo
+└─ Use para: 1-2 posts/semana após semana 4
+
+PROMPT E - Audit Final (RÁPIDO, 20 MIN)
+├─ Quando: Post está pronto, quer validar antes publicar
+├─ Tempo: 15-20 minutos
+├─ Impacto: Evitar publicar post ruim
+└─ Use para: Todos os posts antes de publicar
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. CRONOGRAMA SEMANAL (90 DIAS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SEMANA 1-2: Recuperar Tráfego (7 páginas críticas)
+├─ Segunda: Hospitais + Níveis (PROMPT A x2)
+├─ Terça: BPC + DIR (PROMPT A x2)
+├─ Quarta: PECS + TEACCH (PROMPT A x2)
+├─ Quinta: Risperidona (PROMPT A)
+├─ Sexta: Revisar + publicar tudo
+└─ Impacto: +50-100 cliques em 30 dias
+
+SEMANA 3-4: Quick Wins (posição 70+)
+├─ Segunda: Ecolalia (PROMPT B)
+├─ Terça: Método Denver (PROMPT B)
+├─ Quarta: Qual plano saúde (PROMPT B)
+├─ Quinta: Reescrever conteúdo
+├─ Sexta: Revisar + publicar
+└─ Impacto: -15 a -30 posições em 4 semanas
+
+SEMANA 5-6: Autoridade + Novo Conteúdo
+├─ Segunda: Mapear links internos (PROMPT C)
+├─ Terça: Implementar links
+├─ Quarta-Sex: Criar post novo (PROMPT D)
+└─ Impacto: Distribuição melhor de tráfego
+
+SEMANA 7-12: Consolidar
+├─ Contínuo: 1 novo post/semana
+├─ Contínuo: Otimizar baseado em Search Console
+└─ Impacto: Atingir 100-150 cliques/mês ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. TITLE + DESCRIPTION: REGRAS BÁSICAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TÍTULO (SEO TITLE):
+├─ Tamanho: 50-60 caracteres (máx 70 para mobile)
+├─ Início: SEMPRE com a palavra-chave
+├─ Include: Número ou power word (guia, completo, passo a passo)
+├─ NÃO use: "O que é", "Como fazer" (genérico demais)
+└─ Exemplo ❌: "O que é Ecolalia no Autismo"
+└─ Exemplo ✅: "Ecolalia no Autismo: Tipos, Causas e Estratégias [Guia]"
+
+META DESCRIPTION:
+├─ Tamanho: 150-160 caracteres (máx 160)
+├─ Include: Call-to-action (descubra, saiba, aprenda, acesse)
+├─ Include: Número quando possível
+├─ Include: Diferenciais (gratuito, completo, atualizado 2025)
+└─ Exemplo ✅: "Entenda ecolalia autista: tipos, gatilhos e 5 estratégias práticas
+   para ajudar seu filho. Guia prático para pais."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. CONTEÚDO: O QUE GOOGLE QUER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ ESTRUTURA (essencial)
+├─ 1 H1 (título do post)
+├─ 5-7 H2s (subtítulos principais)
+├─ 2-3 H3s dentro de cada H2
+├─ Parágrafos: máx 3-4 linhas
+└─ 1 imagem a cada 500 palavras
+
+✅ CONTEÚDO PRÁTICO (pais buscam resposta, não teoria)
+├─ Exemplos reais e nomes genéricos
+├─ Tabelas comparativas
+├─ Checklists
+├─ Passo a passo numerado
+└─ FAQ com 5+ perguntas
+
+✅ KEYWORDS (espalhadas estrategicamente)
+├─ Keyword principal: primeiros 100 palavras + H1 + último parágrafo
+├─ Keyword aparece em 3-5 H2s
+├─ Keywords secundárias: 2-3 variações
+└─ NÃO faça keyword stuffing (escreva naturalmente)
+
+✅ TAMANHO
+├─ Mínimo: 1.200 palavras
+├─ Ideal: 1.500-2.500 palavras
+├─ Prioridade: profundidade > quantidade
+└─ Cada seção: 150-300 palavras
+
+✅ ENGAJAMENTO
+├─ Call-to-action claro no final
+├─ Links internos: 3-5 para outros posts
+├─ Links externos: 2-3 fontes de autoridade
+├─ Conclusão que sumariza pontos principais
+└─ Convite para comentário ou compartilhamento
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. FERRAMENTAS ESSENCIAIS (GRATUITAS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMPRESCINDÍVEL:
+1. Google Search Console (search.google.com/search-console)
+   └─ Acompanhe DIARIAMENTE: cliques, impressões, posições
+2. Google Analytics 4 (analytics.google.com)
+   └─ Veja comportamento APÓS clique
+3. ChatGPT ou Gemini (grátis ou Plus)
+   └─ Use os 5 prompts deste playbook
+
+RECOMENDADO:
+4. Ubersuggest (ubersuggest.com) - 3 buscas grátis/dia
+   └─ Pesquise volume e dificuldade de keywords
+5. Yoast SEO (plugin WordPress)
+   └─ Score de SEO em tempo real
+6. Screaming Frog (free até 500 URLs)
+   └─ Verificar canonicalização e links
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. COMO USAR ChatGPT (PASSO A PASSO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 1: Abra chat.openai.com
+PASSO 2: Crie novo chat
+PASSO 3: Copie UM PROMPT COMPLETO (A, B, C, D ou E)
+PASSO 4: Substitua [XXXX] pelos seus dados
+PASSO 5: Cole no ChatGPT
+PASSO 6: Espere resposta (2-5 minutos)
+PASSO 7: Use as sugestões
+
+DICA: Depois que receber resposta, pode fazer perguntas adicionais:
+├─ "O título #2 é melhor, mas muito longo. Encurte sem perder poder."
+├─ "Crie mais 2 opções de title que sejam agressivas/curiosidade."
+├─ "Qual seria uma boa H3 para a seção de [TÓPICO]?"
+└─ ChatGPT entende contexto da conversa e responde especificamente
+
+SALVE CONVERSA: Botão "..." → Save as preset
+(Você pode reutilizar depois!)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. O QUE ESPERAR (TIMELINE)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DIA 0-7:
+├─ Otimizou os 7 títulos/descriptions
+├─ Google vai recrwlar os posts
+├─ Posições podem cair temporariamente (normal!)
+└─ NÃO vire pânico
+
+DIA 7-14:
+├─ CTR começa a subir (10-20% já visível)
+├─ Alguns cliques adicionais já aparecem
+└─ Continue publicando atualizações
+
+DIA 14-30:
+├─ Cliques devem subir 50-100% (de 33 para 50-100)
+├─ Novas posições mais estáveis
+├─ Veja padrões no Search Console
+
+DIA 30-60:
+├─ Impacto de "reescrever conteúdo" começa
+├─ Keywords em posição 70+ devem cair 20-30 posições
+├─ Cliques continuam crescimento
+├─ Esperado: 75-150 cliques/mês
+
+DIA 60-90:
+├─ Novo conteúdo começa a rankear
+├─ Distribução de tráfego melhora (menos concentrado em 1 página)
+├─ Consolidação de ganhos
+└─ Esperado: 100-150 cliques/mês ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. TROUBLESHOOTING: PROBLEMA X SOLUÇÃO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "Otimizei o título mas cliques caíram"
+✅ Normal! Google está recrwlando. Espere 5-10 dias. Se continuar caindo,
+   talvez o novo título não seja atrativo. Tente outro.
+
+❌ "Reescrevi conteúdo mas posição piorou"
+✅ Google pode estar testando. Continue melhorando conteúdo. Adicione tabelas,
+   exemplos práticos. Posição deve melhorar em 2-4 semanas.
+
+❌ "ChatGPT deu sugestão ruim"
+✅ Peça para reescrever: "Isso é muito genérico. Crie algo com número e mais
+   específico para pais de autistas."
+
+❌ "Não consigo implementar no WordPress"
+✅ Procure pelo plugin "Yoast SEO" ou "All in One SEO". Lá tem campos específicos
+   para "SEO Title" e "Meta Description".
+
+❌ "Meus posts não estão ranking"
+✅ Blog tem 5 meses (novo domínio). Autoridade cresce com tempo + backlinks.
+   Continue publicando conteúdo de qualidade.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+12. PRÓXIMOS PASSOS (HOJE!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. ☐ Abra Google Search Console
+2. ☐ Anote as 7 páginas críticas (80+ impressões)
+3. ☐ Abra chat.openai.com ou gemini.google.com
+4. ☐ Copie PROMPT A completo
+5. ☐ Escolha a página #1 (Hospitais e Clínicas)
+6. ☐ Preencha [XXXX] com dados dela
+7. ☐ Cole no ChatGPT e ENVIE
+8. ☐ Receba 3 sugestões de título
+9. ☐ Escolha a melhor
+10. ☐ Vá ao WordPress e atualize o título + description
+11. ☐ PUBLICA
+12. ☐ Espera 5-10 dias
+13. ☐ Volta ao Search Console e VÊ o CTR subir!
+14. ☐ Repete para os outros 6 posts
+
+TEMPO TOTAL: ~1-2 horas para a primeira página
+
+Depois de 1 página pronta, fica fácil! Você já sabe como fazer.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ÚLTIMA COISA: Anote seus ganhos de tráfego!
+
+Você começou em agosto com 1 clique.
+Você alcançou novembro com 15 cliques.
+
+Com este playbook, você deve chegar a:
+├─ SEMANA 2: 50-100 cliques/mês ✓
+├─ SEMANA 4: 75-150 cliques/mês ✓
+├─ SEMANA 12: 150-250 cliques/mês ✓
+
+Isto é crescimento exponencial. Parabéns por estar tomando ação! 🚀
+
+═══════════════════════════════════════════════════════════════════════════════

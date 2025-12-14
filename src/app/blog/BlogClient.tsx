@@ -161,7 +161,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
                 )}
                 {searchTerm && (
                   <span className="ml-2 px-3 py-1 bg-verde-menta/20 text-azul-profundo rounded-full text-sm font-medium">
-                    "{searchTerm}"
+                    &quot;{searchTerm}&quot;
                   </span>
                 )}
               </p>

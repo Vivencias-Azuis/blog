@@ -2,6 +2,9 @@
 
 Contributor quick-start for the Vivências Azuis blog. Keep changes focused, reversible, and aligned with the existing Next.js + MDX stack.
 
+##BlOG docs
+- `docs`: 
+
 ## Project Structure & Module Organization
 - `src/app/`: Next.js App Router pages (`page.tsx` home, `blog/page.tsx`, `contato`, `sobre`, `politica-de-privacidade`, `termos-de-uso`, `not-found.tsx`, `sitemap.ts`) and global styles in `globals.css`.
 - `src/components/`: Reusable UI (Header, Footer, Hero, AboutSection, FeaturedPosts, PostCard, PWAInstallPrompt, PWAStatus). Favor composition over new global styles.

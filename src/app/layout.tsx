@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo. Artigos, dicas e experiências sobre TEA, inclusão e desenvolvimento.',
   keywords: ['autismo', 'TEA', 'inclusão', 'blog', 'experiências', 'apoio', 'família', 'desenvolvimento', 'síndrome de asperger', 'transtorno do espectro autista'],
-  authors: [{ name: 'Vivências Azuis', url: 'https://vivenciasazuis.com' }],
+  authors: [{ name: 'Vivências Azuis', url: 'https://www.vivenciasazuis.com.br' }],
   creator: 'Vivências Azuis',
   publisher: 'Vivências Azuis',
   formatDetection: {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://vivenciasazuis.com'),
+  metadataBase: new URL('https://www.vivenciasazuis.com.br'),
   alternates: {
     canonical: '/',
   },
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://vivenciasazuis.com',
+    url: 'https://www.vivenciasazuis.com.br',
     title: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
     description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo. Artigos, dicas e experiências sobre TEA, inclusão e desenvolvimento.',
     siteName: 'Vivências Azuis',

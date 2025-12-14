@@ -223,7 +223,7 @@ function main() {
     console.log('🤖 Generating LLMs.txt...')
     
     const llmsContent = generateLLMsContent()
-    const llmsPath = path.join(__dirname, '../llms.txt')
+    const llmsPath = path.join(__dirname, '../public/llms.txt')
     
     fs.writeFileSync(llmsPath, llmsContent, 'utf8')
     

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-const baseUrl = 'https://vivenciasazuis.com'
+const baseUrl = 'https://www.vivenciasazuis.com.br'
 
 export function generateCanonicalUrl(path: string): string {
   return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`

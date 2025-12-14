@@ -134,7 +134,7 @@ export const metadata = generatePostMetadata({
 ### URLs Canônicas
 Todas as URLs são geradas automaticamente usando a base URL configurada em `metadata.ts`:
 ```typescript
-const baseUrl = 'https://vivenciasazuis.com'
+const baseUrl = 'https://www.vivenciasazuis.com.br'
 ```
 
 ### Verificação de Metatags

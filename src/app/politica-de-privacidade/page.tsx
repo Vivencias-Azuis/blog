@@ -685,7 +685,7 @@ export default function PoliticaDePrivacidadePage() {
                 <p className="text-gray-700 leading-relaxed text-lg">
                   Podemos atualizar esta Política de Privacidade periodicamente. Quando isso 
                   acontecer, publicaremos a versão atualizada em nosso site com a nova data 
-                  de "última atualização". Recomendamos que você revise esta política 
+                  de &quot;última atualização&quot;. Recomendamos que você revise esta política 
                   regularmente para se manter informado sobre como protegemos suas informações.
                 </p>
               </div>
