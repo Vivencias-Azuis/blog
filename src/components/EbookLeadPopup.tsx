@@ -93,7 +93,8 @@ export default function EbookLeadPopup() {
     setSubmitStatus('')
 
     try {
-      const body = new FormData(e.currentTarget)
+      const formEl = e.currentTarget
+      const body = new FormData(formEl)
       body.set('_replyto', formData.email)
       body.set('_subject', 'E-book - Guia Prático: Primeiros 30 Dias Após o Diagnóstico (1º capítulo)')
       body.set('origem', 'popup-home')
@@ -124,7 +125,7 @@ export default function EbookLeadPopup() {
       setSubmitStatus('success')
       setSubmitMessage('Obrigada! Você receberá o 1º capítulo no e-mail informado. 💙')
       setFormData({ nome: '', email: '' })
-      e.currentTarget.reset()
+      formEl.reset()
       try {
         localStorage.setItem(SUBMITTED_KEY, '1')
       } catch {
