@@ -76,6 +76,7 @@ const pwaConfig = withPWA({
         cacheName: 'offlineCache',
         expiration: {
           maxEntries: 200,
+          maxAgeSeconds: 7 * 24 * 60 * 60,
         },
       },
     },

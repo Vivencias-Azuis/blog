@@ -3,6 +3,7 @@ import { getAllPosts, getPostBySlug, getRelatedPosts } from '@/lib/posts'
 import { generateCanonicalUrl, generateImageUrl, generatePostMetadata, generatePostUrl } from '@/lib/metadata'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Metadata } from 'next'
 import PostCard from '@/components/PostCard'
 
@@ -113,10 +114,26 @@ const components = {
       {children}
     </pre>
   ),
-  img: ({ alt, ...props }: any) => (
-    // Ensure responsive images and lazy loading inside MDX content
-    <img loading="lazy" decoding="async" alt={alt || ''} className="w-full h-auto rounded-lg shadow-md my-6" {...props} />
-  ),
+  img: ({ alt, src, width, height, ...props }: any) => {
+    if (typeof src !== 'string') return null
+
+    const parsedWidth = typeof width === 'string' ? Number.parseInt(width, 10) : width
+    const parsedHeight = typeof height === 'string' ? Number.parseInt(height, 10) : height
+    const imageWidth = Number.isFinite(parsedWidth) && parsedWidth > 0 ? parsedWidth : 1200
+    const imageHeight = Number.isFinite(parsedHeight) && parsedHeight > 0 ? parsedHeight : 800
+
+    return (
+      <Image
+        src={src}
+        alt={alt || ''}
+        width={imageWidth}
+        height={imageHeight}
+        sizes="(max-width: 768px) 100vw, 768px"
+        className="w-full h-auto rounded-lg shadow-md my-6"
+        {...props}
+      />
+    )
+  },
 }
 
 export default function PostPage({ params }: PostPageProps) {

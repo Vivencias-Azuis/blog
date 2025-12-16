@@ -63,8 +63,12 @@ export default function Header() {
 
           {/* Enhanced Mobile menu button */}
           <button
+            type="button"
             onClick={toggleMenu}
             className="md:hidden p-3 rounded-xl text-gray-600 hover:text-primary hover:bg-primary/5 focus:outline-none transition-all duration-300"
+            aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
           >
             <svg
               className="h-6 w-6 transition-transform duration-300"
@@ -94,7 +98,7 @@ export default function Header() {
         {/* Enhanced Mobile Navigation */}
         <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
           isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}>
+        }`} id="mobile-navigation">
           <div className="border-t border-gray-100 bg-white/95 backdrop-blur-md">
             <div className="px-4 pt-6 pb-8 space-y-1">
               <Link

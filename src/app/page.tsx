@@ -1,9 +1,11 @@
 import { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import { generatePageMetadata } from '@/lib/metadata'
 import Hero from '@/components/Hero'
 import FeaturedPosts from '@/components/FeaturedPosts'
 import AboutSection from '@/components/AboutSection'
-import EbookLeadPopup from '@/components/EbookLeadPopup'
+
+const EbookLeadPopup = dynamic(() => import('@/components/EbookLeadPopup'), { ssr: false })
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Vivências Azuis - Blog sobre Autismo e Inclusão',

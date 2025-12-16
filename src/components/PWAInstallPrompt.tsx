@@ -41,12 +41,6 @@ export default function PWAInstallPrompt() {
     deferredPrompt.prompt()
     const { outcome } = await deferredPrompt.userChoice
     
-    if (outcome === 'accepted') {
-      console.log('PWA installation accepted')
-    } else {
-      console.log('PWA installation dismissed')
-    }
-    
     setDeferredPrompt(null)
     setShowInstallPrompt(false)
   }
@@ -85,8 +79,10 @@ export default function PWAInstallPrompt() {
           </div>
         </div>
         <button
+          type="button"
           onClick={handleDismiss}
           className="ml-2 text-blue-200 hover:text-white transition-colors"
+          aria-label="Fechar aviso de instalação"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

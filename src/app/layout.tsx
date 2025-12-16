@@ -1,12 +1,15 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import PWAInstallPrompt from '@/components/PWAInstallPrompt'
-import PWAStatus from '@/components/PWAStatus'
+import dynamic from 'next/dynamic'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
+
+const PWAStatus = dynamic(() => import('@/components/PWAStatus'), { ssr: false })
+const PWAInstallPrompt = dynamic(() => import('@/components/PWAInstallPrompt'), { ssr: false })
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -104,13 +107,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <head>
-        <script 
-          async 
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4134431815923665"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body className={`${inter.className} min-h-screen bg-white text-gray-900`}>
         <div className="flex flex-col min-h-screen">
           <Header />
@@ -119,6 +115,11 @@ export default function RootLayout({
           </main>
           <Footer />
         </div>
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4134431815923665"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
         <PWAStatus />
         <PWAInstallPrompt />
       </body>

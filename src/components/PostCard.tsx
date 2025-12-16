@@ -107,6 +107,7 @@ export default function PostCard({ post }: PostCardProps) {
               <Link 
                 href={`/blog/${post.slug}`}
                 className="text-primary hover:text-azul-profundo font-semibold flex items-center gap-1 transition-colors duration-300"
+                aria-label={`Ler mais: ${post.title}`}
               >
                 Ler mais
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
