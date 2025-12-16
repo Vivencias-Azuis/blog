@@ -65,13 +65,13 @@ export default function PostCard({ post }: PostCardProps) {
             {Array.isArray(post.tags) && post.tags.slice(0, 3).map((tag, index) => (
               <span 
                 key={index} 
-                className="text-xs bg-gradient-to-r from-gray-100 to-gray-200 text-gray-600 px-3 py-1 rounded-full hover:from-primary/10 hover:to-verde-menta/10 hover:text-primary transition-all duration-300 cursor-pointer"
+                className="text-xs bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 px-3 py-1 rounded-full hover:from-primary/10 hover:to-verde-menta/10 hover:text-primary transition-all duration-300 cursor-pointer"
               >
                 #{tag}
               </span>
             ))}
             {Array.isArray(post.tags) && post.tags.length > 3 && (
-              <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+              <span className="text-xs text-gray-700 bg-gray-100 px-3 py-1 rounded-full">
                 +{post.tags.length - 3}
               </span>
             )}

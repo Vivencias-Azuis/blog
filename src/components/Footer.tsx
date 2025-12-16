@@ -13,7 +13,7 @@ export default function Footer() {
               </div>
               <span className="text-xl font-bold">Vivências Azuis</span>
             </div>
-            <p className="text-blue-200 leading-relaxed">
+            <p className="text-white/80 leading-relaxed">
               Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte 
               do universo do autismo. Promovendo mais inclusão, respeito e empatia no dia a dia.
             </p>
@@ -24,22 +24,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Links Úteis</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-blue-200 hover:text-white transition-colors">
+                <Link href="/" className="text-white/80 hover:text-white transition-colors">
                   Início
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-blue-200 hover:text-white transition-colors">
+                <Link href="/blog" className="text-white/80 hover:text-white transition-colors">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/sobre" className="text-blue-200 hover:text-white transition-colors">
+                <Link href="/sobre" className="text-white/80 hover:text-white transition-colors">
                   Sobre
                 </Link>
               </li>
               <li>
-                <Link href="/contato" className="text-blue-200 hover:text-white transition-colors">
+                <Link href="/contato" className="text-white/80 hover:text-white transition-colors">
                   Contato
                 </Link>
               </li>
@@ -51,22 +51,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Recursos</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/blog?categoria=dicas" className="text-blue-200 hover:text-white transition-colors">
+                <Link href="/blog?categoria=dicas" className="text-white/80 hover:text-white transition-colors">
                   Dicas Práticas
                 </Link>
               </li>
               <li>
-                <Link href="/blog?categoria=relatos" className="text-blue-200 hover:text-white transition-colors">
+                <Link href="/blog?categoria=relatos" className="text-white/80 hover:text-white transition-colors">
                   Relatos
                 </Link>
               </li>
               <li>
-                <Link href="/blog?categoria=educacao" className="text-blue-200 hover:text-white transition-colors">
+                <Link href="/blog?categoria=educacao" className="text-white/80 hover:text-white transition-colors">
                   Educação
                 </Link>
               </li>
               <li>
-                <Link href="/blog?categoria=direitos" className="text-blue-200 hover:text-white transition-colors">
+                <Link href="/blog?categoria=direitos" className="text-white/80 hover:text-white transition-colors">
                   Direitos
                 </Link>
               </li>
@@ -78,18 +78,18 @@ export default function Footer() {
         <div className="border-t border-blue-600 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-center md:text-left mb-4 md:mb-0">
-              <p className="text-blue-200">
+              <p className="text-white/80">
                 © {new Date().getFullYear()} Vivências Azuis. Todos os direitos reservados.
               </p>
-              <p className="text-blue-300 text-sm mt-2">
+              <p className="text-white/80 text-sm mt-2">
                 Construindo um mundo mais azul, inclusivo e humano. 💙
               </p>
             </div>
             <div className="flex space-x-6">
-              <Link href="/termos-de-uso" className="text-blue-200 hover:text-white transition-colors text-sm">
+              <Link href="/termos-de-uso" className="text-white/80 hover:text-white transition-colors text-sm">
                 Termos de Uso
               </Link>
-              <Link href="/politica-de-privacidade" className="text-blue-200 hover:text-white transition-colors text-sm">
+              <Link href="/politica-de-privacidade" className="text-white/80 hover:text-white transition-colors text-sm">
                 Política de Privacidade
               </Link>
             </div>
