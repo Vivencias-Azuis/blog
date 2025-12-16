@@ -1,0 +1,26 @@
+{
+  "type": "guia-pratico",
+  "topic": "Como começar PECS em casa",
+  "keywords": ["PECS", "comunicação", "autismo", "casa", "exercícios"],
+  "mainKeyword": "Como começar PECS em casa: guia prático (30 dias)",
+  "outline": [
+    "O que é PECS e para quem funciona",
+    "O que você precisa antes de começar",
+    "Semana 1: preparação e motivadores",
+    "Semanas 2-3: primeiras trocas e generalização",
+    "Semana 4: expandindo para escolhas e frases simples",
+    "Erros comuns e como corrigir",
+    "Como acompanhar progresso e quando buscar ajuda"
+  ],
+  "category": "educacao",
+  "minimumWords": 2000,
+  "includeExamples": true,
+  "includeFAQ": true,
+  "includeTable": true,
+  "rules": [
+    "não prometa resultados garantidos",
+    "dê exemplos práticos e linguagem acessível",
+    "inclua orientações de segurança e limites"
+  ]
+}
+

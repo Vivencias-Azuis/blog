@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "llms": "node scripts/generate-llms.js",
+    "content:generate": "node scripts/generate-content.js",
     "calendar:check": "node scripts/check-publication-calendar.js",
     "normalize-filenames": "node scripts/normalize-filenames.js --dry-run",
     "normalize-filenames:execute": "node scripts/normalize-filenames.js --execute",
@@ -25,11 +26,13 @@
     "next": "^14.2.31",
     "next-mdx-remote": "^5.0.0",
     "next-pwa": "^5.6.0",
+    "openai": "^5.12.2",
     "react": "^18",
     "react-dom": "^18",
     "reading-time": "^1.5.0",
     "remark-gfm": "^4.0.0",
-    "workbox-webpack-plugin": "^7.3.0"
+    "workbox-webpack-plugin": "^7.3.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

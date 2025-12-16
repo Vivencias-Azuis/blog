@@ -12,6 +12,18 @@ interface PostPageProps {
   }
 }
 
+function serializeJsonLd(data: unknown) {
+  return JSON.stringify(data).replace(/</g, '\\u003c')
+}
+
+function rewriteInlineJsonLdScripts(mdxSource: string) {
+  return mdxSource.replace(
+    /<script\s+type=(["'])application\/ld\+json\1>\s*\{`([\s\S]*?)`\}\s*<\/script>/g,
+    (_match, _quote, json) =>
+      `<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: \`${json}\` }} />`
+  )
+}
+
 export async function generateStaticParams() {
   const posts = getAllPosts()
   return posts.map((post) => ({
@@ -196,11 +208,11 @@ export default function PostPage({ params }: PostPageProps) {
     <article className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       {/* Enhanced Header */}
       <div className="relative overflow-hidden bg-gradient-to-br from-primary via-azul-profundo to-primary-dark text-white">
@@ -303,7 +315,7 @@ export default function PostPage({ params }: PostPageProps) {
             </div>
           )}
           <div className="prose prose-lg max-w-none prose-headings:text-primary-dark prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-primary-dark prose-blockquote:border-l-primary prose-blockquote:bg-gray-50 prose-blockquote:p-6 prose-blockquote:rounded-r-xl">
-            <MDXRemote source={post.content} components={components} />
+            <MDXRemote source={rewriteInlineJsonLdScripts(post.content)} components={components} />
           </div>
         </div>
 
