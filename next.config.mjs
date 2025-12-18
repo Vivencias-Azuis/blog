@@ -20,12 +20,32 @@ const nextConfig = {
     return [
       {
         source: '/blog/CIPTEA-carteira-de-identificacao-da-pessoa-com-transtorno-do-espectro-autista',
-        destination: '/blog/ciptea-carteira-de-identificacao-da-pessoa-com-transtorno-do-espectro-autista',
+        destination: '/blog/ciptea-carteira-de-identificacao-pessoa-tea',
+        permanent: true,
+      },
+      {
+        source: '/blog/ciptea-carteira-de-identificacao-da-pessoa-com-transtorno-do-espectro-autista',
+        destination: '/blog/ciptea-carteira-de-identificacao-pessoa-tea',
         permanent: true,
       },
       {
         source: '/blog/Guia-Completo-Tudo-que-os-Pais-de-Autistas-de-Primeira-Viagem-Precisam-Saber',
-        destination: '/blog/guia-completo-tudo-que-os-pais-de-autistas-de-primeira-viagem-precisam-saber',
+        destination: '/blog/guia-completo-pais-autistas-primeira-viagem',
+        permanent: true,
+      },
+      {
+        source: '/blog/guia-completo-tudo-que-os-pais-de-autistas-de-primeira-viagem-precisam-saber',
+        destination: '/blog/guia-completo-pais-autistas-primeira-viagem',
+        permanent: true,
+      },
+      {
+        source: '/blog/Gratuidades-Autistas-Garantidas-por-Lei-no-Brasil',
+        destination: '/blog/gratuidades-autistas-garantidas-lei-brasil',
+        permanent: true,
+      },
+      {
+        source: '/blog/gratuidades-autistas-garantidas-por-lei-no-brasil',
+        destination: '/blog/gratuidades-autistas-garantidas-lei-brasil',
         permanent: true,
       },
       {

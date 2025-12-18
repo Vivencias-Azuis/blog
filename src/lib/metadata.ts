@@ -49,6 +49,7 @@ export function generatePostMetadata({
   category,
   tags,
   publishedTime,
+  modifiedTime,
   coverImage,
 }: {
   title: string
@@ -58,10 +59,12 @@ export function generatePostMetadata({
   category: string
   tags: string[]
   publishedTime: string
+  modifiedTime?: string
   coverImage?: string
 }): Metadata {
   const postUrl = generatePostUrl(slug)
   const imageUrl = coverImage ? generateImageUrl(coverImage) : generateImageUrl('/logo-text.svg')
+  const resolvedModifiedTime = modifiedTime || publishedTime
 
   return {
     ...generateDefaultMetadata(),
@@ -82,7 +85,7 @@ export function generatePostMetadata({
       description,
       siteName: 'Vivências Azuis',
       publishedTime,
-      modifiedTime: publishedTime,
+      modifiedTime: resolvedModifiedTime,
       authors: [author],
       section: category,
       tags,
@@ -109,7 +112,7 @@ export function generatePostMetadata({
       'article:section': category,
       'article:tag': tags.join(', '),
       'article:published_time': publishedTime,
-      'article:modified_time': publishedTime,
+      'article:modified_time': resolvedModifiedTime,
     },
   }
 }

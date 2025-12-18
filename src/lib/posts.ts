@@ -8,6 +8,7 @@ export interface PostMeta {
   title: string
   excerpt: string
   datetime: string
+  updated?: string
   author: string
   category: string
   tags: string[]
@@ -65,6 +66,7 @@ export function getAllPosts(): PostMeta[] {
         title: data.title || slug,
         excerpt: data.excerpt || '',
         datetime: data.datetime || data.date || new Date().toISOString(),
+        updated: data.updated || undefined,
         author: data.author || 'Vivências Azuis',
         category: data.category || 'Geral',
         tags: Array.isArray(data.tags) ? data.tags : [],
@@ -95,6 +97,7 @@ export function getPostBySlug(slug: string): Post | null {
       title: data.title || normalizedSlug,
       excerpt: data.excerpt || '',
       datetime: data.datetime || data.date || new Date().toISOString(),
+      updated: data.updated || undefined,
       author: data.author || 'Vivências Azuis',
       category: data.category || 'Geral',
       tags: Array.isArray(data.tags) ? data.tags : [],

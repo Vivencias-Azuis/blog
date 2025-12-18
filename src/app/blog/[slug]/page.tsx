@@ -42,6 +42,9 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     }
   }
 
+  const publishedTime = new Date(post.datetime).toISOString()
+  const modifiedTime = new Date(post.updated || post.datetime).toISOString()
+
   return generatePostMetadata({
     title: post.title,
     description: post.excerpt,
@@ -49,7 +52,8 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     author: post.author,
     category: post.category,
     tags: post.tags,
-    publishedTime: new Date(post.datetime).toISOString(),
+    publishedTime,
+    modifiedTime,
     coverImage: post.coverImage,
   })
 }
@@ -161,7 +165,7 @@ export default function PostPage({ params }: PostPageProps) {
     description: post.excerpt,
     image: [imageUrl],
     datePublished: new Date(post.datetime).toISOString(),
-    dateModified: new Date(post.datetime).toISOString(),
+    dateModified: new Date(post.updated || post.datetime).toISOString(),
     author: {
       '@type': 'Person',
       name: post.author,
