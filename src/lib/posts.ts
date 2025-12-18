@@ -22,6 +22,25 @@ export interface Post extends PostMeta {
 
 const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
+export function normalizeSlug(rawSlug: string): string {
+  const withoutExtension = rawSlug.replace(/\.mdx$/i, '')
+
+  let decoded = withoutExtension
+  try {
+    decoded = decodeURIComponent(withoutExtension)
+  } catch {
+    decoded = withoutExtension
+  }
+
+  return decoded
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+}
+
 export function getAllPosts(): PostMeta[] {
   // Verifica se o diretório existe
   if (!fs.existsSync(postsDirectory)) {
@@ -65,14 +84,15 @@ export function getAllPosts(): PostMeta[] {
 
 export function getPostBySlug(slug: string): Post | null {
   try {
-    const fullPath = path.join(postsDirectory, `${slug}.mdx`)
+    const normalizedSlug = normalizeSlug(slug)
+    const fullPath = path.join(postsDirectory, `${normalizedSlug}.mdx`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
     const stats = readingTime(content)
 
     const post = {
-      slug,
-      title: data.title || slug,
+      slug: normalizedSlug,
+      title: data.title || normalizedSlug,
       excerpt: data.excerpt || '',
       datetime: data.datetime || data.date || new Date().toISOString(),
       author: data.author || 'Vivências Azuis',

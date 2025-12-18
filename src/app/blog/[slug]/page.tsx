@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation'
-import { getAllPosts, getPostBySlug, getRelatedPosts } from '@/lib/posts'
+import { notFound, permanentRedirect } from 'next/navigation'
+import { getAllPosts, getPostBySlug, getRelatedPosts, normalizeSlug } from '@/lib/posts'
 import { generateCanonicalUrl, generateImageUrl, generatePostMetadata, generatePostUrl } from '@/lib/metadata'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
@@ -33,7 +33,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const post = getPostBySlug(params.slug)
+  const post = getPostBySlug(normalizeSlug(params.slug))
   
   if (!post) {
     return {
@@ -137,10 +137,14 @@ const components = {
 }
 
 export default function PostPage({ params }: PostPageProps) {
-  const post = getPostBySlug(params.slug)
+  const post = getPostBySlug(normalizeSlug(params.slug))
 
   if (!post) {
     notFound()
+  }
+
+  if (params.slug !== post.slug) {
+    permanentRedirect(`/blog/${post.slug}`)
   }
 
   const postUrl = generatePostUrl(post.slug)
@@ -197,7 +201,7 @@ export default function PostPage({ params }: PostPageProps) {
     ],
   }
 
-  const relatedPosts = getRelatedPosts(params.slug, 3)
+  const relatedPosts = getRelatedPosts(post.slug, 3)
   const earlyRelated = relatedPosts.slice(0, 2)
   const remainingRelated = relatedPosts.slice(2)
 

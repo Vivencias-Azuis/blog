@@ -34,9 +34,6 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL('https://www.vivenciasazuis.com.br'),
-  alternates: {
-    canonical: '/',
-  },
   manifest: '/site.webmanifest',
   appleWebApp: {
     capable: true,
