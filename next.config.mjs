@@ -20,12 +20,17 @@ const nextConfig = {
     return [
       {
         source: '/blog/CIPTEA-carteira-de-identificacao-da-pessoa-com-transtorno-do-espectro-autista',
-        destination: '/blog/ciptea-carteira-de-identificacao-pessoa-tea',
+        destination: '/blog/ciptea-carteira-identificacao-pessoa-tea',
         permanent: true,
       },
       {
         source: '/blog/ciptea-carteira-de-identificacao-da-pessoa-com-transtorno-do-espectro-autista',
-        destination: '/blog/ciptea-carteira-de-identificacao-pessoa-tea',
+        destination: '/blog/ciptea-carteira-identificacao-pessoa-tea',
+        permanent: true,
+      },
+      {
+        source: '/blog/ciptea-carteira-de-identificacao-pessoa-tea',
+        destination: '/blog/ciptea-carteira-identificacao-pessoa-tea',
         permanent: true,
       },
       {

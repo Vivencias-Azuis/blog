@@ -17,6 +17,14 @@ function getChangeFrequency(lastModified: Date): 'weekly' | 'monthly' | 'yearly'
 }
 
 function getPriority(slug: string, lastModified: Date): number {
+  const lowPrioritySlugs = new Set([
+    'o-que-e-ecolalia',
+    'a-sindrome-de-savant',
+    'dicionario-para-pais-de-criancas-autistas',
+  ])
+
+  if (lowPrioritySlugs.has(slug)) return 0.6
+
   const hubSlugs = new Set([
     'melhor-plano-de-saude-para-autismo-guia-completo',
     'lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil',
