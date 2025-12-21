@@ -20,9 +20,9 @@ export default function Header() {
           <Link href="/" className="flex items-center group">
             <div className="relative h-16 w-auto group-hover:scale-105 transition-transform duration-300">
               <Image
-                src="/logo-text.svg"
+                src="/new_logo.png"
                 alt="Vivências Azuis"
-                width={180}
+                width={160}
                 height={64}
                 priority
                 className="h-full w-auto object-contain"
