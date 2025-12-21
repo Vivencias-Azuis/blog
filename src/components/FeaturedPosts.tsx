@@ -7,16 +7,16 @@ export default function FeaturedPosts() {
 
   if (featuredPosts.length === 0) {
     return (
-      <section className="section-padding bg-gradient-to-b from-white to-gray-50">
+      <section className="section-padding bg-gradient-to-b from-surface to-page">
         <div className="container-custom">
           <div className="text-center animate-fade-in-up">
-            <div className="inline-block p-4 bg-gradient-to-br from-primary to-verde-menta rounded-full mb-6">
+            <div className="inline-block p-4 bg-gradient-to-br from-brand to-blue-300 rounded-full mb-6">
               <span className="text-4xl">📚</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-6">
               Posts em Destaque
             </h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-sand-700 mb-8 max-w-2xl mx-auto leading-relaxed">
               Em breve teremos conteúdos incríveis para compartilhar com você!
             </p>
             <Link 
@@ -35,27 +35,27 @@ export default function FeaturedPosts() {
   }
 
   return (
-    <section className="section-padding bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
+    <section className="section-padding bg-page relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-verde-menta/5 rounded-full blur-3xl animate-float-delayed"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-brand/10 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl animate-float-delayed"></div>
       </div>
       
       <div className="container-custom relative">
         {/* Enhanced Header */}
         <div className="text-center mb-20 animate-fade-in-up">
-          <div className="inline-block p-6 bg-gradient-to-br from-primary to-verde-menta rounded-3xl mb-8 shadow-2xl">
+          <div className="inline-block p-6 bg-gradient-to-br from-brand to-blue-300 rounded-3xl mb-8 shadow-2xl">
             <span className="text-5xl">✨</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold gradient-text mb-8 text-shadow">
             Posts em Destaque
           </h2>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-sand-700 max-w-4xl mx-auto leading-relaxed">
             Conteúdos especiais selecionados para você, com informações valiosas sobre autismo, 
             inclusão e apoio às famílias
           </p>
-          <div className="w-32 h-1 bg-gradient-to-r from-primary to-verde-menta mx-auto mt-8 rounded-full"></div>
+          <div className="w-32 h-1 bg-gradient-to-r from-brand to-blue-300 mx-auto mt-8 rounded-full"></div>
         </div>
 
         {/* Enhanced Posts Grid */}
@@ -73,22 +73,22 @@ export default function FeaturedPosts() {
 
         {/* Enhanced CTA Section */}
         <div className="text-center animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
-          <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-16 border border-white/20 relative overflow-hidden">
+          <div className="bg-surface/90 backdrop-blur-lg rounded-block shadow-overlay p-8 md:p-16 border border-sand-200 relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5">
-              <div className="absolute top-10 left-10 w-20 h-20 bg-primary rounded-full"></div>
-              <div className="absolute bottom-10 right-10 w-32 h-32 bg-verde-menta rounded-full"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-amarelo-quente rounded-full"></div>
+              <div className="absolute top-10 left-10 w-20 h-20 bg-brand rounded-full"></div>
+              <div className="absolute bottom-10 right-10 w-32 h-32 bg-blue-300 rounded-full"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-sand-300 rounded-full"></div>
             </div>
             
             <div className="relative">
-              <div className="inline-block p-8 bg-gradient-to-br from-amarelo-quente to-primary rounded-3xl mb-8 shadow-xl">
+              <div className="inline-block p-8 bg-gradient-to-br from-brand-soft to-brand rounded-3xl mb-8 shadow-xl">
                 <span className="text-4xl">🚀</span>
               </div>
-              <h3 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">
+              <h3 className="text-3xl md:text-4xl font-bold text-sand-900 mb-6">
                 Explore Mais Conteúdos
               </h3>
-              <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl text-sand-700 mb-10 max-w-3xl mx-auto leading-relaxed">
                 Descubra artigos, dicas práticas, relatos inspiradores e muito mais em nosso blog completo
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

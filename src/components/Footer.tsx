@@ -2,13 +2,13 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-primary-dark text-white mt-16">
+    <footer className="bg-blue-900 text-white mt-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo e Descrição */}
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-lg">V</span>
               </div>
               <span className="text-xl font-bold">Vivências Azuis</span>
@@ -75,7 +75,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-blue-600 mt-8 pt-8">
+        <div className="border-t border-blue-700 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-center md:text-left mb-4 md:mb-0">
               <p className="text-white/80">

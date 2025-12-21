@@ -79,13 +79,13 @@ export default function NewsletterSignup({ origem = 'blog-cta', className }: New
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Seu melhor e-mail"
-          className="flex-1 px-6 py-4 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+          className="flex-1 rounded-card border border-white/30 bg-white/90 px-6 py-4 text-sand-900 placeholder-sand-500 focus:outline-none focus:ring-2 focus:ring-white/60"
           aria-label="Seu e-mail"
         />
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-white text-primary font-semibold px-8 py-4 rounded-xl hover:bg-gray-100 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          className="rounded-card bg-surface px-8 py-4 font-semibold text-link transition-colors hover:bg-brand-soft disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? 'Enviando…' : 'Inscrever-se'}
         </button>
@@ -103,4 +103,3 @@ export default function NewsletterSignup({ origem = 'blog-cta', className }: New
     </div>
   )
 }
-

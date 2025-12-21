@@ -151,19 +151,19 @@ export default function EbookLeadPopup() {
       />
 
       <div
-        className="relative w-full max-w-lg rounded-3xl bg-white shadow-2xl ring-1 ring-black/10 overflow-hidden"
+        className="relative w-full max-w-lg rounded-block bg-surface shadow-overlay ring-1 ring-black/10 overflow-hidden"
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
       >
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-primary/10 via-secondary/10 to-amarelo-quente/10" />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-brand/10 via-blue-300/10 to-sand-300/10" />
 
         <div className="relative p-6 sm:p-8">
           <button
             type="button"
             onClick={handleClose}
-            className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/70 text-gray-700 ring-1 ring-black/10 hover:bg-white"
+            className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/70 text-sand-700 ring-1 ring-black/10 hover:bg-white"
             aria-label="Fechar popup"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,7 +172,7 @@ export default function EbookLeadPopup() {
           </button>
 
           <div className="flex items-start gap-4">
-            <div className="mt-0.5 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-azul-profundo text-white">
+            <div className="mt-0.5 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand to-blue-900 text-white">
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -183,10 +183,10 @@ export default function EbookLeadPopup() {
               </svg>
             </div>
             <div className="min-w-0">
-              <h2 id={titleId} className="text-2xl sm:text-3xl font-bold text-primary-dark leading-tight">
+              <h2 id={titleId} className="text-2xl sm:text-3xl font-bold text-sand-900 leading-tight">
                 Guia Prático: Primeiros 30 Dias Após o Diagnóstico
               </h2>
-              <p id={descriptionId} className="mt-2 text-sm sm:text-base text-gray-700">
+              <p id={descriptionId} className="mt-2 text-sm sm:text-base text-sand-700">
                 Cadastre-se para receber gratuitamente o <span className="font-semibold">1º capítulo</span> por e-mail.
               </p>
             </div>
@@ -196,7 +196,7 @@ export default function EbookLeadPopup() {
             <div
               className={`mt-5 rounded-2xl border p-4 text-sm ${
                 submitStatus === 'success'
-                  ? 'bg-secondary/20 border-secondary/30 text-primary-dark'
+                  ? 'bg-brand-soft border-brand/30 text-sand-900'
                   : 'bg-red-50 border-red-200 text-red-800'
               }`}
               role={submitStatus === 'error' ? 'alert' : 'status'}
@@ -211,7 +211,7 @@ export default function EbookLeadPopup() {
             <input type="hidden" name="tipo" value="ebook-primeiros-30-dias" />
 
             <div>
-              <label htmlFor="ebook-nome" className="block text-sm font-semibold text-primary-dark mb-2">
+              <label htmlFor="ebook-nome" className="block text-sm font-semibold text-sand-900 mb-2">
                 Nome
               </label>
               <input
@@ -222,13 +222,13 @@ export default function EbookLeadPopup() {
                 value={formData.nome}
                 onChange={(e) => setFormData((prev) => ({ ...prev, nome: e.target.value }))}
                 autoComplete="name"
-                className="w-full rounded-2xl border-2 border-neutral-light bg-white/80 px-5 py-3 text-gray-800 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/20"
+                className="w-full rounded-card border border-sand-200 bg-surface px-5 py-3 text-sand-800 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
                 placeholder="Seu nome"
               />
             </div>
 
             <div>
-              <label htmlFor="ebook-email" className="block text-sm font-semibold text-primary-dark mb-2">
+              <label htmlFor="ebook-email" className="block text-sm font-semibold text-sand-900 mb-2">
                 E-mail *
               </label>
               <input
@@ -239,7 +239,7 @@ export default function EbookLeadPopup() {
                 onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
                 required
                 autoComplete="email"
-                className="w-full rounded-2xl border-2 border-neutral-light bg-white/80 px-5 py-3 text-gray-800 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/20"
+                className="w-full rounded-card border border-sand-200 bg-surface px-5 py-3 text-sand-800 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
                 placeholder="seu@email.com"
               />
             </div>
@@ -247,15 +247,15 @@ export default function EbookLeadPopup() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full rounded-2xl bg-gradient-to-r from-primary to-azul-profundo px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-card bg-gradient-to-r from-brand to-blue-900 px-6 py-3.5 text-sm font-semibold text-white shadow-pop transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSubmitting ? 'Enviando…' : 'Quero o 1º capítulo'}
             </button>
 
-            <div className="flex items-center justify-between gap-4 text-xs text-gray-600">
+            <div className="flex items-center justify-between gap-4 text-xs text-sand-600">
               <p className="leading-snug">
                 Ao se inscrever, você concorda com a nossa{' '}
-                <Link href="/politica-de-privacidade" className="underline underline-offset-2 hover:text-primary">
+                <Link href="/politica-de-privacidade" className="underline underline-offset-2 hover:text-link">
                   Política de Privacidade
                 </Link>
                 .
@@ -263,7 +263,7 @@ export default function EbookLeadPopup() {
               <button
                 type="button"
                 onClick={handleClose}
-                className="shrink-0 underline underline-offset-2 hover:text-primary"
+                className="shrink-0 underline underline-offset-2 hover:text-link"
               >
                 Agora não
               </button>

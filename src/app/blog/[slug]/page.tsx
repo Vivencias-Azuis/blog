@@ -60,32 +60,32 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 const components = {
   h1: ({ children, ...props }: any) => (
-    <h1 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6 mt-8" {...props}>
+    <h1 className="text-3xl md:text-4xl font-bold text-sand-900 mb-6 mt-8 font-sans" {...props}>
       {children}
     </h1>
   ),
   h2: ({ children, ...props }: any) => (
-    <h2 className="text-2xl md:text-3xl font-semibold text-primary-dark mb-4 mt-6" {...props}>
+    <h2 className="text-2xl md:text-3xl font-semibold text-sand-900 mb-4 mt-6 font-sans" {...props}>
       {children}
     </h2>
   ),
   h3: ({ children, ...props }: any) => (
-    <h3 className="text-xl md:text-2xl font-medium text-primary-dark mb-3 mt-5" {...props}>
+    <h3 className="text-xl md:text-2xl font-medium text-sand-900 mb-3 mt-5 font-sans" {...props}>
       {children}
     </h3>
   ),
   p: ({ children, ...props }: any) => (
-    <p className="text-gray-700 leading-relaxed mb-4" {...props}>
+    <p className="text-sand-800 leading-relaxed mb-4" {...props}>
       {children}
     </p>
   ),
   ul: ({ children, ...props }: any) => (
-    <ul className="text-gray-700 mb-4 ml-6 list-disc" {...props}>
+    <ul className="text-sand-800 mb-4 ml-6 list-disc" {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }: any) => (
-    <ol className="text-gray-700 mb-4 ml-6 list-decimal" {...props}>
+    <ol className="text-sand-800 mb-4 ml-6 list-decimal" {...props}>
       {children}
     </ol>
   ),
@@ -97,19 +97,19 @@ const components = {
   a: ({ children, href, ...props }: any) => (
     <a 
       href={href} 
-      className="text-primary hover:text-primary-dark transition-colors underline" 
+      className="text-link hover:text-link-hover transition-colors underline" 
       {...props}
     >
       {children}
     </a>
   ),
   blockquote: ({ children, ...props }: any) => (
-    <blockquote className="border-l-4 border-secondary pl-4 italic text-gray-600 my-6" {...props}>
+    <blockquote className="border-l-4 border-brand/60 pl-4 italic text-sand-700 my-6" {...props}>
       {children}
     </blockquote>
   ),
   code: ({ children, ...props }: any) => (
-    <code className="bg-neutral-light px-2 py-1 rounded text-sm" {...props}>
+    <code className="bg-sand-200 px-2 py-1 rounded text-sm font-mono" {...props}>
       {children}
     </code>
   ),
@@ -133,7 +133,7 @@ const components = {
         width={imageWidth}
         height={imageHeight}
         sizes="(max-width: 768px) 100vw, 768px"
-        className="w-full h-auto rounded-lg shadow-md my-6"
+        className="w-full h-auto rounded-card shadow-card my-6"
         {...props}
       />
     )
@@ -220,17 +220,17 @@ export default function PostPage({ params }: PostPageProps) {
 
   const getCategoryColor = (category: string) => {
     const colors: { [key: string]: string } = {
-      'dicas': 'bg-amarelo-quente text-primary-dark',
-      'relatos': 'bg-verde-menta text-primary-dark',
-      'educacao': 'bg-primary text-white',
-      'direitos': 'bg-primary-dark text-white',
-      'geral': 'bg-neutral-light text-gray-700'
+      'dicas': 'bg-brand-soft text-brand-dark',
+      'relatos': 'bg-sand-200 text-sand-800',
+      'educacao': 'bg-brand text-white',
+      'direitos': 'bg-blue-800 text-white',
+      'geral': 'bg-sand-200 text-sand-700'
     }
     return colors[category.toLowerCase()] || colors['geral']
   }
 
   return (
-    <article className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <article className="min-h-screen bg-page">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleJsonLd) }}
@@ -240,11 +240,11 @@ export default function PostPage({ params }: PostPageProps) {
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       {/* Enhanced Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-primary via-azul-profundo to-primary-dark text-white">
+      <div className="relative overflow-hidden bg-gradient-to-br from-blue-800 via-brand to-blue-900 text-white">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-verde-menta/10 rounded-full blur-3xl animate-float-delayed"></div>
+          <div className="absolute top-16 left-8 w-48 h-48 bg-brand-soft/20 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-16 right-8 w-64 h-64 bg-blue-300/20 rounded-full blur-3xl animate-float-delayed"></div>
         </div>
         
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -252,7 +252,7 @@ export default function PostPage({ params }: PostPageProps) {
           <nav className="mb-8 animate-fade-in-up">
             <Link 
               href="/blog" 
-              className="inline-flex items-center gap-2 text-blue-200 hover:text-white transition-colors bg-white/10 backdrop-blur-sm px-4 py-2 rounded-xl hover:bg-white/20"
+              className="inline-flex items-center gap-2 text-blue-100 hover:text-white transition-colors bg-white/10 backdrop-blur-sm px-4 py-2 rounded-pill hover:bg-white/20"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -263,11 +263,11 @@ export default function PostPage({ params }: PostPageProps) {
           
           {/* Category and Featured Badge */}
           <div className="mb-8 flex flex-wrap items-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <span className={`px-4 py-2 rounded-xl text-sm font-semibold shadow-lg backdrop-blur-sm ${getCategoryColor(post.category)}`}>
+            <span className={`px-4 py-2 rounded-pill text-sm font-semibold shadow-card backdrop-blur-sm ${getCategoryColor(post.category)}`}>
               {post.category}
             </span>
             {post.featured && (
-              <div className="bg-gradient-to-r from-amarelo-quente to-orange-400 text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 shadow-lg">
+              <div className="bg-gradient-to-r from-brand-soft to-blue-200 text-blue-900 px-4 py-2 rounded-pill text-sm font-bold flex items-center gap-2 shadow-card">
                 <span className="animate-pulse">✨</span>
                 Post em Destaque
               </div>
@@ -307,7 +307,7 @@ export default function PostPage({ params }: PostPageProps) {
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-3 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
               {post.tags.map((tag, index) => (
-                <span key={index} className="text-sm bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-xl hover:bg-white/30 transition-colors cursor-pointer">
+                <span key={index} className="text-sm bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-pill hover:bg-white/30 transition-colors cursor-pointer">
                   #{tag}
                 </span>
               ))}
@@ -318,37 +318,37 @@ export default function PostPage({ params }: PostPageProps) {
 
       {/* Enhanced Content */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 md:p-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
+        <div className="bg-surface/90 backdrop-blur-sm rounded-block shadow-overlay border border-sand-200 p-8 md:p-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
           {earlyRelated.length > 0 && (
             <div className="mb-8">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <p className="text-sm font-semibold text-primary-dark uppercase tracking-wide">Leia também</p>
+                <div className="w-2 h-2 bg-brand rounded-full"></div>
+                <p className="text-sm font-semibold text-sand-900 uppercase tracking-wide">Leia também</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {earlyRelated.map((item) => (
                   <Link
                     key={item.slug}
                     href={`/blog/${item.slug}`}
-                    className="block rounded-xl border border-neutral-light bg-gray-50/70 px-4 py-3 hover:border-primary hover:bg-primary/5 transition-colors"
+                    className="block rounded-card border border-sand-200 bg-sand-100 px-4 py-3 hover:border-brand hover:bg-brand/5 transition-colors"
                   >
-                    <p className="text-sm text-primary-dark font-semibold line-clamp-2">{item.title}</p>
-                    <p className="text-xs text-gray-500 line-clamp-2 mt-1">{item.excerpt}</p>
+                    <p className="text-sm text-sand-900 font-semibold line-clamp-2">{item.title}</p>
+                    <p className="text-xs text-sand-600 line-clamp-2 mt-1">{item.excerpt}</p>
                   </Link>
                 ))}
               </div>
             </div>
           )}
-          <div className="prose prose-lg max-w-none prose-headings:text-primary-dark prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-primary-dark prose-blockquote:border-l-primary prose-blockquote:bg-gray-50 prose-blockquote:p-6 prose-blockquote:rounded-r-xl">
+          <div className="prose prose-lg max-w-none prose-headings:text-sand-900 prose-a:text-link prose-a:no-underline hover:prose-a:underline prose-strong:text-sand-900 prose-blockquote:border-l-brand prose-blockquote:bg-sand-100 prose-blockquote:p-6 prose-blockquote:rounded-card">
             <MDXRemote source={rewriteInlineJsonLdScripts(post.content)} components={components} />
           </div>
         </div>
 
         {/* Enhanced Call to Action */}
         <div className="mt-16 animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
-          <div className="bg-gradient-to-r from-primary to-azul-profundo rounded-3xl p-8 md:p-12 text-white text-center">
+          <div className="bg-gradient-to-r from-blue-800 to-brand rounded-block p-8 md:p-12 text-white text-center">
             <div className="max-w-3xl mx-auto">
-              <div className="inline-block p-4 bg-white/10 rounded-2xl mb-6">
+              <div className="inline-block p-4 bg-white/10 rounded-card mb-6">
                 <span className="text-4xl">💙</span>
               </div>
               <h3 className="text-3xl md:text-4xl font-bold mb-6">
@@ -360,7 +360,7 @@ export default function PostPage({ params }: PostPageProps) {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
                   href="/blog" 
-                  className="bg-white text-primary font-semibold px-8 py-4 rounded-xl hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+                  className="bg-white text-link font-semibold px-8 py-4 rounded-card hover:bg-brand-soft transition-colors inline-flex items-center gap-2"
                 >
                   <span>Ver Mais Posts</span>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -369,7 +369,7 @@ export default function PostPage({ params }: PostPageProps) {
                 </Link>
                 <Link 
                   href="/contato" 
-                  className="bg-white/20 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-xl hover:bg-white/30 transition-colors inline-flex items-center gap-2 border border-white/30"
+                  className="bg-white/20 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-card hover:bg-white/30 transition-colors inline-flex items-center gap-2 border border-white/30"
                 >
                   <span>Entre em Contato</span>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -385,10 +385,10 @@ export default function PostPage({ params }: PostPageProps) {
         {(remainingRelated.length > 0 || relatedPosts.length > 0) && (
           <div className="mt-16 animate-fade-in-up" style={{ animationDelay: '1.4s' }}>
             <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-primary-dark mb-4">
+              <h3 className="text-3xl font-bold text-sand-900 mb-4">
                 Posts Relacionados
               </h3>
-              <p className="text-gray-600 text-lg">
+              <p className="text-sand-700 text-lg">
                 Continue explorando conteúdos que podem interessar você
               </p>
             </div>

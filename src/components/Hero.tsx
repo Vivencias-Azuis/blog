@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-primary via-azul-profundo to-primary-dark text-white py-24 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-blue-800 via-brand to-blue-900 text-white py-24 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -16,17 +16,17 @@ export default function Hero() {
           <div className="mb-8">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight">
               <span className="block">Vivências</span>
-              <span className="block text-amarelo-quente drop-shadow-lg">Azuis</span>
+              <span className="block text-blue-200 drop-shadow-lg">Azuis</span>
             </h1>
-            <div className="w-24 h-1 bg-amarelo-quente mx-auto rounded-full"></div>
+            <div className="w-24 h-1 bg-blue-200 mx-auto rounded-full"></div>
           </div>
 
           {/* Enhanced Subtitle */}
           <p className="text-xl md:text-2xl lg:text-3xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
             Um espaço digital dedicado a{' '}
-            <span className="text-amarelo-quente font-medium">compartilhar</span>,{' '}
-            <span className="text-verde-menta font-medium">acolher</span> e{' '}
-            <span className="text-amarelo-quente font-medium">inspirar</span> todos que fazem parte 
+            <span className="text-blue-200 font-medium">compartilhar</span>,{' '}
+            <span className="text-brand-soft font-medium">acolher</span> e{' '}
+            <span className="text-blue-200 font-medium">inspirar</span> todos que fazem parte 
             do universo do autismo
           </p>
 
@@ -34,7 +34,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
             <Link 
               href="/blog" 
-              className="group bg-amarelo-quente text-primary-dark font-bold px-10 py-4 rounded-xl hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg text-lg"
+              className="group bg-surface text-link font-bold px-10 py-4 rounded-card hover:bg-brand-soft transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg text-lg"
             >
               <span className="flex items-center gap-2">
                 📚 Explore o Blog
@@ -45,7 +45,7 @@ export default function Hero() {
             </Link>
             <Link 
               href="/sobre" 
-              className="group border-2 border-white text-white font-semibold px-10 py-4 rounded-xl hover:bg-white hover:text-primary transition-all duration-300 transform hover:scale-105 text-lg backdrop-blur-sm"
+              className="group border-2 border-white text-white font-semibold px-10 py-4 rounded-card hover:bg-white hover:text-link transition-all duration-300 transform hover:scale-105 text-lg backdrop-blur-sm"
             >
               <span className="flex items-center gap-2">
                 💙 Conheça Nossa Missão
@@ -59,15 +59,15 @@ export default function Hero() {
           {/* Stats Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-amarelo-quente mb-2">34</div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-200 mb-2">34</div>
               <div className="text-blue-200 text-sm md:text-base">Artigos Publicados</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-verde-menta mb-2">1000+</div>
+              <div className="text-3xl md:text-4xl font-bold text-brand-soft mb-2">1000+</div>
               <div className="text-blue-200 text-sm md:text-base">Famílias Apoiadas</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-amarelo-quente mb-2">24/7</div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-200 mb-2">24/7</div>
               <div className="text-blue-200 text-sm md:text-base">Suporte Disponível</div>
             </div>
           </div>
@@ -76,11 +76,11 @@ export default function Hero() {
       
       {/* Enhanced Floating Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 w-20 h-20 bg-verde-menta rounded-full opacity-20 animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-16 h-16 bg-amarelo-quente rounded-full opacity-20 animate-float-delayed"></div>
+        <div className="absolute top-20 left-10 w-20 h-20 bg-brand-soft rounded-full opacity-20 animate-float"></div>
+        <div className="absolute bottom-20 right-10 w-16 h-16 bg-blue-200 rounded-full opacity-20 animate-float-delayed"></div>
         <div className="absolute top-1/2 right-1/4 w-12 h-12 bg-white rounded-full opacity-10 animate-float-slow"></div>
-        <div className="absolute top-1/3 left-1/4 w-8 h-8 bg-verde-menta rounded-full opacity-15 animate-float"></div>
-        <div className="absolute bottom-1/3 right-1/3 w-14 h-14 bg-amarelo-quente rounded-full opacity-15 animate-float-delayed"></div>
+        <div className="absolute top-1/3 left-1/4 w-8 h-8 bg-brand-soft rounded-full opacity-15 animate-float"></div>
+        <div className="absolute bottom-1/3 right-1/3 w-14 h-14 bg-blue-200 rounded-full opacity-15 animate-float-delayed"></div>
       </div>
 
       {/* Wave Divider */}
