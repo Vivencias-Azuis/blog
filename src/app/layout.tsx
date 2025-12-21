@@ -1,12 +1,13 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Manrope, Source_Serif_4 } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import dynamic from 'next/dynamic'
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' })
+const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-manrope' })
+const sourceSerif = Source_Serif_4({ subsets: ['latin'], display: 'swap', variable: '--font-source-serif' })
 
 const PWAStatus = dynamic(() => import('@/components/PWAStatus'), { ssr: false })
 const PWAInstallPrompt = dynamic(() => import('@/components/PWAInstallPrompt'), { ssr: false })
@@ -104,7 +105,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.className} min-h-screen bg-white text-gray-900`}>
+      <body className={`${manrope.variable} ${sourceSerif.variable} min-h-screen bg-page text-sand-900 font-sans`}>
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-grow">

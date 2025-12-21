@@ -1,0 +1,71 @@
+export const designTokens = {
+  color: {
+    bg: {
+      page: '#F2EFEA',
+      surface: '#FFFFFF',
+      brand: '#1E6DB0',
+      brandSoft: '#D7E7F7',
+    },
+    text: {
+      primary: '#2A2520',
+      secondary: '#4D443A',
+      onBrand: '#FFFFFF',
+    },
+    border: {
+      default: '#DED7D0',
+      brand: '#7AB4E3',
+    },
+    state: {
+      info: '#2F83C7',
+      success: '#1E7A5D',
+      warning: '#C48A1B',
+      error: '#C6453B',
+    },
+    link: {
+      default: '#17528C',
+      hover: '#123A66',
+    },
+  },
+  typography: {
+    displayLg: '36px/44px',
+    displayMd: '28px/36px',
+    headingLg: '22px/30px',
+    headingMd: '18px/26px',
+    headingSm: '16px/24px',
+    bodyLg: '18px/28px',
+    bodyMd: '16px/26px',
+    bodySm: '14px/22px',
+    labelMd: '14px/20px',
+    labelSm: '12px/18px',
+  },
+  spacing: {
+    0: '0px',
+    1: '4px',
+    2: '8px',
+    3: '12px',
+    4: '16px',
+    5: '20px',
+    6: '24px',
+    8: '32px',
+    10: '40px',
+    12: '48px',
+    16: '64px',
+  },
+  radius: {
+    none: '0px',
+    sm: '6px',
+    md: '10px',
+    lg: '16px',
+    pill: '999px',
+  },
+  shadow: {
+    sm: '0 1px 2px rgba(11, 35, 66, 0.08)',
+    md: '0 6px 16px rgba(11, 35, 66, 0.12)',
+    lg: '0 12px 28px rgba(11, 35, 66, 0.16)',
+  },
+  motion: {
+    fast: '120ms',
+    base: '200ms',
+    slow: '320ms',
+  },
+}

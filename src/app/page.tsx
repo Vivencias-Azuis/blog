@@ -4,6 +4,8 @@ import { generatePageMetadata } from '@/lib/metadata'
 import Hero from '@/components/Hero'
 import FeaturedPosts from '@/components/FeaturedPosts'
 import AboutSection from '@/components/AboutSection'
+import CTA from '@/components/design-system/CTA'
+import FeaturedBlock from '@/components/design-system/FeaturedBlock'
 
 const EbookLeadPopup = dynamic(() => import('@/components/EbookLeadPopup'), { ssr: false })
 
@@ -19,6 +21,24 @@ export default function Home() {
     <div className="overflow-x-hidden">
       <Hero />
       <FeaturedPosts />
+      <section className="bg-page">
+        <div className="container-custom py-16 md:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <FeaturedBlock
+              label="Guia essencial"
+              title="Conheca o Vivencias Azuis e nossa missao"
+              description="Entenda por que criamos este espaco e como queremos apoiar familias e profissionais com informacao confiavel."
+              href="/sobre"
+            />
+            <CTA
+              title="Fale com a equipe"
+              description="Tem uma duvida ou sugestao? Estamos prontos para ouvir voce."
+              actionLabel="Entrar em contato"
+              href="/contato"
+            />
+          </div>
+        </div>
+      </section>
       <AboutSection />
       <EbookLeadPopup />
     </div>

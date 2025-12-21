@@ -2,6 +2,7 @@
 
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
+import FormField from '@/components/design-system/FormField'
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xldqvepq'
 
@@ -159,43 +160,24 @@ export default function ContatoPage() {
                   className="space-y-6"
                 >
                   <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" />
-                  <div className="group">
-                    <label htmlFor="nome" className="block text-sm font-semibold text-primary-dark mb-3 group-focus-within:text-primary transition-colors">
-                      Nome *
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id="nome"
-                        name="nome"
-                        value={formData.nome}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-6 py-4 bg-white/80 backdrop-blur-sm border-2 border-neutral-light rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all duration-300 placeholder-gray-400 text-gray-700"
-                        placeholder="Seu nome completo"
-                      />
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                    </div>
-                  </div>
+                  <FormField
+                    label="Nome *"
+                    name="nome"
+                    value={formData.nome}
+                    onChange={handleChange}
+                    required
+                    placeholder="Seu nome completo"
+                  />
 
-                  <div className="group">
-                    <label htmlFor="email" className="block text-sm font-semibold text-primary-dark mb-3 group-focus-within:text-primary transition-colors">
-                      E-mail *
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-6 py-4 bg-white/80 backdrop-blur-sm border-2 border-neutral-light rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all duration-300 placeholder-gray-400 text-gray-700"
-                        placeholder="seu@email.com"
-                      />
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                    </div>
-                  </div>
+                  <FormField
+                    label="E-mail *"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="seu@email.com"
+                  />
 
                   <div className="group">
                     <label htmlFor="assunto" className="block text-sm font-semibold text-primary-dark mb-3 group-focus-within:text-primary transition-colors">
@@ -208,7 +190,7 @@ export default function ContatoPage() {
                         value={formData.assunto}
                         onChange={handleChange}
                         required
-                        className="w-full px-6 py-4 bg-white/80 backdrop-blur-sm border-2 border-neutral-light rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all duration-300 text-gray-700 appearance-none cursor-pointer"
+                        className="w-full rounded-input border border-sand-200 bg-surface px-3 py-2 text-sm text-sand-800 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 appearance-none cursor-pointer"
                       >
                         <option value="">Selecione um assunto</option>
                         <option value="duvida">Dúvida geral</option>
@@ -223,28 +205,19 @@ export default function ContatoPage() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                       </div>
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                     </div>
                   </div>
 
-                  <div className="group">
-                    <label htmlFor="mensagem" className="block text-sm font-semibold text-primary-dark mb-3 group-focus-within:text-primary transition-colors">
-                      Mensagem *
-                    </label>
-                    <div className="relative">
-                      <textarea
-                        id="mensagem"
-                        name="mensagem"
-                        value={formData.mensagem}
-                        onChange={handleChange}
-                        required
-                        rows={6}
-                        className="w-full px-6 py-4 bg-white/80 backdrop-blur-sm border-2 border-neutral-light rounded-2xl focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all duration-300 resize-vertical placeholder-gray-400 text-gray-700"
-                        placeholder="Escreva sua mensagem aqui..."
-                      />
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                    </div>
-                  </div>
+                  <FormField
+                    label="Mensagem *"
+                    name="mensagem"
+                    value={formData.mensagem}
+                    onChange={handleChange}
+                    required
+                    textarea
+                    rows={6}
+                    placeholder="Escreva sua mensagem aqui..."
+                  />
 
                   <button
                     type="submit"

@@ -1,0 +1,28 @@
+# Vivencias Azuis Design System Index
+
+[Foundations / Colors] ./foundations/colors.md
+[Foundations / Typography] ./foundations/typography.md
+[Foundations / Spacing] ./foundations/spacing.md
+[Foundations / Radius] ./foundations/radius.md
+[Foundations / Shadows] ./foundations/shadows.md
+[Foundations / Motion] ./foundations/motion.md
+[Foundations / Tokens] ./foundations/tokens.md
+
+[Components / Header] ./components/header.md
+[Components / Article Card] ./components/article-card.md
+[Components / Article Page] ./components/article-page.md
+[Components / CTA] ./components/cta.md
+[Components / Featured Block] ./components/featured-block.md
+[Components / Form] ./components/form.md
+[Components / Accessibility Controls] ./components/accessibility-controls.md
+
+[Guidelines / Accessibility] ./guidelines/accessibility.md
+[Guidelines / Content] ./guidelines/content.md
+[Guidelines / SEO] ./guidelines/seo.md
+
+[Processes / Governance] ./processes/governance.md
+
+## Quick Links by Audience
+- Designers: [Colors], [Typography], [Components]
+- Developers: [Tokens], [Components], [Accessibility]
+- Content: [Content], [SEO], [Article Page]

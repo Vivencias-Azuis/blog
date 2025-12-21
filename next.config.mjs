@@ -13,6 +13,18 @@ const withMDX = createMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ppl-ai-code-interpreter-files.s3.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pplx-res.cloudinary.com',
+      },
+    ],
+  },
   experimental: {
     mdxRs: false,
   },
