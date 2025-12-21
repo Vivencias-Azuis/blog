@@ -16,6 +16,8 @@
     "normalize-filenames:execute": "node scripts/normalize-filenames.js --execute",
     "convert-md-to-mdx": "node scripts/convert-md-to-mdx.js --dry-run",
     "convert-md-to-mdx:execute": "node scripts/convert-md-to-mdx.js --execute",
+    "download-external-images": "node scripts/download-external-images.js",
+    "fix-image-names": "node scripts/fix-image-names.js",
     "build:full": "npm run llms && npm run build"
   },
   "dependencies": {
