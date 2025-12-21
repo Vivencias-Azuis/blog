@@ -5,6 +5,7 @@ type BaseProps = {
   label: string
   helperText?: string
   error?: string
+  rows?: number
 }
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
