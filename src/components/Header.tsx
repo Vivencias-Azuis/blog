@@ -23,8 +23,9 @@ export default function Header() {
                 src="/new_logo.png"
                 alt="Vivências Azuis"
                 width={220}
-                height={80}
+                height={121}
                 priority
+                sizes="(max-width: 640px) 203px, 220px"
                 className="h-full w-auto object-contain"
               />
             </div>
