@@ -2,6 +2,7 @@ import { notFound, permanentRedirect } from 'next/navigation'
 import { getAllPosts, getPostBySlug, getRelatedPosts, normalizeSlug } from '@/lib/posts'
 import { generateCanonicalUrl, generateImageUrl, generatePostMetadata, generatePostUrl } from '@/lib/metadata'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
@@ -340,7 +341,11 @@ export default function PostPage({ params }: PostPageProps) {
             </div>
           )}
           <div className="prose prose-lg max-w-none prose-headings:text-sand-900 prose-a:text-link prose-a:no-underline hover:prose-a:underline prose-strong:text-sand-900 prose-blockquote:border-l-brand prose-blockquote:bg-sand-100 prose-blockquote:p-6 prose-blockquote:rounded-card">
-            <MDXRemote source={rewriteInlineJsonLdScripts(post.content)} components={components} />
+            <MDXRemote
+              source={rewriteInlineJsonLdScripts(post.content)}
+              components={components}
+              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+            />
           </div>
         </div>
 
