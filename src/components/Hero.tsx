@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import { getAllPosts } from '@/lib/posts'
 
 export default function Hero() {
+  const allPosts = getAllPosts()
+  const postsCount = allPosts.length
   return (
     <section className="relative bg-gradient-to-br from-blue-800 via-brand to-blue-900 text-white py-24 overflow-hidden">
       {/* Background Pattern */}
@@ -59,7 +62,7 @@ export default function Hero() {
           {/* Stats Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-blue-200 mb-2">34</div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-200 mb-2">{postsCount}</div>
               <div className="text-blue-200 text-sm md:text-base">Artigos Publicados</div>
             </div>
             <div className="text-center">
