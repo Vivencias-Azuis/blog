@@ -71,8 +71,18 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/blog/comunicação-aumentativa-e-alternativa-caa',
+        destination: '/blog/comunicacao-aumentativa-e-alternativa-caa',
+        permanent: true,
+      },
+      {
         source: '/blog/comunica%C3%A7%C3%A3o-aumentativa-e-alternativa-caa',
         destination: '/blog/comunicacao-aumentativa-e-alternativa-caa',
+        permanent: true,
+      },
+      {
+        source: '/blog/autism',
+        destination: '/blog',
         permanent: true,
       },
       {
