@@ -105,6 +105,11 @@ const nextConfig = {
         destination: '/blog/profissionais-de-saude-habilitados-para-diagnostico-de-autismo-no-brasil',
         permanent: true,
       },
+      {
+        source: '/blog/qual-plano-de-saude-cobre-tratamento-para-autismo',
+        destination: '/blog/melhores-planos-de-saude-para-criancas-com-autismo',
+        permanent: true,
+      },
     ]
   },
 }
