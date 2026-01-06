@@ -23,6 +23,19 @@ export default function Home() {
       <Hero />
       <FeaturedPosts />
       <section className="bg-page">
+        <div className="container-custom py-8 md:py-10">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-block bg-surface border border-sand-200 shadow-overlay p-6">
+            <h3 className="text-2xl font-bold text-sand-900">Artigos principais</h3>
+            <Link
+              href="/blog/melhores-planos-de-saude-para-criancas-com-autismo"
+              className="text-link font-semibold hover:underline"
+            >
+              🏆 Melhor plano de saude para autismo
+            </Link>
+          </div>
+        </div>
+      </section>
+      <section className="bg-page">
         <div className="container-custom py-12 md:py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-sand-900 mb-4">

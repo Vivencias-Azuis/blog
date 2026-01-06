@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import Link from 'next/link'
 import PostCard from '@/components/PostCard'
 import NewsletterSignup from '@/components/NewsletterSignup'
 import { PostMeta } from '@/lib/posts'
@@ -142,6 +143,20 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+
+        <div className="bg-surface/95 backdrop-blur-lg rounded-block shadow-overlay border border-sand-200 p-6 mb-8 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <p className="text-sand-700 text-lg">
+              Comparação de planos de saúde para autismo com foco em cobertura e rede TEA.
+            </p>
+            <Link
+              href="/blog/melhores-planos-de-saude-para-criancas-com-autismo"
+              className="text-link font-semibold hover:underline"
+            >
+              Comparação de planos de saúde para autismo
+            </Link>
           </div>
         </div>
 
