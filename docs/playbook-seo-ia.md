@@ -37,6 +37,21 @@ Se isso estiver errado, otimizar title/description pode não surtir efeito:
 
 ---
 
+## 0.2 TAMANHO DE POST (GUIA PRÁTICO)
+
+Não existe um "tamanho mágico" único. O que pesa é profundidade e aderência à intenção de busca.
+
+Faixas seguras para decidir rápido:
+- **FAQ ou post bem específico**: 600-900 palavras
+- **Post padrão**: 700-1.200 palavras
+- **Guia competitivo / tema principal**: 1.500-2.500 palavras
+
+Regra para este projeto:
+- Posts de **alta oportunidade** (planos de saúde, inclusão escolar, comunicação, comorbidades) devem ser tratados como **guias de 1.800-2.300 palavras**, com seções claras, FAQs e exemplos práticos.
+- Posts de **apoio** podem ficar mais curtos, desde que resolvam a dúvida por completo.
+
+---
+
 ## 1. TEMPLATE: AUDIT E REESCRITA DE TITLES + DESCRIPTIONS
 
 ### PASSO 1: Use este prompt com sua IA
