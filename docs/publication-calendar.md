@@ -24,7 +24,7 @@ Como funciona o “Criado”:
 | 2026-01-05 | Seg | Saúde | risperidona autismo efeitos colaterais | Risperidona no autismo: efeitos, riscos e quando usar [2026] | risperidona-no-autismo-efeitos-riscos-e-quando-usar-2026 | [ ] | [ ] |
 | 2026-01-07 | Qua | Educação | caa autismo | CAA no autismo: como começar (pranchas, apps e escola) | caa-no-autismo-como-comecar-pranchas-apps-e-escola | [ ] | [ ] |
 | 2026-01-09 | Sex | Direitos | ciptea como solicitar | CIPTEA: como solicitar e quais benefícios destrava [2026] | ciptea-como-solicitar-e-quais-beneficios-destrava-2026 | [ ] | [ ] |
-| 2026-01-12 | Seg | Educação | teacch autismo | Método TEACCH: rotina, estrutura visual e exemplos | metodo-teacch-rotina-estrutura-visual-e-exemplos | [ ] | [ ] |
+| 2026-01-12 | Seg | Educação | teacch autismo | TEACCH no Autismo: Princípios + Como Aplicar + Atividades Práticas | como-funciona-o-teacch-tratamento-e-educacao-para-autistas | [ ] | [ ] |
 | 2026-01-14 | Qua | Direitos | ans nip negativa terapia autismo | Como abrir NIP na ANS (negativa de terapia no TEA) | como-abrir-nip-na-ans-negativa-de-terapia-no-tea | [ ] | [ ] |
 | 2026-01-16 | Sex | Educação | pecs autismo 6 fases | PECS no autismo: 6 fases + exemplos para casa e escola | pecs-no-autismo-6-fases-e-exemplos-para-casa-e-escola | [ ] | [ ] |
 | 2026-01-19 | Seg | Educação | tdah vs autismo | TDAH ou autismo? sinais, diferenças e quando investigar | tdah-ou-autismo-sinais-diferencas-e-quando-investigar | [ ] | [ ] |

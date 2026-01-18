@@ -261,6 +261,20 @@ export default function PostPage({ params }: PostPageProps) {
               Voltar ao Blog
             </Link>
           </nav>
+
+          <div className="mb-6 text-sm text-blue-100/90 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <Link href="/" className="hover:text-white transition-colors">
+              Inicio
+            </Link>
+            <span className="mx-2 text-blue-100/60">/</span>
+            <Link href="/blog" className="hover:text-white transition-colors">
+              Blog
+            </Link>
+            <span className="mx-2 text-blue-100/60">/</span>
+            <span className="text-blue-100/80">{post.category}</span>
+            <span className="mx-2 text-blue-100/60">/</span>
+            <span className="text-blue-100/80">{post.title}</span>
+          </div>
           
           {/* Category and Featured Badge */}
           <div className="mb-8 flex flex-wrap items-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
