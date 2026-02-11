@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { generatePageMetadata } from '@/lib/metadata'
 
 export const metadata: Metadata = generatePageMetadata({
@@ -325,12 +326,12 @@ export default function SobrePage() {
             
             {/* Call to Action */}
             <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href="/blog" className="btn-primary bg-white text-link hover:bg-brand-soft transition-all duration-300">
+              <Link href="/blog" className="btn-primary bg-white text-link hover:bg-brand-soft transition-all duration-300">
                 Explore Nossos Conteúdos
-              </a>
-              <a href="/contato" className="btn-secondary bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all duration-300">
+              </Link>
+              <Link href="/contato" className="btn-secondary bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all duration-300">
                 Entre em Contato
-              </a>
+              </Link>
             </div>
           </div>
         </div>

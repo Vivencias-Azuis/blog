@@ -3,13 +3,11 @@ import { Manrope, Source_Serif_4 } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import dynamic from 'next/dynamic'
+import PWAStatus from '@/components/PWAStatus'
+import PWAInstallPrompt from '@/components/PWAInstallPrompt'
 
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-manrope' })
 const sourceSerif = Source_Serif_4({ subsets: ['latin'], display: 'swap', variable: '--font-source-serif' })
-
-const PWAStatus = dynamic(() => import('@/components/PWAStatus'), { ssr: false })
-const PWAInstallPrompt = dynamic(() => import('@/components/PWAInstallPrompt'), { ssr: false })
 
 export const viewport: Viewport = {
   width: 'device-width',

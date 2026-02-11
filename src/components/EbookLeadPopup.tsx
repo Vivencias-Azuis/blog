@@ -69,7 +69,6 @@ export default function EbookLeadPopup() {
       window.clearTimeout(t)
       window.removeEventListener('keydown', onKeyDown)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
 
   const handleClose = () => {

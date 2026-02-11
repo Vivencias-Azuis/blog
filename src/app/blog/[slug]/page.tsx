@@ -9,9 +9,9 @@ import { Metadata } from 'next'
 import PostCard from '@/components/PostCard'
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 function serializeJsonLd(data: unknown) {
@@ -34,7 +34,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const post = getPostBySlug(normalizeSlug(params.slug))
+  const { slug } = await params
+  const post = getPostBySlug(normalizeSlug(slug))
   
   if (!post) {
     return {
@@ -141,14 +142,15 @@ const components = {
   },
 }
 
-export default function PostPage({ params }: PostPageProps) {
-  const post = getPostBySlug(normalizeSlug(params.slug))
+export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = await params
+  const post = getPostBySlug(normalizeSlug(slug))
 
   if (!post) {
     notFound()
   }
 
-  if (params.slug !== post.slug) {
+  if (slug !== post.slug) {
     permanentRedirect(`/blog/${post.slug}`)
   }
 
