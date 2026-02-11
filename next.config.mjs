@@ -51,6 +51,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/blog/Guia-Computistas-de-Primeira-Viagem-Precisam-Saber',
+        destination: '/blog/guia-completo-pais-autistas-primeira-viagem',
+        permanent: true,
+      },
+      {
         source: '/blog/guia-completo-tudo-que-os-pais-de-autistas-de-primeira-viagem-precisam-saber',
         destination: '/blog/guia-completo-pais-autistas-primeira-viagem',
         permanent: true,
