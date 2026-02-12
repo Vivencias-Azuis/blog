@@ -36,7 +36,7 @@ function getAllPosts() {
         slug,
         title: data.title || slug,
         excerpt: data.excerpt || '',
-        date: data.date || new Date().toISOString(),
+        date: data.datetime || data.date || new Date().toISOString(),
         category: data.category || 'Geral',
         tags: Array.isArray(data.tags) ? data.tags : [],
         featured: data.featured || false,

@@ -71,11 +71,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/blog/Testes-de-rastreamento-M-CHAT-e-Escala-CARS-Funcionamento-e-Aplicacao',
-        destination: '/blog/testes-de-rastreamento-m-chat-e-escala-cars-funcionamento-e-aplicacao',
-        permanent: true,
-      },
-      {
         source: '/blog/comunicação-aumentativa-e-alternativa-caa',
         destination: '/blog/comunicacao-aumentativa-e-alternativa-caa',
         permanent: true,
@@ -98,11 +93,6 @@ const nextConfig = {
       {
         source: '/blog/o-que-%C3%A9-transtorno-no-processamento-sensorial-tps',
         destination: '/blog/o-que-e-transtorno-no-processamento-sensorial-tps',
-        permanent: true,
-      },
-      {
-        source: '/blog/resumo-do-livro-SOS-Autismo-Dr-Gustavo-Teixeira-dra-Mayra-Gaiato',
-        destination: '/blog/resumo-do-livro-sos-autismo-dr-gustavo-teixeira-dra-mayra-gaiato',
         permanent: true,
       },
       {
