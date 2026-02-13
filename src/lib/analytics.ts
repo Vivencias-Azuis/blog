@@ -8,7 +8,7 @@ declare global {
 }
 
 export function hasAnalytics() {
-  return Boolean(GA_MEASUREMENT_ID)
+  return Boolean(GA_MEASUREMENT_ID) && process.env.NODE_ENV === 'production'
 }
 
 export function pageview(url: string) {
