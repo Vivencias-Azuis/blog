@@ -93,6 +93,19 @@ pnpm dev
 4. **Acesse no navegador**
    - Abra [http://localhost:3000](http://localhost:3000)
 
+### Variáveis de ambiente
+
+Crie um arquivo `.env.local` para configurar integrações:
+
+```bash
+# Google Analytics 4 (opcional)
+NEXT_PUBLIC_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+
+# Formspree (opcional; usa fallback se não definir)
+FORMSPREE_EBOOK_ENDPOINT=https://formspree.io/f/xxxxxxx
+FORMSPREE_NEWSLETTER_ENDPOINT=https://formspree.io/f/xxxxxxx
+```
+
 ## 📝 Criando Novos Posts
 
 Para criar um novo post, adicione um arquivo `.mdx` na pasta `src/content/posts/` com o seguinte formato:

@@ -3,6 +3,7 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
 import FormField from '@/components/design-system/FormField'
+import { trackEvent } from '@/lib/analytics'
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xldqvepq'
 
@@ -59,6 +60,11 @@ export default function ContatoPage() {
 
       setSubmitStatus('success')
       setSubmitMessage('Mensagem enviada com sucesso! Entraremos em contato em breve. 💙')
+      trackEvent('lead_submit', {
+        lead_type: 'contact',
+        origem: 'contato-page',
+        location: window.location.pathname,
+      })
       setFormData({ nome: '', email: '', assunto: '', mensagem: '' })
       formEl.reset()
     } catch {
@@ -221,6 +227,7 @@ export default function ContatoPage() {
 
                   <button
                     type="submit"
+                    data-cta="contact_submit"
                     disabled={isSubmitting}
                     className={`w-full py-4 px-8 rounded-2xl font-semibold text-lg transition-all duration-300 transform relative overflow-hidden ${
                       isSubmitting

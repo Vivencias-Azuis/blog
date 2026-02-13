@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
 import PostCard from '@/components/PostCard'
+import PostTracking from '@/components/PostTracking'
 
 interface PostPageProps {
   params: Promise<{
@@ -233,7 +234,8 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="min-h-screen bg-page">
+    <article className="min-h-screen bg-page" data-post-article={post.slug}>
+      <PostTracking slug={post.slug} title={post.title} category={post.category} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleJsonLd) }}

@@ -37,6 +37,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
             <Link 
               href="/blog" 
+              data-cta="hero_explore_blog"
               className="group bg-surface text-link font-bold px-10 py-4 rounded-card hover:bg-brand-soft transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg text-lg"
             >
               <span className="flex items-center gap-2">
@@ -48,6 +49,7 @@ export default function Hero() {
             </Link>
             <Link 
               href="/sobre" 
+              data-cta="hero_about_mission"
               className="group border-2 border-white text-white font-semibold px-10 py-4 rounded-card hover:bg-white hover:text-link transition-all duration-300 transform hover:scale-105 text-lg backdrop-blur-sm"
             >
               <span className="flex items-center gap-2">

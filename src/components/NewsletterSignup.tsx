@@ -2,6 +2,7 @@
 
 import type { FormEvent } from 'react'
 import { useId, useState } from 'react'
+import { trackEvent } from '@/lib/analytics'
 
 const LEAD_ENDPOINT = '/api/newsletter-lead'
 
@@ -56,6 +57,11 @@ export default function NewsletterSignup({ origem = 'blog-cta', className }: New
 
       setSubmitStatus('success')
       setSubmitMessage('Inscrição confirmada! Você começará a receber nossas novidades em breve. 💙')
+      trackEvent('lead_submit', {
+        lead_type: 'newsletter',
+        origem,
+        location: window.location.pathname,
+      })
       setEmail('')
       formEl.reset()
     } catch {
@@ -84,6 +90,7 @@ export default function NewsletterSignup({ origem = 'blog-cta', className }: New
         />
         <button
           type="submit"
+          data-cta="newsletter_submit"
           disabled={isSubmitting}
           className="rounded-card bg-surface px-8 py-4 font-semibold text-link transition-colors hover:bg-brand-soft disabled:cursor-not-allowed disabled:opacity-60"
         >

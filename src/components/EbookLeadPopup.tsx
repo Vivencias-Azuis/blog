@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import type { FormEvent } from 'react'
 import { useEffect, useId, useRef, useState } from 'react'
+import { trackEvent } from '@/lib/analytics'
 
 const LEAD_ENDPOINT = '/api/ebook-lead'
 const DISMISS_KEY = 'va_ebook_popup_dismissed_at'
@@ -123,6 +124,11 @@ export default function EbookLeadPopup() {
 
       setSubmitStatus('success')
       setSubmitMessage('Obrigada! Você receberá o 1º capítulo no e-mail informado. 💙')
+      trackEvent('lead_submit', {
+        lead_type: 'ebook',
+        origem: 'popup-home',
+        location: window.location.pathname,
+      })
       setFormData({ nome: '', email: '' })
       formEl.reset()
       try {
@@ -245,6 +251,7 @@ export default function EbookLeadPopup() {
 
             <button
               type="submit"
+              data-cta="ebook_submit"
               disabled={isSubmitting}
               className="w-full rounded-card bg-gradient-to-r from-brand to-blue-900 px-6 py-3.5 text-sm font-semibold text-white shadow-pop transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
             >

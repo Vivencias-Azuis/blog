@@ -26,6 +26,7 @@ export default function Home() {
             <h3 className="text-2xl font-bold text-sand-900">Artigos principais</h3>
             <Link
               href="/blog/melhores-planos-de-saude-para-criancas-com-autismo"
+              data-cta="home_top_article_planos"
               className="text-link font-semibold hover:underline"
             >
               🏆 Melhor plano de saude para autismo
@@ -46,18 +47,21 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link
               href="/blog/melhores-planos-de-saude-para-criancas-com-autismo"
+              data-cta="home_shortcut_planos"
               className="rounded-block bg-surface border border-sand-200 shadow-overlay p-6 text-lg font-semibold text-sand-900 hover:-translate-y-1 transition-transform"
             >
               Descubra o melhor plano de saude para autismo
             </Link>
             <Link
               href="/blog/lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil"
+              data-cta="home_shortcut_lei"
               className="rounded-block bg-surface border border-sand-200 shadow-overlay p-6 text-lg font-semibold text-sand-900 hover:-translate-y-1 transition-transform"
             >
               Entenda a Lei Berenice Piana e direitos do autismo
             </Link>
             <Link
               href="/blog/aba-para-pais"
+              data-cta="home_shortcut_aba"
               className="rounded-block bg-surface border border-sand-200 shadow-overlay p-6 text-lg font-semibold text-sand-900 hover:-translate-y-1 transition-transform"
             >
               Guia de terapia ABA para pais

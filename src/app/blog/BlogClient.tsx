@@ -153,6 +153,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
             </p>
             <Link
               href="/blog/melhores-planos-de-saude-para-criancas-com-autismo"
+              data-cta="blog_hub_planos"
               className="text-link font-semibold hover:underline"
             >
               Comparação de planos de saúde para autismo
