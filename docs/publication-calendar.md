@@ -65,6 +65,23 @@ Como funciona o “Criado”:
 | 2026-04-10 | Sex | Geral | autista no restaurante | Autista no Restaurante: Como Preparar a Criança e Evitar Crises (Guia Prático) | autista-no-restaurante-dicas-praticas | [x] | [ ] |
 <!-- CALENDAR:END -->
 
+## Sprint SEO + Conversão (Mar/Abr 2026) — Ordem de Execução
+
+| Data | Dia | Tipo | Slug | Objetivo |
+|---|---|---|---|---|
+| 2026-03-02 | Seg | Novo post | lei-berenice-piana-atualizada-2026-pdf-e-direitos | Capturar demanda “lei atualizada pdf” com intenção alta |
+| 2026-03-04 | Qua | Novo post | plano-de-saude-unimed-para-autista-valor-e-cobertura-2026 | Capturar busca comercial de marca + preço |
+| 2026-03-06 | Sex | Novo post | terapia-aba-valor-2026-preco-sessoes-e-reembolso | Capturar intenção de custo e conversão para plano/contato |
+| 2026-03-09 | Seg | Novo post | psicologia-aba-como-funciona-na-pratica-2026 | Capturar intenção informacional com caminho para conversão |
+| 2026-03-11 | Qua | Novo post | caracteristicas-de-autismo-nivel-1-sinais-e-apoios-2026 | Capturar cauda longa de diagnóstico/suporte |
+| 2026-03-13 | Sex | Republicação otimizada | lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil | Subir CTR em página com alta impressão |
+| 2026-03-16 | Seg | Republicação otimizada | niveis-de-suporte-no-tea-e-seu-papel-no-diagnostic | Subir CTR em página com alta impressão |
+| 2026-03-18 | Qua | Republicação otimizada | hospitais-e-clinicas-gratuitas-para-autistas-no-br | Subir CTR em página com boa posição e 0 clique |
+| 2026-03-20 | Sex | Republicação otimizada | metodo-denver-modelo-de-intervencao-precoce-no-tr | Subir CTR em página com boa posição e 0 clique |
+| 2026-03-23 | Seg | Republicação otimizada | comunicacao-nao-verbal-autismo-o-que-fazer-guia-2026 | Melhorar CTR e entrada para cluster PECS/CAA |
+| 2026-03-25 | Qua | Republicação otimizada | como-funciona-o-teacch-tratamento-e-educacao-para-autistas | Melhorar CTR e distribuição de links internos |
+| 2026-03-27 | Sex | Republicação otimizada | como-funciona-picture-exchange-communication-system-pecs | Melhorar CTR e conversão para ebook |
+
 ## Checklist de cada post (PROMPT D + E)
 
 - [ ] Title 50–60 caracteres e começa com keyword
