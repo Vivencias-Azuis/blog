@@ -15,7 +15,6 @@ export default function Hero() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          {/* Main Title with Enhanced Typography */}
           <div className="mb-8">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight">
               <span className="block">Vivências</span>
@@ -24,56 +23,58 @@ export default function Hero() {
             <div className="w-24 h-1 bg-blue-200 mx-auto rounded-full"></div>
           </div>
 
-          {/* Enhanced Subtitle */}
           <p className="text-xl md:text-2xl lg:text-3xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-            Um espaço digital dedicado a{' '}
-            <span className="text-blue-200 font-medium">compartilhar</span>,{' '}
-            <span className="text-brand-soft font-medium">acolher</span> e{' '}
-            <span className="text-blue-200 font-medium">inspirar</span> todos que fazem parte 
-            do universo do autismo
+            Guias práticos para famílias no TEA tomarem decisões com mais segurança sobre{' '}
+            <span className="text-blue-200 font-medium">direitos</span>,{' '}
+            <span className="text-brand-soft font-medium">terapias</span> e{' '}
+            <span className="text-blue-200 font-medium">planos de saúde</span>.
+          </p>
+          <p className="text-base md:text-lg text-blue-100/90 mb-10 max-w-3xl mx-auto">
+            Sem promessas mágicas: conteúdo direto, atualizado para 2026 e aplicável na rotina.
           </p>
 
-          {/* Enhanced CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-10">
             <Link 
-              href="/blog" 
-              data-cta="hero_explore_blog"
+              href="/blog/checklist-primeira-consulta-autismo"
+              data-cta="hero_cta_checklist"
               className="group bg-surface text-link font-bold px-10 py-4 rounded-card hover:bg-brand-soft transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg text-lg"
             >
               <span className="flex items-center gap-2">
-                📚 Explore o Blog
+                Baixar checklist da primeira consulta
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </span>
             </Link>
             <Link 
-              href="/sobre" 
-              data-cta="hero_about_mission"
+              href="/blog/melhores-planos-de-saude-para-criancas-com-autismo"
+              data-cta="hero_cta_planos"
               className="group border-2 border-white text-white font-semibold px-10 py-4 rounded-card hover:bg-white hover:text-link transition-all duration-300 transform hover:scale-105 text-lg backdrop-blur-sm"
             >
               <span className="flex items-center gap-2">
-                💙 Conheça Nossa Missão
+                Ver comparativo de planos para autismo
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </span>
             </Link>
           </div>
+          <p className="text-sm text-blue-100/80 mb-16">
+            Conteúdo para pais, cuidadores e profissionais de educação.
+          </p>
 
-          {/* Stats Section */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-blue-200 mb-2">{postsCount}</div>
-              <div className="text-blue-200 text-sm md:text-base">Artigos Publicados</div>
+              <div className="text-blue-200 text-sm md:text-base">Guias publicados</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-brand-soft mb-2">1000+</div>
-              <div className="text-blue-200 text-sm md:text-base">Famílias Apoiadas</div>
+              <div className="text-3xl md:text-4xl font-bold text-brand-soft mb-2">2026</div>
+              <div className="text-blue-200 text-sm md:text-base">Atualização editorial</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-blue-200 mb-2">24/7</div>
-              <div className="text-blue-200 text-sm md:text-base">Suporte Disponível</div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-200 mb-2">3</div>
+              <div className="text-blue-200 text-sm md:text-base">Temas-chave: direitos, terapias, planos</div>
             </div>
           </div>
         </div>

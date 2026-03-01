@@ -7,10 +7,11 @@ import AboutSection from '@/components/AboutSection'
 import CTA from '@/components/design-system/CTA'
 import FeaturedBlock from '@/components/design-system/FeaturedBlock'
 import EbookLeadPopup from '@/components/EbookLeadPopup'
+import NewsletterSignup from '@/components/NewsletterSignup'
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
-  description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo. Artigos, dicas e experiências sobre TEA, inclusão e desenvolvimento.',
+  description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
   path: '/',
   keywords: ['autismo', 'TEA', 'inclusão', 'blog', 'experiências', 'apoio', 'família', 'desenvolvimento', 'síndrome de asperger', 'transtorno do espectro autista', 'educação', 'direitos'],
 })
@@ -19,6 +20,24 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       <Hero />
+      <section className="bg-page">
+        <div className="container-custom py-10 md:py-12">
+          <div className="rounded-block border border-sand-200 bg-surface p-6 md:p-8 shadow-overlay">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-sand-900 mb-3">
+                Receba o plano semanal para organizar terapias e direitos
+              </h2>
+              <p className="text-sand-700 mb-6">
+                Um e-mail por semana com checklist acionável e links diretos para os guias mais úteis.
+              </p>
+              <NewsletterSignup origem="home-newsletter" />
+              <p className="mt-4 text-sm text-sand-600">
+                Sem spam. Você pode sair quando quiser.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
       <FeaturedPosts />
       <section className="bg-page">
         <div className="container-custom py-8 md:py-10">
@@ -29,7 +48,7 @@ export default function Home() {
               data-cta="home_top_article_planos"
               className="text-link font-semibold hover:underline"
             >
-              🏆 Melhor plano de saude para autismo
+              Melhor plano de saude para autismo
             </Link>
           </div>
         </div>
@@ -41,7 +60,7 @@ export default function Home() {
               Atalhos essenciais para familias
             </h2>
             <p className="text-lg text-sand-700 max-w-3xl mx-auto">
-              Links diretos para os conteudos mais buscados sobre direitos, terapias e escolhas de plano.
+              Comece pelos temas que mais geram duvidas no dia a dia.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -50,21 +69,21 @@ export default function Home() {
               data-cta="home_shortcut_planos"
               className="rounded-block bg-surface border border-sand-200 shadow-overlay p-6 text-lg font-semibold text-sand-900 hover:-translate-y-1 transition-transform"
             >
-              Descubra o melhor plano de saude para autismo
+              Plano de saude para autismo: comparativo rapido
             </Link>
             <Link
               href="/blog/lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil"
               data-cta="home_shortcut_lei"
               className="rounded-block bg-surface border border-sand-200 shadow-overlay p-6 text-lg font-semibold text-sand-900 hover:-translate-y-1 transition-transform"
             >
-              Entenda a Lei Berenice Piana e direitos do autismo
+              Lei Berenice Piana: direitos explicados
             </Link>
             <Link
               href="/blog/aba-para-pais"
               data-cta="home_shortcut_aba"
               className="rounded-block bg-surface border border-sand-200 shadow-overlay p-6 text-lg font-semibold text-sand-900 hover:-translate-y-1 transition-transform"
             >
-              Guia de terapia ABA para pais
+              Terapia ABA para pais: por onde comecar
             </Link>
           </div>
         </div>
