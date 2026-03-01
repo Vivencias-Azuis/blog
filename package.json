@@ -13,6 +13,7 @@
     "start": "next start",
     "lint": "eslint .",
     "llms": "node scripts/generate-llms.js",
+    "cta:audit": "node scripts/audit-post-cta.js",
     "content:generate": "node scripts/generate-content.js",
     "calendar:check": "node scripts/check-publication-calendar.js",
     "normalize-filenames": "node scripts/normalize-filenames.js --dry-run",

@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { Metadata } from 'next'
 import PostCard from '@/components/PostCard'
 import PostTracking from '@/components/PostTracking'
+import PostIntentCTA from '@/components/PostIntentCTA'
 
 interface PostPageProps {
   params: Promise<{
@@ -212,6 +213,12 @@ export default async function PostPage({ params }: PostPageProps) {
   const relatedPosts = getRelatedPosts(post.slug, 3)
   const earlyRelated = relatedPosts.slice(0, 2)
   const remainingRelated = relatedPosts.slice(2)
+  const commercialSignals = ['plano', 'cobertura', 'unimed', 'valor', 'preco', 'preço', 'comparativo', 'clinica', 'clínica']
+  const normalizedTags = post.tags.map((tag) => tag.toLowerCase())
+  const isCommercialIntent =
+    commercialSignals.some((signal) => post.slug.includes(signal)) ||
+    commercialSignals.some((signal) => normalizedTags.some((tag) => tag.includes(signal)))
+  const intent = isCommercialIntent ? 'commercial' : 'informational'
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -234,7 +241,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="min-h-screen bg-page" data-post-article={post.slug}>
+    <article className="min-h-screen bg-page" data-post-article={post.slug} data-post-category={post.category}>
       <PostTracking slug={post.slug} title={post.title} category={post.category} />
       <script
         type="application/ld+json"
@@ -358,6 +365,14 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             </div>
           )}
+
+          <div className="mb-8 rounded-card border border-brand/30 bg-brand/5 p-5">
+            <p className="text-sm font-semibold uppercase tracking-wide text-sand-700 mb-3">
+              Próximo Passo
+            </p>
+            <PostIntentCTA intent={intent} placement="mid" tone="light" />
+          </div>
+
           <div className="prose prose-lg max-w-none prose-headings:text-sand-900 prose-a:text-link prose-a:no-underline hover:prose-a:underline prose-strong:text-sand-900 prose-blockquote:border-l-brand prose-blockquote:bg-sand-100 prose-blockquote:p-6 prose-blockquote:rounded-card">
             <MDXRemote
               source={rewriteInlineJsonLdScripts(post.content)}
@@ -380,26 +395,7 @@ export default async function PostPage({ params }: PostPageProps) {
               <p className="text-xl text-blue-100 mb-8 leading-relaxed">
                 Explore mais artigos sobre autismo, inclusão e experiências que podem ajudar você e sua família.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/blog" 
-                  className="bg-white text-link font-semibold px-8 py-4 rounded-card hover:bg-brand-soft transition-colors inline-flex items-center gap-2"
-                >
-                  <span>Ver Mais Posts</span>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </Link>
-                <Link 
-                  href="/contato" 
-                  className="bg-white/20 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-card hover:bg-white/30 transition-colors inline-flex items-center gap-2 border border-white/30"
-                >
-                  <span>Entre em Contato</span>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                </Link>
-              </div>
+              <PostIntentCTA intent={intent} placement="end" tone="dark" />
             </div>
           </div>
         </div>

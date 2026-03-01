@@ -33,6 +33,16 @@ function inferCtaName(el: HTMLAnchorElement | HTMLButtonElement) {
     .slice(0, 40) || 'unknown_cta'
 }
 
+function getPostContext(el: HTMLAnchorElement | HTMLButtonElement) {
+  const article = el.closest('[data-post-article]')
+  if (!(article instanceof HTMLElement)) return {}
+
+  return {
+    slug: article.dataset.postArticle || undefined,
+    category: article.dataset.postCategory || undefined,
+  }
+}
+
 export default function GoogleAnalytics() {
   const pathname = usePathname()
 
@@ -49,23 +59,25 @@ export default function GoogleAnalytics() {
     const onClick = (event: MouseEvent) => {
       const el = getClickTarget(event.target)
       if (!el) return
+      const postContext = getPostContext(el)
 
       if (el instanceof HTMLAnchorElement && isAffiliateLink(el)) {
         trackEvent('affiliate_click', {
           link_url: el.href,
           link_text: (el.textContent || '').trim().slice(0, 120),
+          location: window.location.pathname,
+          ...postContext,
         })
       }
 
-      const isExplicitCta = Boolean(el.dataset.cta)
-      const ctaHrefMatch = el instanceof HTMLAnchorElement && /(contato|ebook|newsletter|melhores-planos)/i.test(el.href)
-      if (isExplicitCta || ctaHrefMatch) {
-        trackEvent('click_cta', {
-          cta_name: inferCtaName(el),
-          location: window.location.pathname,
-          target_url: el instanceof HTMLAnchorElement ? el.href : undefined,
-        })
-      }
+      if (!el.dataset.cta) return
+
+      trackEvent('click_cta', {
+        cta_name: inferCtaName(el),
+        location: window.location.pathname,
+        target_url: el instanceof HTMLAnchorElement ? el.href : undefined,
+        ...postContext,
+      })
     }
 
     document.addEventListener('click', onClick)
