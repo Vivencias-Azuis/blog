@@ -22,6 +22,26 @@ export default function Home() {
       <Hero />
       <section className="bg-page">
         <div id="plano-semanal" className="container-custom py-10 md:py-12 scroll-mt-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <Link
+              href="/blog/checklist-primeira-consulta-autismo"
+              data-cta="home_route_agir_hoje"
+              className="rounded-card border border-sand-200 bg-white p-5 shadow-overlay hover:-translate-y-0.5 transition-transform"
+            >
+              <span className="block text-sm font-semibold text-link mb-1">Preciso agir hoje</span>
+              <span className="block text-lg font-bold text-sand-900">Checklist da primeira consulta</span>
+              <span className="block text-sm text-sand-600 mt-2">Saia com um plano objetivo para os próximos 7 dias.</span>
+            </Link>
+            <Link
+              href="/blog/melhores-planos-de-saude-para-criancas-com-autismo"
+              data-cta="home_route_decidir_plano"
+              className="rounded-card border border-sand-200 bg-white p-5 shadow-overlay hover:-translate-y-0.5 transition-transform"
+            >
+              <span className="block text-sm font-semibold text-link mb-1">Quero decidir plano</span>
+              <span className="block text-lg font-bold text-sand-900">Comparativo de planos para autismo</span>
+              <span className="block text-sm text-sand-600 mt-2">Veja cobertura, reembolso e limites sem linguagem técnica.</span>
+            </Link>
+          </div>
           <div className="rounded-block border border-sand-200 bg-surface p-6 md:p-8 shadow-overlay">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-2xl md:text-3xl font-bold text-sand-900 mb-3">
@@ -34,6 +54,12 @@ export default function Home() {
               <p className="mt-4 text-sm text-sand-600">
                 Sem spam. Resultado esperado: sair da indecisão e saber o próximo passo da semana.
               </p>
+              <div className="mt-6 rounded-card border border-sand-200 bg-white px-4 py-3 text-left">
+                <p className="text-sm text-sand-700">
+                  “Em duas semanas já conseguimos organizar escola, terapias e documentação sem correria.”
+                </p>
+                <p className="mt-1 text-xs font-semibold text-sand-600">Mãe de criança autista, São Paulo</p>
+              </div>
             </div>
           </div>
         </div>
@@ -57,7 +83,7 @@ export default function Home() {
         <div className="container-custom py-12 md:py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-sand-900 mb-4">
-              Atalhos essenciais para familias
+              Resolva as 3 dúvidas mais comuns em 15 minutos
             </h2>
             <p className="text-lg text-sand-700 max-w-3xl mx-auto">
               Comece pelos temas que mais geram duvidas no dia a dia.
