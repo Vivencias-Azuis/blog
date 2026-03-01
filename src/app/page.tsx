@@ -21,7 +21,7 @@ export default function Home() {
     <div className="overflow-x-hidden">
       <Hero />
       <section className="bg-page">
-        <div className="container-custom py-10 md:py-12">
+        <div id="plano-semanal" className="container-custom py-10 md:py-12 scroll-mt-24">
           <div className="rounded-block border border-sand-200 bg-surface p-6 md:p-8 shadow-overlay">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-2xl md:text-3xl font-bold text-sand-900 mb-3">
@@ -32,7 +32,7 @@ export default function Home() {
               </p>
               <NewsletterSignup origem="home-newsletter" />
               <p className="mt-4 text-sm text-sand-600">
-                Sem spam. Você pode sair quando quiser.
+                Sem spam. Resultado esperado: sair da indecisão e saber o próximo passo da semana.
               </p>
             </div>
           </div>
@@ -70,6 +70,9 @@ export default function Home() {
               className="rounded-block bg-surface border border-sand-200 shadow-overlay p-6 text-lg font-semibold text-sand-900 hover:-translate-y-1 transition-transform"
             >
               Plano de saude para autismo: comparativo rapido
+              <span className="mt-2 block text-sm font-normal text-sand-600">
+                Entenda cobertura, reembolso e limites em leitura de 8 minutos.
+              </span>
             </Link>
             <Link
               href="/blog/lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil"
@@ -77,6 +80,9 @@ export default function Home() {
               className="rounded-block bg-surface border border-sand-200 shadow-overlay p-6 text-lg font-semibold text-sand-900 hover:-translate-y-1 transition-transform"
             >
               Lei Berenice Piana: direitos explicados
+              <span className="mt-2 block text-sm font-normal text-sand-600">
+                Veja o que a escola e o plano nao podem negar.
+              </span>
             </Link>
             <Link
               href="/blog/aba-para-pais"
@@ -84,6 +90,9 @@ export default function Home() {
               className="rounded-block bg-surface border border-sand-200 shadow-overlay p-6 text-lg font-semibold text-sand-900 hover:-translate-y-1 transition-transform"
             >
               Terapia ABA para pais: por onde comecar
+              <span className="mt-2 block text-sm font-normal text-sand-600">
+                Guia direto para iniciar sem sobrecarga na rotina.
+              </span>
             </Link>
           </div>
         </div>
