@@ -1,22 +1,38 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import PostCard from '@/components/PostCard'
 import NewsletterSignup from '@/components/NewsletterSignup'
 import { PostMeta } from '@/lib/posts'
+import { normalizeTaxonomyValue } from '@/lib/taxonomy'
 
 interface BlogClientProps {
   initialPosts: PostMeta[]
+  initialCategory?: string
 }
 
-export default function BlogClient({ initialPosts }: BlogClientProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>('todos')
+export default function BlogClient({ initialPosts, initialCategory }: BlogClientProps) {
+  const normalizedInitialCategory = initialCategory ? normalizeTaxonomyValue(initialCategory) : 'todos'
+  const availableCategories = new Set(initialPosts.map((post) => normalizeTaxonomyValue(post.category)))
+  const initialSelectedCategory =
+    normalizedInitialCategory !== 'todos' && availableCategories.has(normalizedInitialCategory)
+      ? normalizedInitialCategory
+      : 'todos'
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialSelectedCategory)
   const [searchTerm, setSearchTerm] = useState<string>('')
   
   const categories = useMemo(() => {
-    const cats = ['todos', ...Array.from(new Set(initialPosts.map(post => post.category.toLowerCase())))]
-    return cats
+    const uniqueCategories = new Map<string, string>()
+
+    initialPosts.forEach((post) => {
+      const normalizedCategory = normalizeTaxonomyValue(post.category)
+      if (!uniqueCategories.has(normalizedCategory)) {
+        uniqueCategories.set(normalizedCategory, post.category)
+      }
+    })
+
+    return ['todos', ...Array.from(uniqueCategories.keys())]
   }, [initialPosts])
 
   const filteredPosts = useMemo(() => {
@@ -25,7 +41,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
     // Filtrar por categoria
     if (selectedCategory !== 'todos') {
       filtered = filtered.filter(post => 
-        post.category.toLowerCase() === selectedCategory
+        normalizeTaxonomyValue(post.category) === selectedCategory
       )
     }
 
@@ -48,7 +64,11 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
       'relatos': 'Relatos',
       'educacao': 'Educação',
       'direitos': 'Direitos',
-      'geral': 'Geral'
+      'geral': 'Geral',
+      'familia': 'Família',
+      'rotina': 'Rotina',
+      'saude': 'Saúde',
+      'produtos': 'Produtos'
     }
     return names[category] || category.charAt(0).toUpperCase() + category.slice(1)
   }

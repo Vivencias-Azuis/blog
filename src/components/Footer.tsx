@@ -92,6 +92,9 @@ export default function Footer() {
               <Link href="/politica-de-privacidade" className="text-white/80 hover:text-white transition-colors text-sm">
                 Política de Privacidade
               </Link>
+              <Link href="/metodologia-editorial" className="text-white/80 hover:text-white transition-colors text-sm">
+                Metodologia Editorial
+              </Link>
             </div>
           </div>
         </div>

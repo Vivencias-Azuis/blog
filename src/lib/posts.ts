@@ -2,6 +2,9 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import readingTime from 'reading-time'
+import { normalizeTaxonomyValue } from '@/lib/taxonomy'
+import { isDeprecatedPostSlug } from '@/lib/canonical-posts'
+import { normalizeAuthorName } from '@/lib/editorial'
 
 export interface PostMeta {
   slug: string
@@ -67,7 +70,7 @@ export function getAllPosts(): PostMeta[] {
         excerpt: data.excerpt || '',
         datetime: data.datetime || data.date || new Date().toISOString(),
         updated: data.updated || undefined,
-        author: data.author || 'Vivências Azuis',
+        author: normalizeAuthorName(typeof data.author === 'string' ? data.author : 'Equipe Vivências Azuis'),
         category: data.category || 'Geral',
         tags: Array.isArray(data.tags) ? data.tags : [],
         featured: data.featured || false,
@@ -75,6 +78,7 @@ export function getAllPosts(): PostMeta[] {
         coverImage: data.coverImage || data.image || undefined,
       } as PostMeta
     })
+    .filter((post) => !isDeprecatedPostSlug(post.slug))
     .filter((post) => {
       // Filter out posts with future dates
       const postDate = new Date(post.datetime)
@@ -98,7 +102,7 @@ export function getPostBySlug(slug: string): Post | null {
       excerpt: data.excerpt || '',
       datetime: data.datetime || data.date || new Date().toISOString(),
       updated: data.updated || undefined,
-      author: data.author || 'Vivências Azuis',
+      author: normalizeAuthorName(typeof data.author === 'string' ? data.author : 'Equipe Vivências Azuis'),
       category: data.category || 'Geral',
       tags: Array.isArray(data.tags) ? data.tags : [],
       featured: data.featured || false,

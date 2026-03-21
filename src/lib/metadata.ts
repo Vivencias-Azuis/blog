@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { getAuthorProfile } from '@/lib/editorial'
 
 const baseUrl = 'https://www.vivenciasazuis.com.br'
 const defaultSocialImage = '/og-image.png'
@@ -77,12 +78,14 @@ export function generatePostMetadata({
   const socialImage = coverImage || defaultSocialImage
   const imageUrl = generateImageUrl(socialImage)
   const resolvedModifiedTime = modifiedTime || publishedTime
+  const authorProfile = getAuthorProfile(author)
+  const authorUrl = generateCanonicalUrl(`/autores/${authorProfile.slug}`)
 
   return {
     ...generateDefaultMetadata(),
     title,
     description,
-    authors: [{ name: author, url: baseUrl }],
+    authors: [{ name: authorProfile.name, url: authorUrl }],
     creator: author,
     publisher: 'Vivências Azuis',
     keywords: tags,
@@ -98,7 +101,7 @@ export function generatePostMetadata({
       siteName: 'Vivências Azuis',
       publishedTime,
       modifiedTime: resolvedModifiedTime,
-      authors: [author],
+      authors: [authorProfile.name],
       section: category,
       tags,
       images: [

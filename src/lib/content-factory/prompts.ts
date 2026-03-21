@@ -16,7 +16,7 @@ FORMATO DO OUTPUT (OBRIGATÓRIO):
    - title: string (sem emoji)
    - excerpt: string (150-160 caracteres)
    - datetime: ISO 8601 com timezone (ex.: 2025-12-14T10:00:00-03:00)
-   - author: string (padrão: Vivências Azuis)
+   - author: string (padrão: Equipe Vivências Azuis)
    - category: Direitos | Educação | Saúde | Comunicação | Geral
    - tags: array de strings
    - featured: boolean (opcional)
@@ -93,4 +93,3 @@ ${req.rules?.map(r => `- ${r}`).join('\n') || '(nenhuma regra adicional)'}
 Gere o artigo completo com frontmatter YAML válido.
 `
 }
-

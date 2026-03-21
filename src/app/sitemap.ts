@@ -26,10 +26,12 @@ function getPriority(slug: string, lastModified: Date): number {
   if (lowPrioritySlugs.has(slug)) return 0.6
 
   const hubSlugs = new Set([
-    'melhor-plano-de-saude-para-autismo-guia-completo',
+    'melhores-planos-de-saude-para-criancas-com-autismo',
     'lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil',
+    'hospitais-e-clinicas-gratuitas-para-autistas-no-br',
     'aba-para-pais',
     'como-funciona-picture-exchange-communication-system-pecs',
+    'hipersensibilidade-sensorial-autismo-guia-pratico-2026',
   ])
 
   if (hubSlugs.has(slug)) return 0.9

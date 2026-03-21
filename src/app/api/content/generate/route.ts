@@ -9,6 +9,7 @@ import { validateRequest, suggestFix } from '@/lib/content-factory/guardrails'
 import { getSystemPrompt, getUserPrompt } from '@/lib/content-factory/prompts'
 import { FrontmatterCategory, GenerateRequestSchema, GeneratedContentSchema } from '@/lib/content-factory/types'
 import { validateGeneratedContent } from '@/lib/content-factory/validator'
+import { normalizeAuthorName } from '@/lib/editorial'
 
 export const runtime = 'nodejs'
 
@@ -60,8 +61,11 @@ async function loadFewShotPosts() {
 function normalizeFrontmatter(data: Record<string, unknown>, fallbackCategory: FrontmatterCategory) {
   const title = typeof data.title === 'string' ? data.title.trim() : ''
   const excerpt = typeof data.excerpt === 'string' ? data.excerpt.trim() : ''
-  const author =
-    typeof data.author === 'string' && data.author.trim().length > 0 ? data.author.trim() : 'Vivências Azuis'
+  const author = normalizeAuthorName(
+    typeof data.author === 'string' && data.author.trim().length > 0
+      ? data.author.trim()
+      : 'Equipe Vivências Azuis'
+  )
 
   const tags = Array.isArray(data.tags)
     ? data.tags.map(String).map(t => t.trim()).filter(Boolean)

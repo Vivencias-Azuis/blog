@@ -1,6 +1,7 @@
 import { notFound, permanentRedirect } from 'next/navigation'
 import { getAllPosts, getPostBySlug, getRelatedPosts, normalizeSlug } from '@/lib/posts'
 import { generateCanonicalUrl, generateImageUrl, generatePostMetadata, generatePostUrl } from '@/lib/metadata'
+import { getCanonicalPostSlug } from '@/lib/canonical-posts'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
@@ -9,6 +10,8 @@ import { Metadata } from 'next'
 import PostCard from '@/components/PostCard'
 import PostTracking from '@/components/PostTracking'
 import PostIntentCTA from '@/components/PostIntentCTA'
+import EditorialTrustPanel from '@/components/EditorialTrustPanel'
+import { getPostTrustSignals } from '@/lib/editorial'
 
 interface PostPageProps {
   params: Promise<{
@@ -29,7 +32,7 @@ function rewriteInlineJsonLdScripts(mdxSource: string) {
 }
 
 function stripLeadingMarkdownH1(mdxSource: string) {
-  return mdxSource.replace(/^#\s+.+\n+/, '')
+  return mdxSource.replace(/^\s*#\s+.+\n+/, '')
 }
 
 export async function generateStaticParams() {
@@ -41,7 +44,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params
-  const post = getPostBySlug(normalizeSlug(slug))
+  const normalizedSlug = normalizeSlug(slug)
+  const canonicalSlug = getCanonicalPostSlug(normalizedSlug)
+  const post = getPostBySlug(canonicalSlug || normalizedSlug)
   
   if (!post) {
     return {
@@ -150,7 +155,14 @@ const components = {
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params
-  const post = getPostBySlug(normalizeSlug(slug))
+  const normalizedSlug = normalizeSlug(slug)
+  const canonicalSlug = getCanonicalPostSlug(normalizedSlug)
+
+  if (canonicalSlug) {
+    permanentRedirect(`/blog/${canonicalSlug}`)
+  }
+
+  const post = getPostBySlug(normalizedSlug)
 
   if (!post) {
     notFound()
@@ -162,6 +174,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const postUrl = generatePostUrl(post.slug)
   const imageUrl = post.coverImage ? generateImageUrl(post.coverImage) : generateImageUrl('/og-image.png')
+  const trustSignals = getPostTrustSignals(post)
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -175,9 +188,23 @@ export default async function PostPage({ params }: PostPageProps) {
     image: [imageUrl],
     datePublished: new Date(post.datetime).toISOString(),
     dateModified: new Date(post.updated || post.datetime).toISOString(),
-    author: {
-      '@type': 'Person',
-      name: post.author,
+    author:
+      trustSignals.author.kind === 'person'
+        ? {
+            '@type': 'Person',
+            name: trustSignals.author.name,
+            url: trustSignals.authorUrl,
+            description: trustSignals.author.role,
+          }
+        : {
+            '@type': 'Organization',
+            name: trustSignals.author.name,
+            url: trustSignals.authorUrl,
+          },
+    editor: {
+      '@type': 'Organization',
+      name: trustSignals.reviewedBy,
+      url: trustSignals.methodologyUrl,
     },
     publisher: {
       '@type': 'Organization',
@@ -187,6 +214,8 @@ export default async function PostPage({ params }: PostPageProps) {
         url: generateImageUrl('/new_logo.png'),
       },
     },
+    isAccessibleForFree: true,
+    about: post.tags,
   }
 
   const breadcrumbJsonLd = {
@@ -333,6 +362,10 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
           </div>
 
+          <div className="mt-10 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
+            <EditorialTrustPanel post={post} />
+          </div>
+
           {/* Tags */}
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-3 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
@@ -374,7 +407,7 @@ export default async function PostPage({ params }: PostPageProps) {
             <p className="text-sm font-semibold uppercase tracking-wide text-sand-700 mb-3">
               Próximo Passo
             </p>
-            <PostIntentCTA intent={intent} placement="mid" tone="light" />
+            <PostIntentCTA intent={intent} placement="mid" tone="light" post={post} />
           </div>
 
           <div className="prose prose-lg max-w-none prose-headings:text-sand-900 prose-a:text-link prose-a:no-underline hover:prose-a:underline prose-strong:text-sand-900 prose-blockquote:border-l-brand prose-blockquote:bg-sand-100 prose-blockquote:p-6 prose-blockquote:rounded-card">
@@ -399,7 +432,7 @@ export default async function PostPage({ params }: PostPageProps) {
               <p className="text-xl text-blue-100 mb-8 leading-relaxed">
                 Explore mais artigos sobre autismo, inclusão e experiências que podem ajudar você e sua família.
               </p>
-              <PostIntentCTA intent={intent} placement="end" tone="dark" />
+              <PostIntentCTA intent={intent} placement="end" tone="dark" post={post} />
             </div>
           </div>
         </div>

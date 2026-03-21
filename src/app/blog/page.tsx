@@ -10,8 +10,15 @@ export const metadata: Metadata = generatePageMetadata({
   keywords: ['blog', 'artigos', 'autismo', 'TEA', 'inclusão', 'dicas', 'experiências', 'desenvolvimento', 'família', 'educação'],
 })
 
-export default function BlogPage() {
+interface BlogPageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
   const allPosts = getAllPosts()
-  
-  return <BlogClient initialPosts={allPosts} />
+  const resolvedSearchParams = await searchParams
+  const categoriaParam = resolvedSearchParams.categoria
+  const initialCategory = Array.isArray(categoriaParam) ? categoriaParam[0] : categoriaParam
+
+  return <BlogClient initialPosts={allPosts} initialCategory={initialCategory} />
 }

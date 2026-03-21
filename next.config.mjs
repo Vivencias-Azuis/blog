@@ -105,6 +105,41 @@ const nextConfig = {
         destination: '/blog/melhores-planos-de-saude-para-criancas-com-autismo',
         permanent: true,
       },
+      {
+        source: '/blog/melhor-plano-de-saude-para-autismo-guia-completo',
+        destination: '/blog/melhores-planos-de-saude-para-criancas-com-autismo',
+        permanent: true,
+      },
+      {
+        source: '/blog/melhor-plano-de-saude-para-crianca-autista-checklist-2026',
+        destination: '/blog/melhores-planos-de-saude-para-criancas-com-autismo',
+        permanent: true,
+      },
+      {
+        source: '/blog/qual-plano-de-saude-cobre-terapia-aba-2026',
+        destination: '/blog/qual-plano-de-saude-cobre-terapia-aba-autismo',
+        permanent: true,
+      },
+      {
+        source: '/blog/comunicacao-nao-verbal-autismo-o-que-fazer-guia-2026',
+        destination: '/blog/crianca-autista-nao-fala-passo-a-passo-2026',
+        permanent: true,
+      },
+      {
+        source: '/blog/psicologia-aba-como-funciona-na-pratica-2026',
+        destination: '/blog/aba-para-pais',
+        permanent: true,
+      },
+      {
+        source: '/blog/lei-berenice-piana-atualizada-2026-pdf-e-direitos',
+        destination: '/blog/lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil',
+        permanent: true,
+      },
+      {
+        source: '/blog/como-conseguir-vaga-hospitais-clinicas-gratuitas-tea',
+        destination: '/blog/hospitais-e-clinicas-gratuitas-para-autistas-no-br',
+        permanent: true,
+      },
     ]
   },
 }

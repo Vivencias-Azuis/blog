@@ -283,6 +283,51 @@ export default function SobrePage() {
         </div>
       </section>
 
+      <section className="section-padding bg-gradient-to-b from-page to-surface">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12 animate-fade-in-up">
+              <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-6">
+                Como construímos confiança
+              </h2>
+              <p className="text-xl text-sand-700 leading-relaxed">
+                Informação sensível exige mais do que volume. Exige clareza sobre autoria, revisão e limites do conteúdo.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="rounded-3xl border border-sand-200 bg-surface p-8 shadow-card">
+                <h3 className="text-xl font-bold text-sand-900 mb-3">Autoria identificável</h3>
+                <p className="text-sand-700 leading-relaxed">
+                  Cada artigo passa a exibir quem assina e qual é o papel editorial desse autor dentro do portal.
+                </p>
+              </div>
+              <div className="rounded-3xl border border-sand-200 bg-surface p-8 shadow-card">
+                <h3 className="text-xl font-bold text-sand-900 mb-3">Revisão editorial</h3>
+                <p className="text-sand-700 leading-relaxed">
+                  Temas sobre direitos, saúde, terapias e cobertura recebem sinalização explícita de revisão e data de atualização.
+                </p>
+              </div>
+              <div className="rounded-3xl border border-sand-200 bg-surface p-8 shadow-card">
+                <h3 className="text-xl font-bold text-sand-900 mb-3">Metodologia pública</h3>
+                <p className="text-sand-700 leading-relaxed">
+                  Nossa política editorial deixa claro como apuramos fontes e onde o conteúdo deve parar para dar lugar à orientação profissional.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-4 justify-center">
+              <Link href="/metodologia-editorial" className="btn-primary">
+                Ver metodologia editorial
+              </Link>
+              <Link href="/autores/equipe-vivencias-azuis" className="btn-secondary">
+                Ver equipe editorial
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Enhanced Nossa Missão */}
       <section className="section-padding bg-gradient-to-br from-blue-800 via-brand to-blue-900 text-white relative overflow-hidden">
         {/* Background Pattern */}
