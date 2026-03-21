@@ -4,6 +4,7 @@ import { getAllPosts } from '@/lib/posts'
 export default function Hero() {
   const allPosts = getAllPosts()
   const postsCount = allPosts.length
+
   return (
     <section className="relative bg-gradient-to-br from-blue-800 via-brand to-blue-900 text-white py-24 overflow-hidden">
       {/* Background Pattern */}
@@ -16,10 +17,15 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <div className="mb-8">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 leading-tight">
-              <span className="block">Vivências</span>
-              <span className="block text-blue-200 drop-shadow-lg">Azuis</span>
+            <p className="text-sm md:text-base font-semibold uppercase tracking-[0.24em] text-blue-100/90 mb-5">
+              Vivências Azuis
+            </p>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight max-w-5xl mx-auto">
+              Autismo na prática para famílias: direitos, terapias e planos de saúde
             </h1>
+            <p className="text-lg md:text-2xl text-blue-200 font-medium max-w-4xl mx-auto">
+              Conteúdo direto para decidir o próximo passo sem se perder em burocracia.
+            </p>
             <div className="w-24 h-1 bg-blue-200 mx-auto rounded-full"></div>
           </div>
 

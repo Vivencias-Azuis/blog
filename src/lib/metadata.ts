@@ -1,6 +1,17 @@
 import { Metadata } from 'next'
 
 const baseUrl = 'https://www.vivenciasazuis.com.br'
+const defaultSocialImage = '/og-image.png'
+
+function inferImageType(imagePath: string): string {
+  const normalizedPath = imagePath.toLowerCase()
+
+  if (normalizedPath.endsWith('.png')) return 'image/png'
+  if (normalizedPath.endsWith('.jpg') || normalizedPath.endsWith('.jpeg')) return 'image/jpeg'
+  if (normalizedPath.endsWith('.webp')) return 'image/webp'
+
+  return 'image/png'
+}
 
 export function generateCanonicalUrl(path: string): string {
   return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`
@@ -63,7 +74,8 @@ export function generatePostMetadata({
   coverImage?: string
 }): Metadata {
   const postUrl = generatePostUrl(slug)
-  const imageUrl = coverImage ? generateImageUrl(coverImage) : generateImageUrl('/logo-text.svg')
+  const socialImage = coverImage || defaultSocialImage
+  const imageUrl = generateImageUrl(socialImage)
   const resolvedModifiedTime = modifiedTime || publishedTime
 
   return {
@@ -95,7 +107,7 @@ export function generatePostMetadata({
           width: 1200,
           height: 630,
           alt: title,
-          type: coverImage && coverImage.endsWith('.png') ? 'image/png' : coverImage && coverImage.endsWith('.jpg') ? 'image/jpeg' : 'image/svg+xml',
+          type: inferImageType(socialImage),
         },
       ],
     },
@@ -129,6 +141,7 @@ export function generatePageMetadata({
   keywords?: string[]
 }): Metadata {
   const pageUrl = generateCanonicalUrl(path)
+  const imageUrl = generateImageUrl(defaultSocialImage)
 
   return {
     ...generateDefaultMetadata(),
@@ -147,11 +160,11 @@ export function generatePageMetadata({
       siteName: 'Vivências Azuis',
       images: [
         {
-          url: generateImageUrl('/logo-text.svg'),
+          url: imageUrl,
           width: 1200,
           height: 630,
           alt: title,
-          type: 'image/svg+xml',
+          type: 'image/png',
         },
       ],
     },
@@ -161,7 +174,7 @@ export function generatePageMetadata({
       creator: '@vivenciasazuis',
       title,
       description,
-      images: [generateImageUrl('/logo-text.svg')],
+      images: [imageUrl],
     },
   }
 }

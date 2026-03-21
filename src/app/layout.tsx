@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     default: 'Vivências Azuis',
     template: '%s | Vivências Azuis'
   },
-  description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo. Artigos, dicas e experiências sobre TEA, inclusão e desenvolvimento.',
+  description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
   keywords: ['autismo', 'TEA', 'inclusão', 'blog', 'experiências', 'apoio', 'família', 'desenvolvimento', 'síndrome de asperger', 'transtorno do espectro autista'],
   authors: [{ name: 'Vivências Azuis', url: 'https://www.vivenciasazuis.com.br' }],
   creator: 'Vivências Azuis',
@@ -60,15 +60,15 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     url: 'https://www.vivenciasazuis.com.br',
     title: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
-    description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo. Artigos, dicas e experiências sobre TEA, inclusão e desenvolvimento.',
+    description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
     siteName: 'Vivências Azuis',
     images: [
       {
-        url: '/logo-text.svg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
-        type: 'image/svg+xml',
+        type: 'image/png',
       },
     ],
   },
@@ -77,8 +77,8 @@ export const metadata: Metadata = {
     site: '@vivenciasazuis',
     creator: '@vivenciasazuis',
     title: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
-    description: 'Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo.',
-    images: ['/logo-text.svg'],
+    description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,

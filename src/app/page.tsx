@@ -10,15 +10,45 @@ import EbookLeadPopup from '@/components/EbookLeadPopup'
 import NewsletterSignup from '@/components/NewsletterSignup'
 
 export const metadata: Metadata = generatePageMetadata({
-  title: 'Vivências Azuis - Blog sobre Autismo e Inclusão',
+  title: 'Autismo na prática: direitos, terapias e planos de saúde',
   description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
   path: '/',
   keywords: ['autismo', 'TEA', 'inclusão', 'blog', 'experiências', 'apoio', 'família', 'desenvolvimento', 'síndrome de asperger', 'transtorno do espectro autista', 'educação', 'direitos'],
 })
 
 export default function Home() {
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Vivências Azuis',
+    url: 'https://www.vivenciasazuis.com.br',
+    logo: 'https://www.vivenciasazuis.com.br/new_logo.png',
+    description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
+  }
+
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Vivências Azuis',
+    url: 'https://www.vivenciasazuis.com.br',
+    inLanguage: 'pt-BR',
+    description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Vivências Azuis',
+    },
+  }
+
   return (
     <div className="overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c') }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c') }}
+      />
       <Hero />
       <section className="bg-page">
         <div id="plano-semanal" className="container-custom py-10 md:py-12 scroll-mt-24">

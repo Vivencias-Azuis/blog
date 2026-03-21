@@ -28,6 +28,10 @@ function rewriteInlineJsonLdScripts(mdxSource: string) {
   )
 }
 
+function stripLeadingMarkdownH1(mdxSource: string) {
+  return mdxSource.replace(/^#\s+.+\n+/, '')
+}
+
 export async function generateStaticParams() {
   const posts = getAllPosts()
   return posts.map((post) => ({
@@ -157,7 +161,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const postUrl = generatePostUrl(post.slug)
-  const imageUrl = post.coverImage ? generateImageUrl(post.coverImage) : generateImageUrl('/logo-text.svg')
+  const imageUrl = post.coverImage ? generateImageUrl(post.coverImage) : generateImageUrl('/og-image.png')
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -180,7 +184,7 @@ export default async function PostPage({ params }: PostPageProps) {
       name: 'Vivências Azuis',
       logo: {
         '@type': 'ImageObject',
-        url: generateImageUrl('/logo-text.svg'),
+        url: generateImageUrl('/new_logo.png'),
       },
     },
   }
@@ -375,7 +379,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
           <div className="prose prose-lg max-w-none prose-headings:text-sand-900 prose-a:text-link prose-a:no-underline hover:prose-a:underline prose-strong:text-sand-900 prose-blockquote:border-l-brand prose-blockquote:bg-sand-100 prose-blockquote:p-6 prose-blockquote:rounded-card">
             <MDXRemote
-              source={rewriteInlineJsonLdScripts(post.content)}
+              source={rewriteInlineJsonLdScripts(stripLeadingMarkdownH1(post.content))}
               components={components}
               options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
             />
