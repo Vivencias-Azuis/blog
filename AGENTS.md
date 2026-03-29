@@ -1,45 +1,72 @@
-# Repository Guidelines
+# AGENTS.md
 
-## Project Structure & Module Organization
+## Escopo
 
-- `src/app/`: Next.js App Router pages, layouts, and API routes (e.g., `src/app/api/*/route.ts`).
-- `src/components/`: Reusable React components (UI + content blocks).
-- `src/lib/`: Content and utility modules (e.g., `src/lib/posts.ts` for MDX loading/filtering).
-- `src/content/posts/`: Blog posts in `.mdx` (filename becomes the post slug).
-- `public/`: Static assets served at `/` (icons, `site.webmanifest`, `sw.js`, generated `llms.txt`).
-- `scripts/`: Content/SEO automation (see `scripts/README.md`).
-- `docs/`: Editorial/SEO playbooks and planning notes.
+Estas instruções valem para o projeto `VA_blog`, um app editorial em Next.js 15 com conteúdo MDX, captação de leads, SEO técnico e automações de operação de conteúdo.
 
-## Build, Test, and Development Commands
+## Estrutura que importa
 
-- `npm run dev`: Run locally at `http://localhost:3000`.
-- `npm run build`: Production build (validates routes/content at build time).
-- `npm run start`: Serve the built app.
-- `npm run lint`: Run Next.js ESLint rules (`next/core-web-vitals`).
-- `npm run build:full`: Generate `llms.txt` then build.
-- `npm run llms`: Regenerate `public/llms.txt` from `src/content/posts/`.
-- `npm run calendar:check`: Validate publication schedule rules (see `scripts/check-publication-calendar.js`).
-- `npm run normalize-filenames`: Preview post filename normalization to kebab-case.
-- `npm run normalize-filenames:execute`: Apply filename normalization (review slugs/redirects first).
+- `src/app/`: App Router, páginas institucionais, blog e rotas API.
+- `src/app/api/content/generate/route.ts`: geração assistida de conteúdo com OpenAI.
+- `src/app/api/ebook-lead/route.ts` e `src/app/api/newsletter-lead/route.ts`: integração com Formspree.
+- `src/content/posts/`: posts publicados em `.mdx`; filename define o slug.
+- `src/lib/posts.ts`: leitura, ordenação, filtros, normalização de slug e bloqueio de posts futuros.
+- `src/lib/metadata.ts`, `src/lib/editorial.ts`, `src/lib/taxonomy.ts`: SEO, autoria e taxonomia.
+- `src/lib/content-factory/`: schemas, prompts e guardrails da fábrica de conteúdo.
+- `public/`: assets públicos, PWA, imagens, `robots.txt`, `llms.txt`.
+- `scripts/`: automações para geração, auditoria e manutenção editorial.
 
-## Coding Style & Naming Conventions
+## Comandos padrão
 
-- TypeScript + React (Next.js 14). Prefer the `@/*` path alias for `src/*`.
-- Match existing style: 2-space indentation, single quotes, no semicolons.
-- Posts: keep filenames lowercase kebab-case (no accents), e.g. `src/content/posts/aba-para-pais.mdx`.
-- MDX frontmatter: prefer `datetime` (ISO8601 with timezone). `date` is supported for legacy posts.
+- `npm run dev`: desenvolvimento local.
+- `npm run dev:external`: desenvolvimento com acesso externo.
+- `npm run lint`: validação mínima obrigatória.
+- `npm run build`: validação forte para rotas, MDX e metadata.
+- `npm run build:full`: regenera `llms.txt` antes do build.
 
-## Testing Guidelines
+Quando a tarefa mexer com conteúdo ou slugs, considere também:
 
-- No dedicated test runner is configured. Before opening a PR, run `npm run lint` and `npm run build`.
-- For content changes, sanity-check key routes in `npm run dev` (home, `/blog`, and an edited post).
+- `npm run llms`
+- `npm run calendar:check`
+- `npm run normalize-filenames`
 
-## Commit & Pull Request Guidelines
+## Convenções do projeto
 
-- Commit messages follow an imperative style (e.g., “Add…”, “Update…”, “Enhance…”). Keep subject lines concise.
-- PRs should include: a clear description of intent, manual verification steps, and screenshots for UI changes.
-- If a post slug/filename changes, add a redirect in `next.config.mjs` to preserve existing URLs.
+- Stack: Next.js App Router, React 19, TypeScript, Tailwind e MDX.
+- Estilo atual: 2 espaços, aspas simples, sem ponto e vírgula.
+- Use imports com alias `@/*` quando estiver em `src`.
+- Não trate `date` como padrão novo. Prefira `datetime` no frontmatter.
+- Categorias publicadas seguem capitalização editorial, como `Saúde`, `Educação`, `Direitos`, `Comunicação` e `Geral`.
+- Slugs e filenames devem ser lowercase kebab-case, sem acentos.
 
-## Security & Configuration Tips
+## Regras editoriais e de conteúdo
 
-- Form submissions use Formspree endpoints; set `FORMSPREE_EBOOK_ENDPOINT` and/or `FORMSPREE_NEWSLETTER_ENDPOINT` in `.env.local` for non-production testing.
+- Nunca publique post com data futura sem entender o impacto: o app filtra esses posts em `getAllPosts()` e `getPostBySlug()`.
+- Ao renomear post ou trocar slug, revise `next.config.mjs` para preservar redirects.
+- Se a mudança tocar CTA, newsletter, e-book ou intenção comercial, revise componentes como `PostIntentCTA`, `NewsletterSignup` e `EbookLeadPopup`.
+- Se a mudança tocar confiança editorial, revise `src/lib/editorial.ts` e a página `src/app/metodologia-editorial/page.tsx`.
+
+## Regras para mudanças em IA
+
+- O endpoint `/api/content/generate` depende de `OPENAI_API_KEY`.
+- Requests são validadas com Zod e guardrails antes da chamada ao modelo.
+- Conteúdo gerado deve ir para `src/content/review-queue/`, não para publicação automática.
+- Se alterar schema, prompts ou validações, preserve compatibilidade entre:
+  - `src/lib/content-factory/types.ts`
+  - `src/lib/content-factory/guardrails.ts`
+  - `src/lib/content-factory/validator.ts`
+  - `src/app/api/content/generate/route.ts`
+
+## Validação esperada
+
+- Mudanças de código: rode `npm run lint` e `npm run build` quando viável.
+- Mudanças de conteúdo: valide `/`, `/blog` e pelo menos um post afetado.
+- Mudanças em formulários: teste `POST /api/ebook-lead` ou `POST /api/newsletter-lead` no fluxo real ou com inspeção local.
+- Mudanças em slug/canonical/metadata: confira redirects, canonical e JSON-LD.
+
+## O que evitar
+
+- Não reintroduza texto genérico de template no README ou em páginas institucionais.
+- Não assuma que `scripts/README.md` é a fonte da verdade; confira `package.json` e os scripts reais.
+- Não remova redirects antigos sem confirmar que a URL já não recebe tráfego.
+- Não sobrescreva mudanças do usuário em `docs/` ou outras áreas fora do escopo sem pedido explícito.

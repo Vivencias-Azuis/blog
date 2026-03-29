@@ -1,284 +1,204 @@
-# Vivências Azuis - Blog
+# Vivências Azuis
 
-Um espaço digital dedicado a compartilhar, acolher e inspirar todos que fazem parte do universo do autismo.
+Blog editorial em Next.js voltado a famílias atípicas, com foco prático em autismo, direitos, terapias, rotina e decisões sobre planos de saúde. O projeto combina conteúdo em MDX, SEO técnico, captação de leads e automações para produção editorial.
 
-## 🌟 Sobre o Projeto
+## Visão geral
 
-**Vivências Azuis** é um blog construído com Next.js e MDX, focado em criar uma comunidade inclusiva e acolhedora para pessoas autistas, familiares, educadores e profissionais. Aqui, histórias reais, dicas práticas e conhecimento especializado se unem para promover mais inclusão, respeito e empatia no dia a dia.
+- Stack principal: Next.js 15, React 19, TypeScript, Tailwind CSS e MDX.
+- Modelo de conteúdo: posts em `src/content/posts/*.mdx`, renderizados via App Router.
+- Distribuição editorial: home orientada por jornadas, listagem de blog, páginas institucionais e páginas de autor.
+- Aquisição e retenção: CTAs, newsletter, popup de e-book e endpoints próprios para envio via Formspree.
+- Operação de conteúdo: scripts de geração, normalização de arquivos, auditoria de CTA e fábrica de conteúdo com OpenAI.
+- SEO e confiança: metadata centralizada, JSON-LD, redirects canônicos, `llms.txt`, PWA e filtros para não publicar posts com data futura.
 
-### 🎯 Missão
+## Principais áreas do projeto
 
-Dar voz, visibilidade e suporte a cada trajetória dentro do espectro, celebrando a diversidade e promovendo um mundo mais azul, inclusivo e humano.
-
-### 💙 Identidade Visual
-
-Nossa paleta de cores foi escolhida para transmitir tranquilidade, acessibilidade e empatia:
-
-- **Azul Suave (#7DB8E5)**: Cor principal, remete à campanha mundial do autismo
-- **Azul Profundo (#335C81)**: Para títulos e contrastes importantes
-- **Verde Menta (#83D0C9)**: Destaque e sensação de acolhimento
-- **Amarelo Quente (#FFD066)**: Toques de alegria e otimismo
-- **Cinza Claro (#E9E9E9)**: Neutro para áreas secundárias
-- **Branco (#FFFFFF)**: Fundos e respiros para acessibilidade
-
-## 🚀 Tecnologias Utilizadas
-
-- **Next.js 14** - Framework React para produção
-- **TypeScript** - Tipagem estática
-- **MDX** - Markdown com componentes React para posts
-- **Tailwind CSS** - Estilização com classes utilitárias
-- **Gray Matter** - Processamento de frontmatter dos posts
-- **Reading Time** - Cálculo de tempo de leitura
-- **Remark GFM** - Suporte a GitHub Flavored Markdown
-
-## 📁 Estrutura do Projeto
-
-```
+```text
 src/
-├── app/                    # App Router do Next.js
-│   ├── blog/              # Páginas do blog
-│   ├── sobre/             # Página sobre
-│   ├── contato/           # Página de contato
-│   ├── layout.tsx         # Layout raiz
-│   ├── page.tsx           # Página inicial
-│   ├── globals.css        # Estilos globais
-│   └── not-found.tsx      # Página 404
-├── components/            # Componentes React reutilizáveis
-│   ├── Header.tsx         # Cabeçalho com navegação
-│   ├── Footer.tsx         # Rodapé
-│   ├── Hero.tsx           # Seção hero da homepage
-│   ├── AboutSection.tsx   # Seção sobre na homepage
-│   ├── FeaturedPosts.tsx  # Posts em destaque
-│   └── PostCard.tsx       # Card de post
-├── content/
-│   └── posts/             # Posts em MDX
-├── lib/
-│   └── posts.ts           # Funções para gerenciar posts
-└── types/                 # Definições de tipos TypeScript
+  app/
+    api/
+      content/generate/      Geração assistida de conteúdo em MDX
+      ebook-lead/            Captura de leads do e-book
+      newsletter-lead/       Captura de leads da newsletter
+    blog/                    Listagem e detalhe de posts
+    autores/[slug]/          Páginas de autor
+    contato/                 Página e metadata de contato
+    metodologia-editorial/   Transparência editorial
+    politica-de-privacidade/ Página institucional
+    sobre/                   Página institucional
+    termos-de-uso/           Página institucional
+  components/                UI de páginas, blog, tracking, CTA e PWA
+  content/posts/             Base editorial publicada em MDX
+  lib/                       Posts, metadata, taxonomia, editorial e analytics
+  lib/content-factory/       Guardrails, prompts e schemas da geração por IA
+public/                      Assets, manifest, service worker, robots, llms.txt
+scripts/                     Automações editoriais e manutenção de conteúdo
 ```
 
-## 🛠️ Instalação e Execução
+Hoje o repositório tem 90 posts em `src/content/posts/`.
 
-### Pré-requisitos
+## Requisitos
 
-- Node.js 18+ 
-- npm, yarn ou pnpm
+- Node.js `>=20.9.0`
+- npm
 
-### Passos
+## Instalação
 
-1. **Clone o repositório**
-```bash
-git clone https://github.com/seu-usuario/vivencias-azuis-blog.git
-cd vivencias-azuis-blog
-```
-
-2. **Instale as dependências**
 ```bash
 npm install
-# ou
-yarn install
-# ou
-pnpm install
 ```
 
-3. **Execute o servidor de desenvolvimento**
+## Desenvolvimento
+
 ```bash
 npm run dev
-# ou
-yarn dev
-# ou
-pnpm dev
 ```
 
-4. **Acesse no navegador**
-   - Abra [http://localhost:3000](http://localhost:3000)
+O app sobe em `http://localhost:3000`.
 
-### Variáveis de ambiente
-
-Crie um arquivo `.env.local` para configurar integrações:
+Para expor na rede local:
 
 ```bash
-# Google Analytics 4 (opcional)
-NEXT_PUBLIC_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
-
-# Formspree (opcional; usa fallback se não definir)
-FORMSPREE_EBOOK_ENDPOINT=https://formspree.io/f/xxxxxxx
-FORMSPREE_NEWSLETTER_ENDPOINT=https://formspree.io/f/xxxxxxx
+npm run dev:external
 ```
 
-## 📝 Criando Novos Posts
+## Scripts disponíveis
 
-Para criar um novo post, adicione um arquivo `.mdx` na pasta `src/content/posts/` com o seguinte formato:
+### Aplicação
+
+- `npm run dev`: ambiente local com `NEXT_DIST_DIR=.next-dev`
+- `npm run dev:external`: expõe o servidor em `0.0.0.0`
+- `npm run build`: build de produção
+- `npm run start`: sobe a aplicação buildada
+- `npm run lint`: roda ESLint no projeto inteiro
+
+### Conteúdo e operação editorial
+
+- `npm run llms`: regenera `public/llms.txt`
+- `npm run cta:audit`: audita CTAs dos posts
+- `npm run content:generate`: executa a automação local de geração de conteúdo
+- `npm run calendar:check`: valida regras de calendário/publicação
+- `npm run normalize-filenames`: simula normalização de nomes para kebab-case
+- `npm run normalize-filenames:execute`: aplica a normalização de nomes
+- `npm run convert-md-to-mdx`: simula conversão de `.md` para `.mdx`
+- `npm run convert-md-to-mdx:execute`: aplica a conversão
+- `npm run download-external-images`: baixa imagens externas referenciadas nos posts
+- `npm run fix-image-names`: corrige nomes de assets de imagem
+- `npm run build:full`: gera `llms.txt` e roda o build
+
+## Variáveis de ambiente
+
+Crie um `.env.local` quando precisar dessas integrações:
+
+```bash
+# Analytics
+NEXT_PUBLIC_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+
+# Leads
+FORMSPREE_EBOOK_ENDPOINT=https://formspree.io/f/xxxxxxx
+FORMSPREE_NEWSLETTER_ENDPOINT=https://formspree.io/f/xxxxxxx
+
+# Fábrica de conteúdo
+OPENAI_API_KEY=sk-...
+OPENAI_CONTENT_MODEL=gpt-4.1-mini
+OPENAI_MAX_OUTPUT_TOKENS=3500
+```
+
+Observações:
+
+- `FORMSPREE_NEWSLETTER_ENDPOINT` faz fallback para `FORMSPREE_EBOOK_ENDPOINT`.
+- Sem `NEXT_PUBLIC_GA4_MEASUREMENT_ID`, o tracking fica desativado.
+- O endpoint `/api/content/generate` exige `OPENAI_API_KEY`.
+
+## Fluxo editorial
+
+### Publicar um novo post manualmente
+
+1. Crie um arquivo `.mdx` em `src/content/posts/`.
+2. Use filename em kebab-case, sem acentos.
+3. Preencha o frontmatter mínimo.
+4. Rode `npm run lint` e, idealmente, `npm run build`.
+
+Exemplo:
 
 ```mdx
 ---
-title: "Título do seu post"
-excerpt: "Breve descrição do conteúdo"
-date: "2024-01-15"
-author: "Seu Nome"
-category: "Categoria" # Dicas, Relatos, Educacao, Direitos, Geral
-tags: ["tag1", "tag2", "tag3"]
-featured: false # true para posts em destaque
+title: "Título do post"
+excerpt: "Resumo curto e claro."
+datetime: "2026-03-28T09:00:00-03:00"
+author: "Equipe Vivências Azuis"
+category: "Saúde"
+tags: ["autismo", "rotina", "familia"]
+featured: false
+coverImage: "/images/posts/exemplo.png"
 ---
 
-# Título do Post
-
-Conteúdo do seu post em Markdown...
-
-## Seções
-
-Você pode usar todos os recursos do Markdown e MDX aqui.
+Conteúdo em MDX.
 ```
 
-### Categorias Disponíveis
+### Regras importantes de conteúdo
 
-- **Dicas**: Estratégias práticas e dicas úteis
-- **Relatos**: Experiências pessoais e histórias
-- **Educacao**: Conteúdo sobre educação inclusiva
-- **Direitos**: Informações sobre direitos e legislação
-- **Geral**: Conteúdo geral sobre autismo e inclusão
+- `datetime` é o campo preferido no frontmatter.
+- `date` ainda é aceito como legado.
+- Posts com data futura não entram em listagens, rotas estáticas nem leitura normal.
+- Slugs são derivados do nome do arquivo e normalizados.
+- Alterou slug ou renomeou arquivo? revise `next.config.mjs` para manter redirects.
 
-## 🎨 Personalização
+### Geração assistida por IA
 
-### Cores do Tema
+O endpoint `POST /api/content/generate` recebe um payload estruturado, valida o pedido com `zod`, aplica guardrails e salva o resultado em `src/content/review-queue/`.
 
-As cores estão definidas no `tailwind.config.ts` e podem ser personalizadas:
+Categorias aceitas na request:
 
-```typescript
-colors: {
-  'azul-suave': '#7DB8E5',
-  'azul-profundo': '#335C81',
-  'cinza-claro': '#E9E9E9',
-  'amarelo-quente': '#FFD066',
-  'verde-menta': '#83D0C9',
-  // ...
-}
+- `direitos`
+- `educacao`
+- `saude`
+- `comunicacao`
+- `geral`
+
+Tipos aceitos:
+
+- `comparativo`
+- `guia-pratico`
+- `pain-point`
+- `explicativo`
+- `lista`
+- `tendencia`
+- `local`
+
+O conteúdo gerado não vai direto para publicação. Ele entra em fila de revisão.
+
+## SEO, distribuição e produto
+
+- Metadata centralizada em `src/lib/metadata.ts`.
+- Artigos com JSON-LD de `BlogPosting` e breadcrumbs.
+- Redirects permanentes para slugs antigos em `next.config.mjs`.
+- `public/llms.txt` gerado por script para descoberta por LLMs.
+- `robots.txt`, `ads.txt`, Open Graph e imagens institucionais em `public/`.
+- PWA habilitado em produção com `next-pwa`.
+
+## Endpoints internos
+
+- `POST /api/ebook-lead`: envia leads do e-book para Formspree
+- `POST /api/newsletter-lead`: envia leads da newsletter para Formspree
+- `POST /api/content/generate`: gera rascunhos editoriais em MDX
+
+## Qualidade e validação
+
+Antes de subir mudanças:
+
+```bash
+npm run lint
+npm run build
 ```
 
-### Componentes de Layout
+Para mudanças editoriais, também vale validar manualmente:
 
-- **Header**: Navegação principal com menu responsivo
-- **Footer**: Links úteis e informações de contato
-- **Hero**: Seção de destaque na homepage
-- **PostCard**: Layout para exibir posts
+- `/`
+- `/blog`
+- um post alterado em `/blog/[slug]`
+- captação via newsletter/e-book, se a mudança tocar formulários
 
-## 📱 Recursos de Acessibilidade
+## Deploy
 
-- Design responsivo para todos os dispositivos
-- Contraste adequado seguindo diretrizes WCAG
-- Navegação por teclado
-- Estrutura semântica HTML
-- Texto alternativo para imagens
-
-## 🚀 Deploy
-
-### Vercel (Recomendado)
-
-1. Conecte seu repositório à Vercel
-2. Configure as variáveis de ambiente se necessário
-3. Deploy automático a cada push
-
-### Outras plataformas
-
-O projeto é compatível com qualquer plataforma que suporte Next.js:
-- Netlify
-- AWS Amplify
-- Railway
-- Heroku
-
-## 📄 Scripts Disponíveis
-
-- `npm run dev` - Servidor de desenvolvimento
-- `npm run build` - Build para produção
-- `npm run start` - Servidor de produção
-- `npm run lint` - Verificação de código
-
-## 🧰 Pasta `scripts/` (automação)
-
-Automatizações para geração de arquivos e organização do conteúdo. Para detalhes completos, veja `scripts/README.md`.
-
-### Sitemap (`scripts/generate-sitemap.js`)
-- **O que faz**: Gera `sitemap.xml` com páginas estáticas, categorias e posts (filtra posts com data futura).
-- **Usar**:
-  - Gerar manualmente:
-    ```bash
-    npm run sitemap
-    ```
-  - Gerar e fazer build:
-    ```bash
-    npm run build:sitemap
-    ```
-
-### LLMs.txt (`scripts/generate-llms.js`)
-- **O que faz**: Cria `llms.txt` (mapa para IAs) com descrição do site, categorias, destaques e tópicos.
-- **Usar**:
-  - Gerar manualmente:
-    ```bash
-    npm run llms
-    ```
-  - Gerar tudo e build:
-    ```bash
-    npm run build:full
-    ```
-
-### Normalização de nomes de arquivos (`scripts/normalize-filenames.js`)
-- **O que faz**: Renomeia arquivos `.md/.mdx` em `src/content/posts/` para kebab-case, removendo acentos e caracteres especiais. Não sobrescreve arquivos existentes.
-- **Usar**:
-  - Pré-visualizar (dry-run, padrão):
-    ```bash
-    npm run normalize-filenames
-    ```
-  - Executar renomeações:
-    ```bash
-    npm run normalize-filenames:execute
-    ```
-
-### Conversão de MD para MDX (`scripts/convert-md-to-mdx.js`)
-- **O que faz**: Converte `.md` para `.mdx` preservando conteúdo e frontmatter. Evita conflito se o `.mdx` já existir.
-- **Usar**:
-  - Pré-visualizar (dry-run, padrão):
-    ```bash
-    npm run convert-md-to-mdx
-    ```
-  - Executar conversões:
-    ```bash
-    npm run convert-md-to-mdx:execute
-    ```
-
-### Fluxo recomendado
-1. Normalizar nomes dos arquivos
-   ```bash
-   npm run normalize-filenames:execute
-   ```
-2. Converter `.md` para `.mdx`
-   ```bash
-   npm run convert-md-to-mdx:execute
-   ```
-3. Regenerar sitemap e LLMs.txt
-   ```bash
-   npm run sitemap && npm run llms
-   # ou tudo junto com build
-   npm run build:full
-   ```
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Para contribuir:
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📧 Contato
-
-Para dúvidas, sugestões ou colaborações, entre em contato através da página de contato do site.
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
----
-
-**Construindo um mundo mais azul, inclusivo e humano.** 💙
+O projeto está preparado para deploy de aplicação Next.js com build padrão. Existe `amplify.yml` no repositório, então AWS Amplify já faz parte do fluxo previsto, mas o app também funciona em plataformas como Vercel se as variáveis de ambiente forem replicadas.
