@@ -12,6 +12,7 @@ import PostTracking from '@/components/PostTracking'
 import PostIntentCTA from '@/components/PostIntentCTA'
 import EditorialTrustPanel from '@/components/EditorialTrustPanel'
 import { getPostTrustSignals } from '@/lib/editorial'
+import { detectOperationalCluster } from '@/lib/analytics-contract'
 
 interface PostPageProps {
   params: Promise<{
@@ -252,6 +253,7 @@ export default async function PostPage({ params }: PostPageProps) {
     commercialSignals.some((signal) => post.slug.includes(signal)) ||
     commercialSignals.some((signal) => normalizedTags.some((tag) => tag.includes(signal)))
   const intent = isCommercialIntent ? 'commercial' : 'informational'
+  const operationalCluster = detectOperationalCluster(post)
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -274,8 +276,14 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="min-h-screen bg-page" data-post-article={post.slug} data-post-category={post.category}>
-      <PostTracking slug={post.slug} title={post.title} category={post.category} />
+    <article
+      className="min-h-screen bg-page"
+      data-post-article={post.slug}
+      data-post-category={post.category}
+      data-traffic-intent={intent}
+      data-content-cluster={operationalCluster}
+    >
+      <PostTracking slug={post.slug} title={post.title} category={post.category} intent={intent} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleJsonLd) }}

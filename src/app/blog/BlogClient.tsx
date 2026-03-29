@@ -174,6 +174,7 @@ export default function BlogClient({ initialPosts, initialCategory }: BlogClient
             <Link
               href="/blog/melhores-planos-de-saude-para-criancas-com-autismo"
               data-cta="blog_hub_planos"
+              data-cta-location="blog_hub_banner"
               className="text-link font-semibold hover:underline"
             >
               Comparação de planos de saúde para autismo
@@ -261,7 +262,7 @@ export default function BlogClient({ initialPosts, initialCategory }: BlogClient
                 Receba nossos melhores conteúdos sobre autismo e inclusão diretamente no seu e-mail
               </p>
               <div className="max-w-md mx-auto">
-                <NewsletterSignup origem="blog-cta" />
+                <NewsletterSignup origem="blog-cta" ctaLocation="blog_newsletter" pageType="blog_index" trafficIntent="mixed" />
               </div>
             </div>
           </div>

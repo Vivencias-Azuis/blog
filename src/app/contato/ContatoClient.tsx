@@ -1,9 +1,10 @@
 'use client'
 
 import type { ChangeEvent, FormEvent } from 'react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import FormField from '@/components/design-system/FormField'
 import { trackEvent } from '@/lib/analytics'
+import { buildAnalyticsEventParams } from '@/lib/analytics-contract'
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xldqvepq'
 
@@ -36,6 +37,26 @@ export default function ContatoClient({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | ''>('')
+  const hasTrackedFormStart = useRef(false)
+
+  const trackFormStart = () => {
+    if (hasTrackedFormStart.current) return
+    hasTrackedFormStart.current = true
+
+    trackEvent('form_start', {
+      form_name: 'contact_form',
+      source_origin: origem || 'direct',
+      source_cluster: cluster || undefined,
+      source_slug: slug || undefined,
+      ...buildAnalyticsEventParams({
+        pathname: window.location.pathname,
+        pageType: 'institucional',
+        ctaId: 'contact_submit',
+        ctaLocation: 'contact_page_form',
+        trafficIntent: 'mixed',
+      }),
+    })
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -79,13 +100,18 @@ export default function ContatoClient({
 
       setSubmitStatus('success')
       setSubmitMessage('Mensagem enviada com sucesso! Entraremos em contato em breve. 💙')
-      trackEvent('lead_submit', {
-        lead_type: 'contact',
+      trackEvent('contact_submit', {
         origem: 'contato-page',
         source_origin: origem || 'direct',
         source_cluster: cluster || undefined,
         source_slug: slug || undefined,
-        location: window.location.pathname,
+        ...buildAnalyticsEventParams({
+          pathname: window.location.pathname,
+          pageType: 'institucional',
+          ctaId: 'contact_submit',
+          ctaLocation: 'contact_page_form',
+          trafficIntent: 'mixed',
+        }),
       })
       setFormData({ nome: '', email: '', assunto, mensagem: contextualMessage })
       formEl.reset()
@@ -193,6 +219,7 @@ export default function ContatoClient({
                     name="nome"
                     value={formData.nome}
                     onChange={handleChange}
+                    onFocus={trackFormStart}
                     required
                     placeholder="Seu nome completo"
                   />
@@ -203,6 +230,7 @@ export default function ContatoClient({
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
+                    onFocus={trackFormStart}
                     required
                     placeholder="seu@email.com"
                   />
@@ -217,6 +245,7 @@ export default function ContatoClient({
                         name="assunto"
                         value={formData.assunto}
                         onChange={handleChange}
+                        onFocus={trackFormStart}
                         required
                         className="w-full rounded-input border border-sand-200 bg-surface px-3 py-2 text-sm text-sand-800 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 appearance-none cursor-pointer"
                       >
@@ -241,6 +270,7 @@ export default function ContatoClient({
                     name="mensagem"
                     value={formData.mensagem}
                     onChange={handleChange}
+                    onFocus={trackFormStart}
                     required
                     textarea
                     rows={6}
@@ -250,6 +280,7 @@ export default function ContatoClient({
                   <button
                     type="submit"
                     data-cta="contact_submit"
+                    data-cta-location="contact_page_form"
                     disabled={isSubmitting}
                     className={`w-full py-4 px-8 rounded-2xl font-semibold text-lg transition-all duration-300 transform relative overflow-hidden ${
                       isSubmitting

@@ -2,22 +2,30 @@
 
 import { useEffect } from 'react'
 import { trackEvent } from '@/lib/analytics'
+import { AnalyticsTrafficIntent, buildAnalyticsEventParams } from '@/lib/analytics-contract'
 
 type PostTrackingProps = {
   slug: string
   title: string
   category: string
+  intent: AnalyticsTrafficIntent
 }
 
-export default function PostTracking({ slug, title, category }: PostTrackingProps) {
+export default function PostTracking({ slug, title, category, intent }: PostTrackingProps) {
   useEffect(() => {
+    const pathname = window.location.pathname
+
     trackEvent('view_post', {
-      slug,
       title,
-      category,
-      location: window.location.pathname,
+      ...buildAnalyticsEventParams({
+        pathname,
+        pageType: 'post',
+        postSlug: slug,
+        postCategory: category,
+        trafficIntent: intent,
+      }),
     })
-  }, [slug, title, category])
+  }, [slug, title, category, intent])
 
   return null
 }

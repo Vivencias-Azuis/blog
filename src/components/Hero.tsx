@@ -43,6 +43,7 @@ export default function Hero() {
             <Link 
               href="#plano-semanal"
               data-cta="hero_cta_plano_semanal"
+              data-cta-location="hero_primary"
               className="group bg-surface text-link font-bold px-10 py-4 rounded-card hover:bg-brand-soft transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg text-lg"
             >
               <span className="flex items-center gap-2">
@@ -59,6 +60,7 @@ export default function Hero() {
             <Link
               href="/blog/melhores-planos-de-saude-para-criancas-com-autismo"
               data-cta="hero_textlink_planos"
+              data-cta-location="hero_secondary"
               className="underline underline-offset-4 hover:text-white"
             >
               Prefere começar pelo comparativo de planos?

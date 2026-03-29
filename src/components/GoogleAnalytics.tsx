@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { GA_MEASUREMENT_ID, hasAnalytics, pageview, trackEvent } from '@/lib/analytics'
+import { buildAnalyticsEventParams, inferPageType, inferTrafficIntent } from '@/lib/analytics-contract'
 
 const AFFILIATE_HOSTS = ['lojamundoautista.com.br']
 
@@ -38,8 +39,9 @@ function getPostContext(el: HTMLAnchorElement | HTMLButtonElement) {
   if (!(article instanceof HTMLElement)) return {}
 
   return {
-    slug: article.dataset.postArticle || undefined,
-    category: article.dataset.postCategory || undefined,
+    postSlug: article.dataset.postArticle || undefined,
+    postCategory: article.dataset.postCategory || undefined,
+    trafficIntent: article.dataset.trafficIntent as 'informational' | 'commercial' | 'mixed' | undefined,
   }
 }
 
@@ -60,23 +62,37 @@ export default function GoogleAnalytics() {
       const el = getClickTarget(event.target)
       if (!el) return
       const postContext = getPostContext(el)
+      const pathname = window.location.pathname
+      const pageType = inferPageType(pathname)
 
       if (el instanceof HTMLAnchorElement && isAffiliateLink(el)) {
         trackEvent('affiliate_click', {
           link_url: el.href,
           link_text: (el.textContent || '').trim().slice(0, 120),
-          location: window.location.pathname,
-          ...postContext,
+          ...buildAnalyticsEventParams({
+            pathname,
+            pageType,
+            postSlug: postContext.postSlug,
+            postCategory: postContext.postCategory,
+            trafficIntent: postContext.trafficIntent || inferTrafficIntent(pathname),
+          }),
         })
       }
 
       if (!el.dataset.cta) return
 
       trackEvent('click_cta', {
-        cta_name: inferCtaName(el),
-        location: window.location.pathname,
         target_url: el instanceof HTMLAnchorElement ? el.href : undefined,
-        ...postContext,
+        cta_text: (el.textContent || '').trim().slice(0, 120),
+        ...buildAnalyticsEventParams({
+          pathname,
+          pageType,
+          postSlug: postContext.postSlug,
+          postCategory: postContext.postCategory,
+          ctaId: inferCtaName(el),
+          ctaLocation: el.dataset.ctaLocation || `${pageType}_default`,
+          trafficIntent: postContext.trafficIntent || inferTrafficIntent(pathname),
+        }),
       })
     }
 

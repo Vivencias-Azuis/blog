@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { PostMeta } from '@/lib/posts'
+import { detectOperationalCluster } from '@/lib/analytics-contract'
 
 type PostIntentCTAProps = {
   intent: 'informational' | 'commercial'
@@ -14,24 +15,12 @@ type CtaAction = {
   ctaName: string
 }
 
-type PostCluster = 'planos' | 'direitos' | 'terapias' | 'comunicacao' | 'geral'
-
-function detectCluster(post: Pick<PostMeta, 'slug' | 'category' | 'tags'>): PostCluster {
-  const haystack = [post.slug, post.category, ...post.tags].join(' ').toLowerCase()
-
-  if (/(plano|unimed|amil|sulamerica|bradesco|reembolso|cobertura|ans)/.test(haystack)) return 'planos'
-  if (/(lei|direito|bpc|loas|ciptea|beneficio|benefício|gratuidade|escola-publica|escola pública)/.test(haystack)) return 'direitos'
-  if (/(aba|denver|floortime|fono|terapia|ocupacional|clinica|clínica|medicamento)/.test(haystack)) return 'terapias'
-  if (/(pecs|caa|ecolalia|fala|nao-verbal|não-verbal|comunicacao|comunicação)/.test(haystack)) return 'comunicacao'
-  return 'geral'
-}
-
 function getActions(
   intent: PostIntentCTAProps['intent'],
   placement: PostIntentCTAProps['placement'],
   post: Pick<PostMeta, 'slug' | 'category' | 'tags' | 'title'>
 ): CtaAction[] {
-  const cluster = detectCluster(post)
+  const cluster = detectOperationalCluster(post)
   const contactQuery = `/contato?origem=post&cluster=${cluster}&slug=${encodeURIComponent(post.slug)}&titulo=${encodeURIComponent(post.title)}`
 
   if (cluster === 'planos') {
@@ -136,10 +125,10 @@ export default function PostIntentCTA({ intent, placement, tone = 'light', post 
 
   return (
     <div className="flex flex-col sm:flex-row gap-3 justify-center">
-      <Link href={actions[0].href} data-cta={actions[0].ctaName} className={primaryClass}>
+      <Link href={actions[0].href} data-cta={actions[0].ctaName} data-cta-location={`post_${placement}_primary`} className={primaryClass}>
         {actions[0].label}
       </Link>
-      <Link href={actions[1].href} data-cta={actions[1].ctaName} className={secondaryClass}>
+      <Link href={actions[1].href} data-cta={actions[1].ctaName} data-cta-location={`post_${placement}_secondary`} className={secondaryClass}>
         {actions[1].label}
       </Link>
     </div>

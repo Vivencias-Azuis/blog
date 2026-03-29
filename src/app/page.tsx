@@ -134,6 +134,7 @@ export default function Home() {
                       key={route.href}
                       href={route.href}
                       data-cta={route.cta}
+                      data-cta-location="home_decision_grid"
                       className="group rounded-card border border-sand-200 bg-white px-5 py-4 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-pop"
                     >
                       <span className="block text-xs font-semibold uppercase tracking-wide text-link mb-2">
@@ -157,7 +158,7 @@ export default function Home() {
                 <p className="text-blue-100 mb-6 leading-relaxed">
                   Um e-mail por semana com checklist acionável, links prioritários e um próximo passo claro.
                 </p>
-                <NewsletterSignup origem="home-newsletter" />
+                <NewsletterSignup origem="home-newsletter" ctaLocation="home_newsletter" pageType="home" trafficIntent="mixed" />
                 <div className="mt-6 rounded-card border border-white/15 bg-white/10 px-4 py-4">
                   <p className="text-sm text-blue-50">
                     “Em duas semanas já conseguimos organizar escola, terapias e documentação sem correria.”
@@ -198,6 +199,7 @@ export default function Home() {
                     <Link
                       href={hub.href}
                       data-cta={`home_hub_primary_${hub.href.split('/').pop()}`}
+                      data-cta-location="home_hub_primary"
                       className="btn-primary text-center"
                     >
                       {hub.primaryLabel}
@@ -205,6 +207,7 @@ export default function Home() {
                     <Link
                       href={hub.secondaryHref}
                       data-cta={`home_hub_secondary_${hub.secondaryHref.split('/').pop()}`}
+                      data-cta-location="home_hub_secondary"
                       className="text-sm font-semibold text-link hover:text-link-hover transition-colors"
                     >
                       {hub.secondaryLabel}

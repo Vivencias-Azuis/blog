@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { FormEvent } from 'react'
 import { useEffect, useId, useRef, useState } from 'react'
 import { trackEvent } from '@/lib/analytics'
+import { buildAnalyticsEventParams } from '@/lib/analytics-contract'
 
 const LEAD_ENDPOINT = '/api/ebook-lead'
 const DISMISS_KEY = 'va_ebook_popup_dismissed_at'
@@ -27,6 +28,7 @@ export default function EbookLeadPopup() {
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | ''>('')
   const [submitMessage, setSubmitMessage] = useState('')
   const [formData, setFormData] = useState({ nome: '', email: '' })
+  const hasTrackedFormStart = useRef(false)
 
   useEffect(() => {
     const forceOpen =
@@ -124,10 +126,17 @@ export default function EbookLeadPopup() {
 
       setSubmitStatus('success')
       setSubmitMessage('Obrigada! Você receberá o 1º capítulo no e-mail informado. 💙')
+      const pathname = window.location.pathname
       trackEvent('lead_submit', {
-        lead_type: 'ebook',
         origem: 'popup-home',
-        location: window.location.pathname,
+        ...buildAnalyticsEventParams({
+          pathname,
+          pageType: 'home',
+          ctaId: 'ebook_submit',
+          ctaLocation: 'home_ebook_popup',
+          leadType: 'ebook',
+          trafficIntent: 'mixed',
+        }),
       })
       setFormData({ nome: '', email: '' })
       formEl.reset()
@@ -145,6 +154,22 @@ export default function EbookLeadPopup() {
   }
 
   if (!isOpen) return null
+
+  const trackFormStart = () => {
+    if (hasTrackedFormStart.current) return
+    hasTrackedFormStart.current = true
+
+    trackEvent('form_start', {
+      form_name: 'ebook_popup',
+      ...buildAnalyticsEventParams({
+        pathname: window.location.pathname,
+        pageType: 'home',
+        ctaId: 'ebook_submit',
+        ctaLocation: 'home_ebook_popup',
+        trafficIntent: 'mixed',
+      }),
+    })
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6">
@@ -225,6 +250,7 @@ export default function EbookLeadPopup() {
                 name="nome"
                 type="text"
                 value={formData.nome}
+                onFocus={trackFormStart}
                 onChange={(e) => setFormData((prev) => ({ ...prev, nome: e.target.value }))}
                 autoComplete="name"
                 className="w-full rounded-card border border-sand-200 bg-surface px-5 py-3 text-sand-800 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20"
@@ -241,6 +267,7 @@ export default function EbookLeadPopup() {
                 name="email"
                 type="email"
                 value={formData.email}
+                onFocus={trackFormStart}
                 onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
                 required
                 autoComplete="email"
@@ -252,6 +279,7 @@ export default function EbookLeadPopup() {
             <button
               type="submit"
               data-cta="ebook_submit"
+              data-cta-location="home_ebook_popup"
               disabled={isSubmitting}
               className="w-full rounded-card bg-gradient-to-r from-brand to-blue-900 px-6 py-3.5 text-sm font-semibold text-white shadow-pop transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
             >
