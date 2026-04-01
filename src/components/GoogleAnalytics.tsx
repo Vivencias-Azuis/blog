@@ -6,7 +6,18 @@ import { usePathname } from 'next/navigation'
 import { GA_MEASUREMENT_ID, hasAnalytics, pageview, trackEvent } from '@/lib/analytics'
 import { buildAnalyticsEventParams, inferPageType, inferTrafficIntent } from '@/lib/analytics-contract'
 
-const AFFILIATE_HOSTS = ['lojamundoautista.com.br']
+const AFFILIATE_HOSTS = [
+  'lojamundoautista.com.br',
+  'mercadolivre.com',
+  'www.mercadolivre.com',
+  'shopee.com.br',
+  'www.shopee.com.br',
+  'hotmart.com',
+  'www.hotmart.com',
+  'amazon.com.br',
+  'www.amazon.com.br',
+  'amzn.to',
+]
 
 function getClickTarget(target: EventTarget | null) {
   if (!(target instanceof Element)) return null
@@ -18,6 +29,7 @@ function isAffiliateLink(anchor: HTMLAnchorElement) {
     const url = new URL(anchor.href)
     if (url.searchParams.has('lm')) return true
     if ((url.searchParams.get('utm_source') || '').toLowerCase() === 'affiliate') return true
+    if (url.hostname.includes('mercadolivre') && url.pathname.startsWith('/sec/')) return true
     return AFFILIATE_HOSTS.includes(url.hostname)
   } catch {
     return false
