@@ -103,7 +103,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={`${manrope.variable} ${sourceSerif.variable} min-h-screen bg-page text-sand-900 font-sans`}>
+      <body
+        suppressHydrationWarning
+        className={`${manrope.variable} ${sourceSerif.variable} min-h-screen bg-page text-sand-900 font-sans`}
+      >
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-grow">

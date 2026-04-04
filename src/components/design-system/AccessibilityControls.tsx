@@ -10,14 +10,21 @@ type FontScale = 'base' | 'lg' | 'xl'
 type ContrastMode = 'default' | 'high'
 
 export default function AccessibilityControls() {
-  const [fontScale, setFontScale] = useState<FontScale>(() => {
-    if (typeof window === 'undefined') return 'base'
-    return (localStorage.getItem(FONT_SCALE_KEY) as FontScale) || 'base'
-  })
-  const [contrastMode, setContrastMode] = useState<ContrastMode>(() => {
-    if (typeof window === 'undefined') return 'default'
-    return (localStorage.getItem(CONTRAST_KEY) as ContrastMode) || 'default'
-  })
+  const [fontScale, setFontScale] = useState<FontScale>('base')
+  const [contrastMode, setContrastMode] = useState<ContrastMode>('default')
+
+  useEffect(() => {
+    const storedFontScale = localStorage.getItem(FONT_SCALE_KEY)
+    const storedContrastMode = localStorage.getItem(CONTRAST_KEY)
+
+    if (storedFontScale === 'lg' || storedFontScale === 'xl') {
+      setFontScale(storedFontScale)
+    }
+
+    if (storedContrastMode === 'high') {
+      setContrastMode(storedContrastMode)
+    }
+  }, [])
 
   useEffect(() => {
     document.documentElement.dataset.fontScale = fontScale
