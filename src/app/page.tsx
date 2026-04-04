@@ -172,6 +172,27 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <section className="bg-page">
+        <div className="container-custom py-8 md:py-10">
+          <div className="rounded-block border border-brand/20 bg-white p-6 shadow-card md:flex md:items-center md:justify-between md:gap-6">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-link">
+                Apoie o projeto
+              </p>
+              <h2 className="mt-2 text-2xl font-bold text-sand-900">
+                Ajude a manter esse trabalho vivo e independente
+              </h2>
+              <p className="mt-3 text-sand-700">
+                Apoie mensalmente no cartão ou faça uma contribuição única por
+                Pix ou cartão.
+              </p>
+            </div>
+            <Link href="/apoie" className="btn-primary mt-5 inline-flex md:mt-0">
+              Quero apoiar
+            </Link>
+          </div>
+        </div>
+      </section>
       <FeaturedPosts />
       <section className="bg-page">
         <div className="container-custom py-10 md:py-12">

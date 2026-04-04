@@ -63,6 +63,13 @@ export default function Header() {
                 <span className="absolute -bottom-1 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-gradient-to-r from-brand to-blue-800 transition-all duration-300 group-hover:w-3/4"></span>
               </Link>
               <Link 
+                href="/apoie" 
+                className="group relative rounded-pill px-4 py-2 text-sm font-semibold text-sand-700 transition-all duration-300 hover:bg-brand-soft hover:text-link"
+              >
+                Apoie
+                <span className="absolute -bottom-1 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-gradient-to-r from-brand to-blue-800 transition-all duration-300 group-hover:w-3/4"></span>
+              </Link>
+              <Link 
                 href="/contato" 
                 className="group relative rounded-pill px-4 py-2 text-sm font-semibold text-sand-700 transition-all duration-300 hover:bg-brand-soft hover:text-link"
               >
@@ -161,6 +168,16 @@ export default function Header() {
                 <span className="flex items-center space-x-3">
                   <div className="h-2 w-2 rounded-full bg-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                   <span>Lojinha</span>
+                </span>
+              </Link>
+              <Link
+                href="/apoie"
+                className="group block rounded-card px-4 py-4 text-sm font-semibold text-sand-700 transition-all duration-300 hover:bg-brand-soft hover:text-link"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span className="flex items-center space-x-3">
+                  <div className="h-2 w-2 rounded-full bg-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                  <span>Apoie</span>
                 </span>
               </Link>
               <div className="pt-2">

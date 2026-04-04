@@ -39,7 +39,7 @@ Hoje o repositório tem 90 posts em `src/content/posts/`.
 
 ## Requisitos
 
-- Node.js `>=20.9.0`
+- Node.js `>=20.19.0`
 - npm
 
 ## Instalação
@@ -102,6 +102,14 @@ FORMSPREE_NEWSLETTER_ENDPOINT=https://formspree.io/f/xxxxxxx
 OPENAI_API_KEY=sk-...
 OPENAI_CONTENT_MODEL=gpt-4.1-mini
 OPENAI_MAX_OUTPUT_TOKENS=3500
+
+# Apoio e pagamentos
+NEXT_PUBLIC_SITE_URL=https://www.vivenciasazuis.com.br
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_PRICE_ID_APOIAR=price_xxx
+STRIPE_PRICE_ID_FORTALECER=price_xxx
+STRIPE_PRICE_ID_SUSTENTAR=price_xxx
+ABACATE_PAY_API_KEY=abacate_test_xxx
 ```
 
 Observações:
@@ -109,6 +117,7 @@ Observações:
 - `FORMSPREE_NEWSLETTER_ENDPOINT` faz fallback para `FORMSPREE_EBOOK_ENDPOINT`.
 - Sem `NEXT_PUBLIC_GA4_MEASUREMENT_ID`, o tracking fica desativado.
 - O endpoint `/api/content/generate` exige `OPENAI_API_KEY`.
+- A página `/apoie` exige as variáveis de Stripe, Abacate Pay e `NEXT_PUBLIC_SITE_URL`.
 
 ## Fluxo editorial
 
@@ -182,6 +191,11 @@ O conteúdo gerado não vai direto para publicação. Ele entra em fila de revis
 - `POST /api/ebook-lead`: envia leads do e-book para Formspree
 - `POST /api/newsletter-lead`: envia leads da newsletter para Formspree
 - `POST /api/content/generate`: gera rascunhos editoriais em MDX
+- `POST /api/support/subscribe`: inicia checkout recorrente no Stripe
+- `POST /api/support/donate/card`: inicia checkout avulso no Stripe
+- `POST /api/support/donate/pix`: gera cobrança Pix no Abacate Pay
+- `GET /api/support/donate/pix/[chargeId]`: consulta status do Pix
+- `GET /api/support/stripe/session`: consulta status mínimo da sessão Stripe
 
 ## Qualidade e validação
 
