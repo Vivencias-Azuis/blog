@@ -4,13 +4,15 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=20.19.0"
   },
   "scripts": {
     "dev": "NEXT_DIST_DIR=.next-dev next dev",
     "dev:external": "NEXT_DIST_DIR=.next-dev next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint .",
     "llms": "node scripts/generate-llms.js",
     "cta:audit": "node scripts/audit-post-cta.js",
@@ -42,14 +44,19 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.0.1",
     "eslint": "^9.39.2",
     "eslint-config-next": "^15.5.6",
+    "jsdom": "^26.1.0",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.2"
   }
 }
