@@ -72,7 +72,7 @@ export default function MaterialsCatalog({
                 href={item.url}
                 className="mt-5 inline-flex rounded-pill bg-brand px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-800"
               >
-                Acessar material
+                Abrir material
               </Link>
             )}
           </article>
