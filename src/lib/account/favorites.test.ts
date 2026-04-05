@@ -1,5 +1,6 @@
 import { currentUser } from '@clerk/nextjs/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { normalizeFavoriteRows } from '@/lib/account/favorites'
 import {
   getCurrentMemberAccess,
   isMemberFromMetadata,
@@ -44,5 +45,19 @@ describe('getCurrentMemberAccess', () => {
     await expect(getCurrentMemberAccess()).resolves.toEqual({
       isMember: false,
     })
+  })
+})
+
+describe('normalizeFavoriteRows', () => {
+  it('sorts favorites by most recent first', () => {
+    const rows = [
+      { postSlug: 'older', createdAt: '2026-04-01T10:00:00.000Z' },
+      { postSlug: 'newer', createdAt: '2026-04-02T10:00:00.000Z' },
+    ]
+
+    expect(normalizeFavoriteRows(rows).map((row) => row.postSlug)).toEqual([
+      'newer',
+      'older',
+    ])
   })
 })
