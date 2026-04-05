@@ -1,17 +1,53 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
 import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import AccessibilityControls from '@/components/design-system/AccessibilityControls'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [fontScale, setFontScale] = useState<'base' | 'lg' | 'xl'>('base')
+  const [contrastMode, setContrastMode] = useState<'default' | 'high'>('default')
+  const [hasLoadedPreferences, setHasLoadedPreferences] = useState(false)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
+
+  useEffect(() => {
+    const storedFontScale = localStorage.getItem('va-font-scale')
+    const storedContrastMode = localStorage.getItem('va-contrast')
+
+    if (storedFontScale === 'lg' || storedFontScale === 'xl') {
+      setFontScale(storedFontScale)
+    }
+
+    if (storedContrastMode === 'high') {
+      setContrastMode(storedContrastMode)
+    }
+
+    setHasLoadedPreferences(true)
+  }, [])
+
+  useEffect(() => {
+    if (!hasLoadedPreferences) {
+      return
+    }
+
+    document.documentElement.dataset.fontScale = fontScale
+    localStorage.setItem('va-font-scale', fontScale)
+  }, [fontScale, hasLoadedPreferences])
+
+  useEffect(() => {
+    if (!hasLoadedPreferences) {
+      return
+    }
+
+    document.documentElement.dataset.contrast = contrastMode
+    localStorage.setItem('va-contrast', contrastMode)
+  }, [contrastMode, hasLoadedPreferences])
 
   return (
     <header className="sticky top-0 z-50 border-b border-sand-200 bg-surface/90 shadow-sm backdrop-blur-xl">
@@ -78,7 +114,12 @@ export default function Header() {
                 <span className="absolute -bottom-1 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-gradient-to-r from-brand to-blue-800 transition-all duration-300 group-hover:w-3/4"></span>
               </Link>
             </nav>
-            <AccessibilityControls />
+            <AccessibilityControls
+              fontScale={fontScale}
+              contrastMode={contrastMode}
+              onFontScaleChange={setFontScale}
+              onContrastModeChange={setContrastMode}
+            />
             <div className="flex items-center gap-3">
               <Show when="signed-out">
                 <SignInButton mode="modal">
@@ -147,10 +188,9 @@ export default function Header() {
         </div>
 
         {/* Enhanced Mobile Navigation */}
-        <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-          isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`} id="mobile-navigation">
+        <div className="md:hidden" id="mobile-navigation" hidden={!isMenuOpen}>
           <div className="border-t border-sand-200 bg-surface/95 backdrop-blur-md">
+            <div className="max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain">
             <div className="px-4 pt-6 pb-8 space-y-4">
               <Link
                 href="/"
@@ -213,7 +253,12 @@ export default function Header() {
                 </span>
               </Link>
               <div className="pt-2">
-                <AccessibilityControls />
+                <AccessibilityControls
+                  fontScale={fontScale}
+                  contrastMode={contrastMode}
+                  onFontScaleChange={setFontScale}
+                  onContrastModeChange={setContrastMode}
+                />
               </div>
               <div className="border-t border-sand-200 pt-4">
                 <Show when="signed-out">
@@ -251,6 +296,7 @@ export default function Header() {
                   </div>
                 </Show>
               </div>
+            </div>
             </div>
           </div>
         </div>
