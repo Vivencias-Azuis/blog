@@ -70,4 +70,15 @@ describe('readPublicSubscriptionMetadata', () => {
       isMember: true,
     })
   })
+
+  it('uses subscription status over the legacy public boolean', () => {
+    expect(
+      readPublicSubscriptionMetadata({
+        isMember: true,
+        subscriptionStatus: 'canceled',
+      }),
+    ).toEqual({
+      isMember: false,
+    })
+  })
 })

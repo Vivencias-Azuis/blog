@@ -33,6 +33,10 @@ function readBoolean(value: unknown) {
   return value === true
 }
 
+function readSubscriptionStatus(metadata: MetadataRecord) {
+  return readString(metadata?.subscriptionStatus)
+}
+
 function readSupportTier(metadata: MetadataRecord): SupportTier {
   const supportTier = metadata?.supportTier
 
@@ -48,12 +52,13 @@ function normalizeSubscriptionMetadata(
   privateMetadata: MetadataRecord,
 ): AccountSubscriptionMetadata {
   const subscriptionStatus =
-    readString(privateMetadata?.subscriptionStatus) ??
-    readString(publicMetadata?.subscriptionStatus)
+    readSubscriptionStatus(privateMetadata) ??
+    readSubscriptionStatus(publicMetadata)
 
   const isMember = subscriptionStatus
     ? isMemberFromSubscriptionStatus(subscriptionStatus)
-    : readBoolean(privateMetadata?.isMember) || readBoolean(publicMetadata?.isMember)
+    : readBoolean(privateMetadata?.isMember) ||
+      readBoolean(publicMetadata?.isMember)
 
   return {
     isMember,
@@ -76,7 +81,11 @@ export function readSubscriptionMetadata(
 export function readPublicSubscriptionMetadata(
   metadata: MetadataRecord,
 ): AccountMemberAccess {
+  const subscriptionStatus = readSubscriptionStatus(metadata)
+
   return {
-    isMember: readBoolean(metadata?.isMember),
+    isMember: subscriptionStatus
+      ? isMemberFromSubscriptionStatus(subscriptionStatus)
+      : readBoolean(metadata?.isMember),
   }
 }
