@@ -17,11 +17,13 @@ export async function DELETE(_request: Request, { params }: RouteContext) {
 
   const { slug } = await params
 
-  if (!parseFavoriteSlug(slug).success) {
+  const parsedSlug = parseFavoriteSlug(slug)
+
+  if (!parsedSlug.success) {
     return NextResponse.json({ error: 'Invalid slug' }, { status: 422 })
   }
 
-  await removeFavorite(userId, slug)
+  await removeFavorite(userId, parsedSlug.data)
 
   return NextResponse.json({ ok: true })
 }

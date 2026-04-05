@@ -132,6 +132,22 @@ describe('favorites routes', () => {
     expect(removeFavoriteMock).toHaveBeenCalledWith('user_123', 'post-a')
   })
 
+  it('trims surrounding spaces before deleting a favorite', async () => {
+    authMock.mockResolvedValue({ userId: 'user_123' })
+
+    const { DELETE } = await import('./[slug]/route')
+    const response = await DELETE(
+      new Request('http://localhost/api/account/favorites/%20post-a%20'),
+      {
+        params: Promise.resolve({ slug: '  post-a  ' }),
+      },
+    )
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toEqual({ ok: true })
+    expect(removeFavoriteMock).toHaveBeenCalledWith('user_123', 'post-a')
+  })
+
   it('returns 401 for unauthenticated DELETE without calling helpers', async () => {
     authMock.mockResolvedValue({ userId: null })
 
