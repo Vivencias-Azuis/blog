@@ -60,8 +60,15 @@ const abacatePayPixAdapter: PixProviderAdapter = {
 
 export function getPixProviderAdapter(): PixProviderAdapter {
   const env = getSupportPixEnv()
+  const preferredProvider =
+    env.PIX_PROVIDER ??
+    (env.MERCADO_PAGO_ACCESS_TOKEN
+      ? 'mercado_pago'
+      : env.ABACATE_PAY_API_KEY
+        ? 'abacate_pay'
+        : undefined)
 
-  if (env.PIX_PROVIDER === 'abacate_pay') {
+  if (preferredProvider === 'abacate_pay') {
     if (!env.ABACATE_PAY_API_KEY) {
       throw new SupportRouteError(500, 'Abacate Pay não configurado para Pix.')
     }
@@ -69,9 +76,9 @@ export function getPixProviderAdapter(): PixProviderAdapter {
     return abacatePayPixAdapter
   }
 
-  if (env.PIX_PROVIDER === 'mercado_pago') {
+  if (preferredProvider === 'mercado_pago') {
     return mercadoPagoPixAdapter
   }
 
-  throw new SupportRouteError(500, 'Provedor Pix inválido.')
+  throw new SupportRouteError(500, 'Pix não configurado.')
 }

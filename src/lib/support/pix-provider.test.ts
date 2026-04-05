@@ -58,6 +58,17 @@ describe('pix provider adapter selection', () => {
     expect(adapter.provider).toBe('mercado_pago')
   })
 
+  it('falls back to Mercado Pago when provider is unset but token exists', async () => {
+    getSupportPixEnv.mockReturnValue({
+      MERCADO_PAGO_ACCESS_TOKEN: 'APP_USR_test_123',
+    })
+
+    const { getPixProviderAdapter } = await import('./pix-provider')
+    const adapter = getPixProviderAdapter()
+
+    expect(adapter.provider).toBe('mercado_pago')
+  })
+
   it('fails fast when the selected provider is missing required config', async () => {
     getSupportPixEnv.mockReturnValue({
       PIX_PROVIDER: 'abacate_pay',

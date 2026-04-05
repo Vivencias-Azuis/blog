@@ -77,10 +77,10 @@ describe('support config', () => {
 
   it('allows pix config without a public site url', () => {
     const env = getSupportPixEnv({
-      PIX_PROVIDER: 'mercado_pago',
       MERCADO_PAGO_ACCESS_TOKEN: 'APP_USR_test_123',
     })
 
     expect(env.NEXT_PUBLIC_SITE_URL).toBeUndefined()
+    expect(env.PIX_PROVIDER).toBeUndefined()
   })
 })
