@@ -124,10 +124,6 @@ describe('getCurrentMemberAccess', () => {
 
     await expect(getCurrentMemberAccess()).resolves.toEqual({
       isMember: true,
-      stripeCustomerId: null,
-      stripeSubscriptionId: null,
-      supportTier: null,
-      subscriptionStatus: null,
     })
   })
 
@@ -136,10 +132,6 @@ describe('getCurrentMemberAccess', () => {
 
     await expect(getCurrentMemberAccess()).resolves.toEqual({
       isMember: false,
-      stripeCustomerId: null,
-      stripeSubscriptionId: null,
-      supportTier: null,
-      subscriptionStatus: null,
     })
   })
 })

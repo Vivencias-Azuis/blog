@@ -1,5 +1,12 @@
 type SupportTier = 'apoiar' | 'fortalecer' | 'sustentar' | null
 
+type MetadataRecord = Record<string, unknown> | null | undefined
+
+export interface SubscriptionMetadataInput {
+  publicMetadata?: MetadataRecord
+  privateMetadata?: MetadataRecord
+}
+
 export interface AccountSubscriptionMetadata {
   isMember: boolean
   stripeCustomerId: string | null
@@ -14,32 +21,62 @@ export function isMemberFromSubscriptionStatus(
   return status === 'active'
 }
 
-export function readSubscriptionMetadata(
-  metadata: Record<string, unknown> | null | undefined,
+export interface AccountMemberAccess {
+  isMember: boolean
+}
+
+function readString(value: unknown) {
+  return typeof value === 'string' ? value : null
+}
+
+function readBoolean(value: unknown) {
+  return value === true
+}
+
+function readSupportTier(metadata: MetadataRecord): SupportTier {
+  const supportTier = metadata?.supportTier
+
+  return supportTier === 'apoiar' ||
+    supportTier === 'fortalecer' ||
+    supportTier === 'sustentar'
+    ? supportTier
+    : null
+}
+
+function normalizeSubscriptionMetadata(
+  publicMetadata: MetadataRecord,
+  privateMetadata: MetadataRecord,
 ): AccountSubscriptionMetadata {
   const subscriptionStatus =
-    typeof metadata?.subscriptionStatus === 'string'
-      ? metadata.subscriptionStatus
-      : null
+    readString(privateMetadata?.subscriptionStatus) ??
+    readString(publicMetadata?.subscriptionStatus)
+
+  const isMember = subscriptionStatus
+    ? isMemberFromSubscriptionStatus(subscriptionStatus)
+    : readBoolean(privateMetadata?.isMember) || readBoolean(publicMetadata?.isMember)
 
   return {
-    isMember:
-      metadata?.isMember === true ||
-      isMemberFromSubscriptionStatus(subscriptionStatus),
-    stripeCustomerId:
-      typeof metadata?.stripeCustomerId === 'string'
-        ? metadata.stripeCustomerId
-        : null,
-    stripeSubscriptionId:
-      typeof metadata?.stripeSubscriptionId === 'string'
-        ? metadata.stripeSubscriptionId
-        : null,
-    supportTier:
-      metadata?.supportTier === 'apoiar' ||
-      metadata?.supportTier === 'fortalecer' ||
-      metadata?.supportTier === 'sustentar'
-        ? metadata.supportTier
-        : null,
+    isMember,
+    stripeCustomerId: readString(privateMetadata?.stripeCustomerId),
+    stripeSubscriptionId: readString(privateMetadata?.stripeSubscriptionId),
+    supportTier: readSupportTier(privateMetadata) ?? readSupportTier(publicMetadata),
     subscriptionStatus,
+  }
+}
+
+export function readSubscriptionMetadata(
+  input: SubscriptionMetadataInput,
+): AccountSubscriptionMetadata {
+  return normalizeSubscriptionMetadata(
+    input.publicMetadata,
+    input.privateMetadata,
+  )
+}
+
+export function readPublicSubscriptionMetadata(
+  metadata: MetadataRecord,
+): AccountMemberAccess {
+  return {
+    isMember: readBoolean(metadata?.isMember),
   }
 }
