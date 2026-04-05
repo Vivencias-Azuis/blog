@@ -12,16 +12,18 @@ const paymentMethods = ['card', 'pix'] as const
 
 export const MIN_DONATION_AMOUNT_IN_CENTS = 500
 
+const supportSourceSchema = z.string().trim().min(1).max(500).default('support-page')
+
 export const subscriptionRequestSchema = z.object({
   tierSlug: z.enum(supportTierSlugs),
-  source: z.string().min(1).default('support-page'),
+  source: supportSourceSchema,
 })
 
 export const donationRequestSchema = z.object({
   amountInCents: z.number().int().min(MIN_DONATION_AMOUNT_IN_CENTS),
   paymentMethod: z.enum(paymentMethods),
   payerEmail: z.string().trim().email().optional(),
-  source: z.string().min(1).default('support-page'),
+  source: supportSourceSchema,
 })
 
 export function buildStripeSubscriptionCheckoutParams({
@@ -29,23 +31,39 @@ export function buildStripeSubscriptionCheckoutParams({
   siteUrl,
   tierSlug,
   source,
+  clerkUserId,
+  customerEmail,
 }: {
   priceId: string
   siteUrl: string
   tierSlug: SupportTierSlug
   source: string
+  clerkUserId?: string
+  customerEmail?: string
 }): Stripe.Checkout.SessionCreateParams {
+  const metadata = {
+    kind: 'subscription',
+    tierSlug,
+    source,
+    ...(clerkUserId ? { clerkUserId } : {}),
+  }
+
   return {
     mode: 'subscription',
     payment_method_types: ['card'],
     line_items: [{ price: priceId, quantity: 1 }],
+    ...(clerkUserId ? { client_reference_id: clerkUserId } : {}),
+    ...(customerEmail ? { customer_email: customerEmail } : {}),
     success_url: `${siteUrl}/apoie/obrigado?kind=subscription&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${siteUrl}/apoie/cancelado?kind=subscription`,
-    metadata: {
-      kind: 'subscription',
-      tierSlug,
-      source,
-    },
+    metadata,
+    ...(clerkUserId
+      ? {
+          subscription_data: {
+            metadata,
+          },
+        }
+      : {}),
   }
 }
 

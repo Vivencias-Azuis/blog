@@ -50,7 +50,13 @@ function requirePaymentMethod(
   }
 }
 
-export function parseSubscriptionRequest(body: unknown) {
+export function parseSubscriptionRequest(
+  body: unknown,
+  authContext: {
+    clerkUserId: string
+    customerEmail?: string
+  },
+) {
   let input: ReturnType<typeof subscriptionRequestSchema.parse>
 
   try {
@@ -77,8 +83,10 @@ export function parseSubscriptionRequest(body: unknown) {
     checkoutParams: buildStripeSubscriptionCheckoutParams({
       priceId: env[tier.priceIdEnvKey],
       siteUrl: env.NEXT_PUBLIC_SITE_URL,
-      tierSlug: input.tierSlug,
+      tierSlug: tier.slug,
       source: input.source,
+      clerkUserId: authContext.clerkUserId,
+      customerEmail: authContext.customerEmail,
     }),
   }
 }

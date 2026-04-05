@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-const getSupportEnv = vi.hoisted(() => vi.fn())
+const getSupportPixEnv = vi.hoisted(() => vi.fn())
 
 vi.mock('@/lib/support/config', () => ({
-  getSupportEnv,
+  getSupportPixEnv,
 }))
 
 describe('abacate pay support client', () => {
@@ -13,7 +13,7 @@ describe('abacate pay support client', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    getSupportEnv.mockReturnValue({
+    getSupportPixEnv.mockReturnValue({
       ABACATE_PAY_API_KEY: 'abacate_test_123',
     })
   })

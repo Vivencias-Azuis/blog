@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Manrope, Source_Serif_4 } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
@@ -108,17 +109,19 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${manrope.variable} ${sourceSerif.variable} min-h-screen bg-page text-sand-900 font-sans`}
       >
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </div>
-        <PWAStatus />
-        <PWAInstallPrompt />
-        <GoogleAnalytics />
-        <SupportPromptPopup />
+        <ClerkProvider>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          <PWAStatus />
+          <PWAInstallPrompt />
+          <GoogleAnalytics />
+          <SupportPromptPopup />
+        </ClerkProvider>
       </body>
     </html>
   )
