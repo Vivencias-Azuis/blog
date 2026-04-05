@@ -21,6 +21,9 @@ describe('requireUser', () => {
     authMock.mockReset()
     currentUserMock.mockReset()
     redirectMock.mockReset()
+    redirectMock.mockImplementation(() => {
+      throw new Error('NEXT_REDIRECT')
+    })
   })
 
   it('redirects unauthenticated users to sign in', async () => {
@@ -28,9 +31,10 @@ describe('requireUser', () => {
       userId: null,
     } as Awaited<ReturnType<typeof auth>>)
 
-    await requireUser()
+    await expect(requireUser()).rejects.toThrow('NEXT_REDIRECT')
 
     expect(redirectMock).toHaveBeenCalledWith('/sign-in')
+    expect(currentUserMock).not.toHaveBeenCalled()
   })
 
   it('redirects authenticated users when currentUser returns null', async () => {
@@ -39,7 +43,7 @@ describe('requireUser', () => {
     } as Awaited<ReturnType<typeof auth>>)
     currentUserMock.mockResolvedValue(null)
 
-    await requireUser()
+    await expect(requireUser()).rejects.toThrow('NEXT_REDIRECT')
 
     expect(redirectMock).toHaveBeenCalledWith('/sign-in')
   })
