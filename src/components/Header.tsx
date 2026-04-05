@@ -114,13 +114,7 @@ export default function Header() {
                 <span className="absolute -bottom-1 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-gradient-to-r from-brand to-blue-800 transition-all duration-300 group-hover:w-3/4"></span>
               </Link>
             </nav>
-            <AccessibilityControls
-              fontScale={fontScale}
-              contrastMode={contrastMode}
-              onFontScaleChange={setFontScale}
-              onContrastModeChange={setContrastMode}
-            />
-            <div className="flex items-center gap-3">
+            <div className="flex shrink-0 items-center gap-3">
               <Show when="signed-out">
                 <SignInButton mode="modal">
                   <button
@@ -150,6 +144,14 @@ export default function Header() {
                   <UserButton />
                 </div>
               </Show>
+            </div>
+            <div className="shrink-0">
+              <AccessibilityControls
+                fontScale={fontScale}
+                contrastMode={contrastMode}
+                onFontScaleChange={setFontScale}
+                onContrastModeChange={setContrastMode}
+              />
             </div>
           </div>
 
