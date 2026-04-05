@@ -7,12 +7,16 @@ import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
+import { auth } from '@clerk/nextjs/server'
+
+import FavoriteToggleButton from '@/components/account/FavoriteToggleButton'
 import PostCard from '@/components/PostCard'
 import PostTracking from '@/components/PostTracking'
 import PostIntentCTA from '@/components/PostIntentCTA'
 import EditorialTrustPanel from '@/components/EditorialTrustPanel'
 import { getPostTrustSignals } from '@/lib/editorial'
 import { detectOperationalCluster } from '@/lib/analytics-contract'
+import { listFavoriteSlugs } from '@/lib/account/favorites'
 
 interface PostPageProps {
   params: Promise<{
@@ -176,6 +180,9 @@ export default async function PostPage({ params }: PostPageProps) {
   const postUrl = generatePostUrl(post.slug)
   const imageUrl = post.coverImage ? generateImageUrl(post.coverImage) : generateImageUrl('/og-image.png')
   const trustSignals = getPostTrustSignals(post)
+  const { userId } = await auth()
+  const favoriteItems = userId ? await listFavoriteSlugs(userId) : []
+  const favoriteSlugs = new Set(favoriteItems.map((item) => item.postSlug))
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -368,6 +375,13 @@ export default async function PostPage({ params }: PostPageProps) {
               </svg>
               <span>{post.readingTime}</span>
             </div>
+          </div>
+
+          <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+            <FavoriteToggleButton
+              postSlug={post.slug}
+              initialFavorited={favoriteSlugs.has(post.slug)}
+            />
           </div>
 
           <div className="mt-10 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>

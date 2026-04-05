@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 
 import { removeFavorite } from '@/lib/account/favorites'
-import { parseFavoriteSlug } from '../route'
+import { parseFavoriteSlug } from '@/lib/account/favorite-slug'
 
 interface RouteContext {
   params: Promise<{ slug: string }>

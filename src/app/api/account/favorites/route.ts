@@ -3,20 +3,11 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 
 import { addFavorite, listFavoriteSlugs } from '@/lib/account/favorites'
-
-const favoriteSlugSchema = z
-  .string()
-  .trim()
-  .min(1)
-  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+import { favoriteSlugSchema } from '@/lib/account/favorite-slug'
 
 const payloadSchema = z.object({
   postSlug: favoriteSlugSchema,
 })
-
-export function parseFavoriteSlug(input: unknown) {
-  return favoriteSlugSchema.safeParse(input)
-}
 
 export async function GET() {
   const { userId } = await auth()

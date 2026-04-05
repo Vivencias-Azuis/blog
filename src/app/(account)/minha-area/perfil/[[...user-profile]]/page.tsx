@@ -1,5 +1,6 @@
-import type { Metadata } from 'next'
 import { UserProfile } from '@clerk/nextjs'
+import type { Metadata } from 'next'
+
 import AccountShell from '@/components/account/AccountShell'
 import { generatePageMetadata } from '@/lib/metadata'
 
