@@ -106,6 +106,7 @@ OPENAI_MAX_OUTPUT_TOKENS=3500
 # Apoio e pagamentos
 NEXT_PUBLIC_SITE_URL=https://www.vivenciasazuis.com.br
 STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
 STRIPE_PRICE_ID_APOIAR=price_xxx
 STRIPE_PRICE_ID_FORTALECER=price_xxx
 STRIPE_PRICE_ID_SUSTENTAR=price_xxx
@@ -118,6 +119,7 @@ Observações:
 - Sem `NEXT_PUBLIC_GA4_MEASUREMENT_ID`, o tracking fica desativado.
 - O endpoint `/api/content/generate` exige `OPENAI_API_KEY`.
 - A página `/apoie` exige as variáveis de Stripe, Abacate Pay e `NEXT_PUBLIC_SITE_URL`.
+- O webhook do Stripe em `/api/support/stripe/webhook` exige `STRIPE_WEBHOOK_SECRET` e deve receber os eventos `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated` e `customer.subscription.deleted`.
 
 ## Fluxo editorial
 
@@ -192,6 +194,7 @@ O conteúdo gerado não vai direto para publicação. Ele entra em fila de revis
 - `POST /api/newsletter-lead`: envia leads da newsletter para Formspree
 - `POST /api/content/generate`: gera rascunhos editoriais em MDX
 - `POST /api/support/subscribe`: inicia checkout recorrente no Stripe
+- `POST /api/support/stripe/webhook`: sincroniza eventos assinados do Stripe com o Clerk
 - `POST /api/support/donate/card`: inicia checkout avulso no Stripe
 - `POST /api/support/donate/pix`: gera cobrança Pix no Abacate Pay
 - `GET /api/support/donate/pix/[chargeId]`: consulta status do Pix
