@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
+import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import AccessibilityControls from '@/components/design-system/AccessibilityControls'
 
 export default function Header() {
@@ -78,6 +79,37 @@ export default function Header() {
               </Link>
             </nav>
             <AccessibilityControls />
+            <div className="flex items-center gap-3">
+              <Show when="signed-out">
+                <SignInButton mode="modal">
+                  <button
+                    type="button"
+                    className="rounded-pill px-4 py-2 text-sm font-semibold text-sand-700 transition-all duration-300 hover:bg-brand-soft hover:text-link"
+                  >
+                    Entrar
+                  </button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <button
+                    type="button"
+                    className="rounded-pill bg-brand px-4 py-2 text-sm font-semibold text-white transition-all duration-300 hover:bg-blue-800"
+                  >
+                    Criar conta
+                  </button>
+                </SignUpButton>
+              </Show>
+              <Show when="signed-in">
+                <Link
+                  href="/minha-area"
+                  className="rounded-pill px-4 py-2 text-sm font-semibold text-sand-700 transition-all duration-300 hover:bg-brand-soft hover:text-link"
+                >
+                  Minha area
+                </Link>
+                <div className="flex items-center justify-center rounded-full border border-sand-200 bg-white p-0.5 shadow-sm">
+                  <UserButton />
+                </div>
+              </Show>
+            </div>
           </div>
 
           {/* Enhanced Mobile menu button */}
@@ -182,6 +214,42 @@ export default function Header() {
               </Link>
               <div className="pt-2">
                 <AccessibilityControls />
+              </div>
+              <div className="border-t border-sand-200 pt-4">
+                <Show when="signed-out">
+                  <div className="flex flex-col gap-3">
+                    <SignInButton mode="modal">
+                      <button
+                        type="button"
+                        className="w-full rounded-pill border border-sand-300 px-4 py-3 text-sm font-semibold text-sand-700 transition-all duration-300 hover:bg-brand-soft hover:text-link"
+                      >
+                        Entrar
+                      </button>
+                    </SignInButton>
+                    <SignUpButton mode="modal">
+                      <button
+                        type="button"
+                        className="w-full rounded-pill bg-brand px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-blue-800"
+                      >
+                        Criar conta
+                      </button>
+                    </SignUpButton>
+                  </div>
+                </Show>
+                <Show when="signed-in">
+                  <div className="flex items-center justify-between rounded-card bg-brand-soft p-4">
+                    <Link
+                      href="/minha-area"
+                      className="text-sm font-semibold text-sand-700 transition-colors hover:text-link"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Minha area
+                    </Link>
+                    <div className="flex items-center justify-center rounded-full border border-white/70 bg-white p-0.5 shadow-sm">
+                      <UserButton />
+                    </div>
+                  </div>
+                </Show>
               </div>
             </div>
           </div>
