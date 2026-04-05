@@ -4,8 +4,11 @@ import { currentUser } from '@clerk/nextjs/server'
 import AccountShell from '@/components/account/AccountShell'
 import AccountStatusBadge from '@/components/account/AccountStatusBadge'
 import { readSubscriptionMetadata } from '@/lib/account/subscription-status'
-import { supportTiers } from '@/lib/support/config'
 import { generatePageMetadata } from '@/lib/metadata'
+import {
+  formatSubscriptionStatus,
+  formatSupportTier,
+} from '@/app/(account)/minha-area/assinatura/view-model'
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Assinatura',
@@ -19,28 +22,6 @@ type ClerkUserWithMetadata = {
   privateMetadata?: Record<string, unknown>
 }
 
-function formatSubscriptionStatus(status: string | null) {
-  if (!status) {
-    return 'Indisponível'
-  }
-
-  const labels: Record<string, string> = {
-    active: 'Ativo',
-    trialing: 'Em teste',
-    past_due: 'Pagamento pendente',
-    canceled: 'Cancelado',
-    incomplete: 'Incompleto',
-    unpaid: 'Em aberto',
-    paused: 'Pausado',
-  }
-
-  return labels[status] ?? status
-}
-
-function formatSupportTier(slug: string | null) {
-  return supportTiers.find((tier) => tier.slug === slug)?.label ?? 'Sem plano'
-}
-
 export default async function AssinaturaPage() {
   const user = await currentUser()
   const metadataSource = user as ClerkUserWithMetadata | null
@@ -48,8 +29,14 @@ export default async function AssinaturaPage() {
     publicMetadata: metadataSource?.publicMetadata,
     privateMetadata: metadataSource?.privateMetadata,
   })
-  const statusLabel = formatSubscriptionStatus(subscription.subscriptionStatus)
-  const tierLabel = formatSupportTier(subscription.supportTier)
+  const statusLabel = formatSubscriptionStatus(
+    subscription.subscriptionStatus,
+    subscription.isMember,
+  )
+  const tierLabel = formatSupportTier(
+    subscription.supportTier,
+    subscription.isMember,
+  )
 
   return (
     <AccountShell
