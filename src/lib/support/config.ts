@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export type SupportTierSlug = 'apoiar' | 'fortalecer' | 'sustentar'
-export type PixProvider = 'abacate_pay' | 'mercado_pago'
+export type PixProvider = 'abacate_pay' | 'mercado_pago' | 'direct_pix'
 
 export interface SupportTier {
   readonly slug: SupportTierSlug
@@ -50,7 +50,7 @@ const supportStripeEnvSchema = z.object({
 
 const supportPixEnvSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
-  PIX_PROVIDER: z.enum(['abacate_pay', 'mercado_pago']).optional(),
+  PIX_PROVIDER: z.enum(['abacate_pay', 'mercado_pago', 'direct_pix']).optional(),
   ABACATE_PAY_API_KEY: z.string().min(1).optional(),
   MERCADO_PAGO_ACCESS_TOKEN: z.string().min(1).optional(),
 })

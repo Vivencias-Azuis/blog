@@ -58,6 +58,17 @@ describe('pix provider adapter selection', () => {
     expect(adapter.provider).toBe('mercado_pago')
   })
 
+  it('selects Direct Pix when PIX_PROVIDER=direct_pix', async () => {
+    getSupportPixEnv.mockReturnValue({
+      PIX_PROVIDER: 'direct_pix',
+    })
+
+    const { getPixProviderAdapter } = await import('./pix-provider')
+    const adapter = getPixProviderAdapter()
+
+    expect(adapter.provider).toBe('direct_pix')
+  })
+
   it('falls back to Mercado Pago when provider is unset but token exists', async () => {
     getSupportPixEnv.mockReturnValue({
       MERCADO_PAGO_ACCESS_TOKEN: 'APP_USR_test_123',

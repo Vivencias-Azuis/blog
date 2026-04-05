@@ -54,6 +54,14 @@ describe('support config', () => {
     expect(env.PIX_PROVIDER).toBe('mercado_pago')
   })
 
+  it('accepts direct pix as the active pix provider', () => {
+    const env = getSupportPixEnv({
+      PIX_PROVIDER: 'direct_pix',
+    })
+
+    expect(env.PIX_PROVIDER).toBe('direct_pix')
+  })
+
   it('rejects missing required payment environment variables', () => {
     expect(() =>
       getSupportStripeEnv({

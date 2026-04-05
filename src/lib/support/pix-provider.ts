@@ -1,6 +1,7 @@
 import { getSupportPixEnv, type PixProvider } from '@/lib/support/config'
 import { SupportRouteError } from '@/lib/support/errors'
 import { createTransparentPixCharge, checkTransparentPixCharge } from '@/lib/support/abacate-pay'
+import { directPixAdapter } from '@/lib/support/direct-pix'
 import { mercadoPagoPixAdapter } from '@/lib/support/mercado-pago'
 import { buildAbacatePixPayload } from '@/lib/support/schema'
 
@@ -78,6 +79,10 @@ export function getPixProviderAdapter(): PixProviderAdapter {
 
   if (preferredProvider === 'mercado_pago') {
     return mercadoPagoPixAdapter
+  }
+
+  if (preferredProvider === 'direct_pix') {
+    return directPixAdapter
   }
 
   throw new SupportRouteError(500, 'Pix não configurado.')
