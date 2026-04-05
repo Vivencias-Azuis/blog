@@ -4,9 +4,10 @@ import ArticleCard from '@/components/design-system/ArticleCard'
 
 interface PostCardProps {
   post: PostMeta
+  initialFavorited?: boolean
 }
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, initialFavorited = false }: PostCardProps) {
   const formatDate = (dateString: string) => {
     if (!dateString) {
       return ''
@@ -35,7 +36,7 @@ export default function PostCard({ post }: PostCardProps) {
         featured={post.featured}
         variant={post.featured ? 'featured' : 'default'}
       />
-      <FavoriteToggleButton postSlug={post.slug} />
+      <FavoriteToggleButton postSlug={post.slug} initialFavorited={initialFavorited} />
     </div>
   )
 }

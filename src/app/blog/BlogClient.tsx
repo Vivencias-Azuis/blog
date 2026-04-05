@@ -10,10 +10,16 @@ import { normalizeTaxonomyValue } from '@/lib/taxonomy'
 interface BlogClientProps {
   initialPosts: PostMeta[]
   initialCategory?: string
+  initialFavoriteSlugs?: string[]
 }
 
-export default function BlogClient({ initialPosts, initialCategory }: BlogClientProps) {
+export default function BlogClient({
+  initialPosts,
+  initialCategory,
+  initialFavoriteSlugs = [],
+}: BlogClientProps) {
   const normalizedInitialCategory = initialCategory ? normalizeTaxonomyValue(initialCategory) : 'todos'
+  const favoriteSlugs = useMemo(() => new Set(initialFavoriteSlugs), [initialFavoriteSlugs])
   const availableCategories = new Set(initialPosts.map((post) => normalizeTaxonomyValue(post.category)))
   const initialSelectedCategory =
     normalizedInitialCategory !== 'todos' && availableCategories.has(normalizedInitialCategory)
@@ -221,7 +227,7 @@ export default function BlogClient({ initialPosts, initialCategory }: BlogClient
                 className="animate-fade-in-up"
                 style={{ animationDelay: `${1.2 + index * 0.1}s` }}
               >
-                <PostCard post={post} />
+                <PostCard post={post} initialFavorited={favoriteSlugs.has(post.slug)} />
               </div>
             ))}
           </div>

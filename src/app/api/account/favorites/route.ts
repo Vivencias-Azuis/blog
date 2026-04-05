@@ -4,6 +4,8 @@ import { z } from 'zod'
 
 import { addFavorite, listFavoriteSlugs } from '@/lib/account/favorites'
 import { favoriteSlugSchema } from '@/lib/account/favorite-slug'
+import { getCanonicalPostSlug } from '@/lib/canonical-posts'
+import { getPostBySlug, normalizeSlug } from '@/lib/posts'
 
 const payloadSchema = z.object({
   postSlug: favoriteSlugSchema,
@@ -45,7 +47,15 @@ export async function POST(request: Request) {
     )
   }
 
-  await addFavorite(userId, payload.data.postSlug)
+  const normalizedSlug = normalizeSlug(payload.data.postSlug)
+  const canonicalSlug = getCanonicalPostSlug(normalizedSlug) ?? normalizedSlug
+  const post = getPostBySlug(canonicalSlug)
+
+  if (!post) {
+    return NextResponse.json({ error: 'Post not found' }, { status: 404 })
+  }
+
+  await addFavorite(userId, post.slug)
 
   return NextResponse.json({ ok: true }, { status: 201 })
 }

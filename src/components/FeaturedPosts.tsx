@@ -1,9 +1,15 @@
+import { auth } from '@clerk/nextjs/server'
+
+import { listFavoriteSlugs } from '@/lib/account/favorites'
 import Link from 'next/link'
 import { getFeaturedPosts } from '@/lib/posts'
 import PostCard from './PostCard'
 
-export default function FeaturedPosts() {
+export default async function FeaturedPosts() {
   const featuredPosts = getFeaturedPosts()
+  const { userId } = await auth()
+  const favoriteItems = userId ? await listFavoriteSlugs(userId) : []
+  const favoriteSlugs = new Set(favoriteItems.map((item) => item.postSlug))
 
   if (featuredPosts.length === 0) {
     return (
@@ -66,7 +72,7 @@ export default function FeaturedPosts() {
               className="animate-fade-in-up"
               style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <PostCard post={post} />
+              <PostCard post={post} initialFavorited={favoriteSlugs.has(post.slug)} />
             </div>
           ))}
         </div>

@@ -477,7 +477,10 @@ export default async function PostPage({ params }: PostPageProps) {
                   className="animate-fade-in-up"
                   style={{ animationDelay: `${1.5 + index * 0.1}s` }}
                 >
-                  <PostCard post={relatedPost} />
+                  <PostCard
+                    post={relatedPost}
+                    initialFavorited={favoriteSlugs.has(relatedPost.slug)}
+                  />
                 </div>
               ))}
             </div>
