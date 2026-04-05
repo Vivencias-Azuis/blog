@@ -55,12 +55,42 @@ const supportPixEnvSchema = z.object({
   MERCADO_PAGO_ACCESS_TOKEN: z.string().min(1).optional(),
 })
 
-export function getSupportStripeEnv(env: NodeJS.ProcessEnv = process.env) {
-  return supportStripeEnvSchema.parse(env)
+function readStripeProcessEnv() {
+  return {
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_PRICE_ID_APOIAR: process.env.STRIPE_PRICE_ID_APOIAR,
+    STRIPE_PRICE_ID_FORTALECER: process.env.STRIPE_PRICE_ID_FORTALECER,
+    STRIPE_PRICE_ID_SUSTENTAR: process.env.STRIPE_PRICE_ID_SUSTENTAR,
+  }
 }
 
-export function getSupportPixEnv(env: NodeJS.ProcessEnv = process.env) {
-  return supportPixEnvSchema.parse(env)
+function readPixProcessEnv() {
+  return {
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    PIX_PROVIDER: process.env.PIX_PROVIDER,
+    ABACATE_PAY_API_KEY: process.env.ABACATE_PAY_API_KEY,
+    MERCADO_PAGO_ACCESS_TOKEN: process.env.MERCADO_PAGO_ACCESS_TOKEN,
+  }
+}
+
+export function getSupportStripeEnv(env?: NodeJS.ProcessEnv) {
+  return supportStripeEnvSchema.parse(env ? {
+    NEXT_PUBLIC_SITE_URL: env.NEXT_PUBLIC_SITE_URL,
+    STRIPE_SECRET_KEY: env.STRIPE_SECRET_KEY,
+    STRIPE_PRICE_ID_APOIAR: env.STRIPE_PRICE_ID_APOIAR,
+    STRIPE_PRICE_ID_FORTALECER: env.STRIPE_PRICE_ID_FORTALECER,
+    STRIPE_PRICE_ID_SUSTENTAR: env.STRIPE_PRICE_ID_SUSTENTAR,
+  } : readStripeProcessEnv())
+}
+
+export function getSupportPixEnv(env?: NodeJS.ProcessEnv) {
+  return supportPixEnvSchema.parse(env ? {
+    NEXT_PUBLIC_SITE_URL: env.NEXT_PUBLIC_SITE_URL,
+    PIX_PROVIDER: env.PIX_PROVIDER as PixProvider | undefined,
+    ABACATE_PAY_API_KEY: env.ABACATE_PAY_API_KEY,
+    MERCADO_PAGO_ACCESS_TOKEN: env.MERCADO_PAGO_ACCESS_TOKEN,
+  } : readPixProcessEnv())
 }
 
 export function getSupportTierBySlug(slug: SupportTierSlug) {
