@@ -22,7 +22,7 @@ export default async function MinhaAreaPage() {
     >
       <div className="space-y-6">
         <AccountStatusBadge isMember={isMember} />
-        <AccountOverviewCards isMember={isMember} />
+        <AccountOverviewCards />
       </div>
     </AccountShell>
   )

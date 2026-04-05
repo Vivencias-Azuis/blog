@@ -1,15 +1,23 @@
 import Link from 'next/link'
 
-interface AccountOverviewCardsProps {
-  isMember: boolean
-}
-
 const cards = [
   {
     href: '/minha-area/perfil',
     title: 'Perfil',
     body: 'Revise seus dados de acesso e a pagina nativa do Clerk.',
     cta: 'Abrir perfil',
+  },
+  {
+    href: '/minha-area/favoritos',
+    title: 'Favoritos',
+    body: 'Revise os posts salvos quando a pagina estiver disponivel.',
+    cta: 'Ver favoritos',
+  },
+  {
+    href: '/minha-area/materiais',
+    title: 'Materiais',
+    body: 'Acesse os materiais abertos e exclusivos quando a pagina entrar no ar.',
+    cta: 'Ver materiais',
   },
   {
     href: '/minha-area/assinatura',
@@ -19,25 +27,9 @@ const cards = [
   },
 ] as const
 
-export default function AccountOverviewCards({
-  isMember,
-}: AccountOverviewCardsProps) {
+export default function AccountOverviewCards() {
   return (
-    <div className="grid gap-4 md:grid-cols-3">
-      <div className="rounded-block border border-sand-200 bg-surface p-5 shadow-card md:p-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-dark">
-          Status atual
-        </p>
-        <h2 className="mt-3 text-xl font-semibold text-sand-900">
-          {isMember ? 'Membro com acesso liberado' : 'Conta gratuita ativa'}
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-sand-700">
-          {isMember
-            ? 'Seu acesso exclusivo foi identificado na conta.'
-            : 'A conta esta pronta para navegação e pode ser atualizada depois.'}
-        </p>
-      </div>
-
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {cards.map((card) => (
         <Link
           key={card.href}

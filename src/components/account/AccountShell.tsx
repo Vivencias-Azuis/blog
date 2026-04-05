@@ -10,6 +10,8 @@ interface AccountShellProps {
 const links = [
   { href: '/minha-area', label: 'Visao geral' },
   { href: '/minha-area/perfil', label: 'Perfil' },
+  { href: '/minha-area/favoritos', label: 'Favoritos' },
+  { href: '/minha-area/materiais', label: 'Materiais' },
   { href: '/minha-area/assinatura', label: 'Assinatura' },
 ]
 
