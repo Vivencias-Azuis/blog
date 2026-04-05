@@ -17,6 +17,35 @@ vi.mock('@clerk/nextjs/server', () => ({
 const currentUserMock = vi.mocked(currentUser)
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../')
 const migrationDir = path.join(repoRoot, 'drizzle')
+const historical0000Sql = `
+CREATE TABLE IF NOT EXISTS \`support_pix_charges\` (
+\t\`id\` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+\t\`provider\` text NOT NULL,
+\t\`provider_charge_id\` text NOT NULL,
+\t\`source\` text NOT NULL,
+\t\`payer_email\` text,
+\t\`amount_in_cents\` integer NOT NULL,
+\t\`status\` text NOT NULL,
+\t\`br_code\` text,
+\t\`br_code_base64\` text,
+\t\`ticket_url\` text,
+\t\`expires_at\` text,
+\t\`external_reference\` text,
+\t\`created_at\` text NOT NULL,
+\t\`updated_at\` text NOT NULL
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS \`support_pix_charges_provider_charge_idx\` ON \`support_pix_charges\` (\`provider\`,\`provider_charge_id\`);--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS \`user_favorites\` (
+\t\`id\` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+\t\`clerk_user_id\` text NOT NULL,
+\t\`post_slug\` text NOT NULL,
+\t\`created_at\` text NOT NULL
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS \`user_favorites_user_slug_idx\` ON \`user_favorites\` (\`clerk_user_id\`,\`post_slug\`);--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS \`user_favorites_user_idx\` ON \`user_favorites\` (\`clerk_user_id\`);
+`
 
 function createTempDb() {
   const dir = mkdtempSync(path.join(os.tmpdir(), 'va-favorites-'))
@@ -33,10 +62,23 @@ function applySqliteMigration(dbPath: string, migrationFile: string) {
   })
 }
 
+function applySqliteSql(dbPath: string, sql: string) {
+  execFileSync('sqlite3', [dbPath], { input: sql })
+}
+
 function prepareFreshDb() {
   const tempDb = createTempDb()
 
   applySqliteMigration(tempDb.dbPath, '0000_colorful_slayback.sql')
+  applySqliteMigration(tempDb.dbPath, '0001_condemned_squirrel_girl.sql')
+
+  return tempDb
+}
+
+function prepareHistoricalUpgradeDb() {
+  const tempDb = createTempDb()
+
+  applySqliteSql(tempDb.dbPath, historical0000Sql)
   applySqliteMigration(tempDb.dbPath, '0001_condemned_squirrel_girl.sql')
 
   return tempDb
@@ -201,5 +243,28 @@ describe('favorites persistence', () => {
         postSlug: 'post-a',
       }),
     ])
+  })
+
+  it('current 0001 upgrades the historical old 0000 layout', async () => {
+    const tempDb = prepareHistoricalUpgradeDb()
+
+    const tables = execFileSync('sqlite3', [tempDb.dbPath, '.tables'], {
+      encoding: 'utf8',
+    }).trim()
+
+    const indexes = execFileSync(
+      'sqlite3',
+      [
+        tempDb.dbPath,
+        "select name from sqlite_master where type='index' order by name;",
+      ],
+      { encoding: 'utf8' },
+    ).trim()
+
+    expect(tables).toContain('support_pix_charges')
+    expect(tables).toContain('user_favorites')
+    expect(indexes).toContain('support_pix_charges_provider_charge_idx')
+    expect(indexes).toContain('user_favorites_user_idx')
+    expect(indexes).toContain('user_favorites_user_slug_idx')
   })
 })
