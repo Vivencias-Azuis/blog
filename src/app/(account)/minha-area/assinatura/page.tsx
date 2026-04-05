@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { currentUser } from '@clerk/nextjs/server'
 import AccountShell from '@/components/account/AccountShell'
 import AccountStatusBadge from '@/components/account/AccountStatusBadge'
+import { readSubscriptionMetadata } from '@/lib/account/subscription-status'
+import { supportTiers } from '@/lib/support/config'
 import { generatePageMetadata } from '@/lib/metadata'
-import { getCurrentMemberAccess } from '@/lib/account/member-access'
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Assinatura',
@@ -12,29 +14,96 @@ export const metadata: Metadata = generatePageMetadata({
   keywords: ['assinatura', 'apoio', 'acesso'],
 })
 
+type ClerkUserWithMetadata = {
+  publicMetadata?: Record<string, unknown>
+  privateMetadata?: Record<string, unknown>
+}
+
+function formatSubscriptionStatus(status: string | null) {
+  if (!status) {
+    return 'Indisponível'
+  }
+
+  const labels: Record<string, string> = {
+    active: 'Ativo',
+    trialing: 'Em teste',
+    past_due: 'Pagamento pendente',
+    canceled: 'Cancelado',
+    incomplete: 'Incompleto',
+    unpaid: 'Em aberto',
+    paused: 'Pausado',
+  }
+
+  return labels[status] ?? status
+}
+
+function formatSupportTier(slug: string | null) {
+  return supportTiers.find((tier) => tier.slug === slug)?.label ?? 'Sem plano'
+}
+
 export default async function AssinaturaPage() {
-  const { isMember } = await getCurrentMemberAccess()
+  const user = await currentUser()
+  const metadataSource = user as ClerkUserWithMetadata | null
+  const subscription = readSubscriptionMetadata({
+    publicMetadata: metadataSource?.publicMetadata,
+    privateMetadata: metadataSource?.privateMetadata,
+  })
+  const statusLabel = formatSubscriptionStatus(subscription.subscriptionStatus)
+  const tierLabel = formatSupportTier(subscription.supportTier)
 
   return (
     <AccountShell
       title="Assinatura"
-      description="A primeira versao usa acesso manual. Esta pagina resume o estado atual e direciona para o apoio ao projeto."
+      description="Veja o estado sincronizado com Stripe e o caminho atual de acesso ao projeto."
     >
       <div className="space-y-6 rounded-block border border-sand-200 bg-surface p-6 shadow-card md:p-8">
-        <AccountStatusBadge isMember={isMember} />
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="space-y-3">
+            <AccountStatusBadge isMember={subscription.isMember} />
+            <p className="max-w-3xl text-base leading-relaxed text-sand-700">
+              {subscription.isMember
+                ? 'Seu acesso esta liberado e segue a ultima sincronizacao com o Stripe.'
+                : 'Sua conta ainda nao esta como membro. Quando a ativacao pelo Stripe for concluida, o acesso e liberado automaticamente.'}
+            </p>
+          </div>
+        </div>
+
+        <dl className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-block border border-sand-200 bg-brand-soft/40 p-4">
+            <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-dark">
+              Status
+            </dt>
+            <dd className="mt-2 text-lg font-semibold text-sand-900">
+              {statusLabel}
+            </dd>
+          </div>
+          <div className="rounded-block border border-sand-200 bg-brand-soft/40 p-4">
+            <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-dark">
+              Plano
+            </dt>
+            <dd className="mt-2 text-lg font-semibold text-sand-900">
+              {tierLabel}
+            </dd>
+          </div>
+        </dl>
+
         <div className="space-y-4">
-          <p className="max-w-3xl text-base leading-relaxed text-sand-700">
-            {isMember
-              ? 'Seu acesso de membro esta liberado e voce pode seguir navegando pela area autenticada.'
-              : 'Sua conta segue gratuita. Para apoiar o projeto e solicitar acesso exclusivo, siga para a pagina de apoio.'}
-          </p>
           <div className="flex flex-wrap gap-3">
-            <Link
-              href="/apoie"
-              className="rounded-pill bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-800"
-            >
-              Ir para Apoie
-            </Link>
+            {subscription.isMember ? (
+              <Link
+                href="/minha-area/materiais"
+                className="rounded-pill bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-800"
+              >
+                Ver materiais
+              </Link>
+            ) : (
+              <Link
+                href="/apoie"
+                className="rounded-pill bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-800"
+              >
+                Ativar pela Stripe
+              </Link>
+            )}
             <Link
               href="/contato"
               className="rounded-pill border border-sand-300 px-5 py-3 text-sm font-semibold text-sand-700 transition-colors hover:bg-brand-soft hover:text-link"
