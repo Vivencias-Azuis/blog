@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
 
-import { listFavoriteSlugs } from '@/lib/account/favorites'
+import { listFavoriteSlugs, resolveFavoritePostSlugs } from '@/lib/account/favorites'
 import Link from 'next/link'
 import { getFeaturedPosts } from '@/lib/posts'
 import PostCard from './PostCard'
@@ -9,7 +9,7 @@ export default async function FeaturedPosts() {
   const featuredPosts = getFeaturedPosts()
   const { userId } = await auth()
   const favoriteItems = userId ? await listFavoriteSlugs(userId) : []
-  const favoriteSlugs = new Set(favoriteItems.map((item) => item.postSlug))
+  const favoriteSlugs = new Set(resolveFavoritePostSlugs(favoriteItems).canonicalSlugs)
 
   if (featuredPosts.length === 0) {
     return (

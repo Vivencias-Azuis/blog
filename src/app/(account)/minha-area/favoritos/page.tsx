@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import AccountShell from '@/components/account/AccountShell'
 import FavoritesList from '@/components/account/FavoritesList'
-import { listFavoriteSlugs } from '@/lib/account/favorites'
+import { listFavoriteSlugs, resolveFavoritePostSlugs } from '@/lib/account/favorites'
 import { requireUser } from '@/lib/auth/auth'
 import { generatePageMetadata } from '@/lib/metadata'
 import { getAllPosts } from '@/lib/posts'
@@ -17,11 +17,12 @@ export const metadata: Metadata = generatePageMetadata({
 export default async function FavoritosPage() {
   const { userId } = await requireUser()
   const items = await listFavoriteSlugs(userId)
+  const { canonicalSlugs, unresolvedCount } = resolveFavoritePostSlugs(items)
   const postsBySlug = new Map(getAllPosts().map((post) => [post.slug, post]))
-  const posts = items
-    .map((item) => postsBySlug.get(item.postSlug))
+  const posts = canonicalSlugs
+    .map((slug) => postsBySlug.get(slug))
     .filter((post): post is NonNullable<typeof post> => Boolean(post))
-  const staleCount = items.length - posts.length
+  const staleCount = unresolvedCount + (canonicalSlugs.length - posts.length)
 
   return (
     <AccountShell

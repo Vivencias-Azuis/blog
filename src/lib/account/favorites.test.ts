@@ -150,6 +150,30 @@ describe('normalizeFavoriteRows', () => {
       'older',
     ])
   })
+
+  it('resolves stored favorite slugs to canonical current slugs', async () => {
+    const { resolveFavoritePostSlugs } = await import('@/lib/account/favorites')
+
+    expect(
+      resolveFavoritePostSlugs([
+        {
+          postSlug: 'melhor-plano-de-saude-para-autismo-guia-completo',
+          createdAt: '2026-04-03T10:00:00.000Z',
+        },
+        {
+          postSlug: 'melhores-planos-de-saude-para-criancas-com-autismo',
+          createdAt: '2026-04-02T10:00:00.000Z',
+        },
+        {
+          postSlug: 'post-inexistente-para-favoritos',
+          createdAt: '2026-04-01T10:00:00.000Z',
+        },
+      ]),
+    ).toEqual({
+      canonicalSlugs: ['melhores-planos-de-saude-para-criancas-com-autismo'],
+      unresolvedCount: 1,
+    })
+  })
 })
 
 describe('favorites persistence', () => {

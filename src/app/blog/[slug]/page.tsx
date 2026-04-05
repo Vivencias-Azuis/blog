@@ -16,7 +16,7 @@ import PostIntentCTA from '@/components/PostIntentCTA'
 import EditorialTrustPanel from '@/components/EditorialTrustPanel'
 import { getPostTrustSignals } from '@/lib/editorial'
 import { detectOperationalCluster } from '@/lib/analytics-contract'
-import { listFavoriteSlugs } from '@/lib/account/favorites'
+import { listFavoriteSlugs, resolveFavoritePostSlugs } from '@/lib/account/favorites'
 
 interface PostPageProps {
   params: Promise<{
@@ -182,7 +182,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const trustSignals = getPostTrustSignals(post)
   const { userId } = await auth()
   const favoriteItems = userId ? await listFavoriteSlugs(userId) : []
-  const favoriteSlugs = new Set(favoriteItems.map((item) => item.postSlug))
+  const favoriteSlugs = new Set(resolveFavoritePostSlugs(favoriteItems).canonicalSlugs)
 
   const articleJsonLd = {
     '@context': 'https://schema.org',

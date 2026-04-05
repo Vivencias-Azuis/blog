@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
 
-import { listFavoriteSlugs } from '@/lib/account/favorites'
+import { listFavoriteSlugs, resolveFavoritePostSlugs } from '@/lib/account/favorites'
 import { getAllPosts } from '@/lib/posts'
 import { generatePageMetadata } from '@/lib/metadata'
 import { Metadata } from 'next'
@@ -21,6 +21,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const allPosts = getAllPosts()
   const { userId } = await auth()
   const favoriteItems = userId ? await listFavoriteSlugs(userId) : []
+  const { canonicalSlugs } = resolveFavoritePostSlugs(favoriteItems)
   const resolvedSearchParams = await searchParams
   const categoriaParam = resolvedSearchParams.categoria
   const initialCategory = Array.isArray(categoriaParam) ? categoriaParam[0] : categoriaParam
@@ -29,7 +30,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     <BlogClient
       initialPosts={allPosts}
       initialCategory={initialCategory}
-      initialFavoriteSlugs={favoriteItems.map((item) => item.postSlug)}
+      initialFavoriteSlugs={canonicalSlugs}
     />
   )
 }
