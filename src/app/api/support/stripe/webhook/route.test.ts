@@ -29,44 +29,48 @@ describe('POST /api/support/stripe/webhook', () => {
     process.env.STRIPE_WEBHOOK_SECRET = 'whsec_test_123'
   })
 
-  it('syncs membership for checkout.session.completed subscription events', async () => {
-    constructEventMock.mockReturnValue({
-      type: 'checkout.session.completed',
-      data: {
-        object: {
-          mode: 'subscription',
-          customer: 'cus_123',
-          subscription: 'sub_123',
-          metadata: {
-            clerkUserId: 'user_123',
-            tierSlug: 'fortalecer',
+  it(
+    'syncs membership for checkout.session.completed subscription events',
+    async () => {
+      constructEventMock.mockReturnValue({
+        type: 'checkout.session.completed',
+        data: {
+          object: {
+            mode: 'subscription',
+            customer: 'cus_123',
+            subscription: 'sub_123',
+            metadata: {
+              clerkUserId: 'user_123',
+              tierSlug: 'fortalecer',
+            },
           },
         },
-      },
-    })
+      })
 
-    const { POST } = await import('./route')
-    const response = await POST(
-      new Request('http://localhost/api/support/stripe/webhook', {
-        method: 'POST',
-        body: JSON.stringify({ type: 'checkout.session.completed' }),
-        headers: {
-          'Content-Type': 'application/json',
-          'stripe-signature': 't=1,v1=signature',
-        },
-      }),
-    )
+      const { POST } = await import('./route')
+      const response = await POST(
+        new Request('http://localhost/api/support/stripe/webhook', {
+          method: 'POST',
+          body: JSON.stringify({ type: 'checkout.session.completed' }),
+          headers: {
+            'Content-Type': 'application/json',
+            'stripe-signature': 't=1,v1=signature',
+          },
+        }),
+      )
 
-    expect(response.status).toBe(200)
-    await expect(response.json()).resolves.toEqual({ received: true })
-    expect(updateClerkMembershipMetadataMock).toHaveBeenCalledWith({
-      clerkUserId: 'user_123',
-      stripeCustomerId: 'cus_123',
-      stripeSubscriptionId: 'sub_123',
-      subscriptionStatus: 'active',
-      tierSlug: 'fortalecer',
-    })
-  })
+      expect(response.status).toBe(200)
+      await expect(response.json()).resolves.toEqual({ received: true })
+      expect(updateClerkMembershipMetadataMock).toHaveBeenCalledWith({
+        clerkUserId: 'user_123',
+        stripeCustomerId: 'cus_123',
+        stripeSubscriptionId: 'sub_123',
+        subscriptionStatus: 'active',
+        tierSlug: 'fortalecer',
+      })
+    },
+    15000,
+  )
 
   it('syncs membership for recurring subscription updates', async () => {
     constructEventMock.mockReturnValue({

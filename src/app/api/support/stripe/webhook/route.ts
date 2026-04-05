@@ -26,7 +26,7 @@ function readSupportTierSlug(metadata: Record<string, unknown> | null | undefine
     : null
 }
 
-function readStripeObjectId(value: string | Stripe.Customer | null | undefined) {
+function readStripeObjectId(value: unknown) {
   return typeof value === 'string' ? value : null
 }
 
