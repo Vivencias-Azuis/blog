@@ -29,6 +29,7 @@ describe('SupportPageClient', () => {
     expect(
       screen.getByText(/doação avulsa por pix ou cartão/i),
     ).toBeInTheDocument()
+    expect(screen.getByLabelText(/seu e-mail/i)).toBeInTheDocument()
   })
 
   it('renders pix payment state after a successful pix donation request', async () => {
@@ -41,6 +42,7 @@ describe('SupportPageClient', () => {
         brCode: '000201',
         brCodeBase64: 'data:image/png;base64,abc',
         expiresAt: '2026-04-05T12:00:00.000Z',
+        ticketUrl: 'https://www.mercadopago.com.br/payments/123/ticket',
       }),
     })
 
@@ -53,17 +55,22 @@ describe('SupportPageClient', () => {
       }),
     )
 
+    await user.type(screen.getByLabelText(/seu e-mail/i), 'pix@example.com')
     await user.click(screen.getByRole('button', { name: /quero doar uma vez/i }))
 
     expect(
       await screen.findByRole('heading', { name: /pagamento por pix/i }),
     ).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: /abrir no mercado pago/i }),
+    ).toHaveAttribute('href', 'https://www.mercadopago.com.br/payments/123/ticket')
     expect(fetchMock).toHaveBeenCalledWith('/api/support/donate/pix', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         amountInCents: 2500,
         paymentMethod: 'pix',
+        payerEmail: 'pix@example.com',
         source: 'support-page',
       }),
     })

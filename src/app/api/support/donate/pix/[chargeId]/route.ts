@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { checkTransparentPixCharge } from '@/lib/support/abacate-pay'
+import { getPixProviderAdapter } from '@/lib/support/pix-provider'
 import { resolveSupportRouteError } from '@/lib/support/route-context'
 
 export async function GET(
@@ -8,12 +8,13 @@ export async function GET(
 ) {
   try {
     const { chargeId } = await params
-    const charge = await checkTransparentPixCharge(chargeId)
+    const adapter = getPixProviderAdapter()
+    const charge = await adapter.checkCharge(chargeId)
 
     return NextResponse.json({
-      chargeId: charge.data.id,
-      status: charge.data.status,
-      expiresAt: charge.data.expiresAt,
+      chargeId: charge.chargeId,
+      status: charge.status,
+      expiresAt: charge.expiresAt,
     })
   } catch (error) {
     const routeError = resolveSupportRouteError(error, {

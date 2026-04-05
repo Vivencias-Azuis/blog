@@ -9,11 +9,13 @@ export default function PixDonationStatus({
   brCodeBase64,
   expiresAt,
   status,
+  ticketUrl,
 }: {
   brCode: string
   brCodeBase64: string
   expiresAt: string
   status: 'PENDING' | 'PAID' | 'EXPIRED'
+  ticketUrl?: string
 }) {
   const statusMessage =
     status === 'PAID'
@@ -42,6 +44,16 @@ export default function PixDonationStatus({
           className="mt-2 min-h-28 w-full rounded-card border border-sand-200 p-3 text-sm text-sand-700"
         />
       </label>
+      {ticketUrl ? (
+        <a
+          href={ticketUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="btn-secondary mt-5 inline-flex"
+        >
+          Abrir no Mercado Pago
+        </a>
+      ) : null}
       <p className="mt-3 text-xs text-sand-500">
         Expira em: {formatDateTime(expiresAt)}
       </p>

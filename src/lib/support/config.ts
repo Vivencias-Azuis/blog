@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export type SupportTierSlug = 'apoiar' | 'fortalecer' | 'sustentar'
+export type PixProvider = 'abacate_pay' | 'mercado_pago'
 
 export interface SupportTier {
   readonly slug: SupportTierSlug
@@ -45,7 +46,9 @@ const supportEnvSchema = z.object({
   STRIPE_PRICE_ID_APOIAR: z.string().min(1),
   STRIPE_PRICE_ID_FORTALECER: z.string().min(1),
   STRIPE_PRICE_ID_SUSTENTAR: z.string().min(1),
-  ABACATE_PAY_API_KEY: z.string().min(1),
+  PIX_PROVIDER: z.enum(['abacate_pay', 'mercado_pago']).default('abacate_pay'),
+  ABACATE_PAY_API_KEY: z.string().min(1).optional(),
+  MERCADO_PAGO_ACCESS_TOKEN: z.string().min(1).optional(),
 })
 
 export function getSupportEnv(env: NodeJS.ProcessEnv = process.env) {

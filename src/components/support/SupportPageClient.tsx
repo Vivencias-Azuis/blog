@@ -13,6 +13,7 @@ interface PixState {
   brCode: string
   brCodeBase64: string
   expiresAt: string
+  ticketUrl?: string
 }
 
 async function parseJsonResponse(response: Response) {
@@ -37,6 +38,7 @@ export default function SupportPageClient({
     donationSuggestions[1] ?? 2500,
   )
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'pix'>('pix')
+  const [payerEmail, setPayerEmail] = useState('')
   const [isSubmittingDonation, setIsSubmittingDonation] = useState(false)
   const [pixState, setPixState] = useState<PixState | null>(null)
   const [feedback, setFeedback] = useState<string | null>(null)
@@ -80,6 +82,7 @@ export default function SupportPageClient({
         body: JSON.stringify({
           amountInCents: selectedAmount,
           paymentMethod,
+          payerEmail: paymentMethod === 'pix' ? payerEmail.trim() : undefined,
           source: 'support-page',
         }),
       })
@@ -146,6 +149,8 @@ export default function SupportPageClient({
         onAmountChange={setSelectedAmount}
         paymentMethod={paymentMethod}
         onPaymentMethodChange={setPaymentMethod}
+        payerEmail={payerEmail}
+        onPayerEmailChange={setPayerEmail}
         onDonate={startDonationFlow}
         loading={isSubmittingDonation}
       />

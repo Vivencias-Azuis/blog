@@ -14,6 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
     "llms": "node scripts/generate-llms.js",
     "cta:audit": "node scripts/audit-post-cta.js",
     "content:generate": "node scripts/generate-content.js",
@@ -27,10 +29,12 @@
     "build:full": "npm run llms && npm run build"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.2",
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
     "@next/mdx": "^15.5.6",
     "@types/mdx": "^2.0.10",
+    "drizzle-orm": "^0.45.2",
     "gray-matter": "^4.0.3",
     "next": "^15.5.6",
     "next-mdx-remote": "^5.0.0",
@@ -45,14 +49,15 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^5.0.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.0.4",
     "autoprefixer": "^10.0.1",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9.39.2",
     "eslint-config-next": "^15.5.6",
     "jsdom": "^26.1.0",

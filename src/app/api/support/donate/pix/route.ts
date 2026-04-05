@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
-import { createTransparentPixCharge } from '@/lib/support/abacate-pay'
+import { getPixProviderAdapter } from '@/lib/support/pix-provider'
+import { upsertSupportPixCharge } from '@/lib/support/support-payments-store'
 import {
   parsePixDonationRequest,
   readJsonBody,
@@ -9,15 +10,29 @@ import {
 export async function POST(request: Request) {
   try {
     const body = await readJsonBody(request)
-    const { payload } = parsePixDonationRequest(body)
-    const charge = await createTransparentPixCharge(payload)
+    const { providerInput } = parsePixDonationRequest(body)
+    const adapter = getPixProviderAdapter()
+    const charge = await adapter.createCharge(providerInput)
+    await upsertSupportPixCharge({
+      provider: adapter.provider,
+      providerChargeId: charge.chargeId,
+      source: providerInput.source,
+      payerEmail: providerInput.payerEmail,
+      amountInCents: providerInput.amountInCents,
+      status: charge.status,
+      brCode: charge.brCode,
+      brCodeBase64: charge.brCodeBase64,
+      ticketUrl: charge.ticketUrl,
+      expiresAt: charge.expiresAt,
+    })
 
     return NextResponse.json({
-      chargeId: charge.data.id,
-      status: charge.data.status,
-      brCode: charge.data.brCode,
-      brCodeBase64: charge.data.brCodeBase64,
-      expiresAt: charge.data.expiresAt,
+      chargeId: charge.chargeId,
+      status: charge.status,
+      brCode: charge.brCode,
+      brCodeBase64: charge.brCodeBase64,
+      expiresAt: charge.expiresAt,
+      ticketUrl: charge.ticketUrl,
     })
   } catch (error) {
     const routeError = resolveSupportRouteError(error, {

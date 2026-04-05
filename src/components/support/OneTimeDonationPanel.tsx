@@ -22,6 +22,8 @@ export default function OneTimeDonationPanel({
   onAmountChange,
   paymentMethod,
   onPaymentMethodChange,
+  payerEmail,
+  onPayerEmailChange,
   onDonate,
   loading,
 }: {
@@ -30,11 +32,14 @@ export default function OneTimeDonationPanel({
   onAmountChange: (value: number) => void
   paymentMethod: 'card' | 'pix'
   onPaymentMethodChange: (value: 'card' | 'pix') => void
+  payerEmail: string
+  onPayerEmailChange: (value: string) => void
   onDonate: () => void
   loading: boolean
 }) {
   const [rawDigits, setRawDigits] = useState('')
   const inputId = useId()
+  const emailInputId = useId()
 
   return (
     <section className="mt-16 rounded-block border border-sand-200 bg-surface p-6 shadow-overlay md:p-8">
@@ -112,6 +117,29 @@ export default function OneTimeDonationPanel({
       <p className="mt-4 text-sm text-sand-600">
         Doação avulsa por Pix ou cartão
       </p>
+
+      {paymentMethod === 'pix' ? (
+        <>
+          <label
+            htmlFor={emailInputId}
+            className="mt-6 block text-sm font-semibold text-sand-800"
+          >
+            Seu e-mail
+          </label>
+          <input
+            id={emailInputId}
+            type="email"
+            value={payerEmail}
+            onChange={(event) => onPayerEmailChange(event.target.value)}
+            className="mt-2 w-full rounded-card border border-sand-200 px-4 py-3 text-sand-800"
+            placeholder="voce@exemplo.com"
+            autoComplete="email"
+          />
+          <p className="mt-2 text-xs text-sand-500">
+            Usado para gerar e identificar seu pagamento via Pix.
+          </p>
+        </>
+      ) : null}
 
       <button
         type="button"

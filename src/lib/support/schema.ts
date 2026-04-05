@@ -18,6 +18,7 @@ export const subscriptionRequestSchema = z.object({
 export const donationRequestSchema = z.object({
   amountInCents: z.number().int().min(500),
   paymentMethod: z.enum(paymentMethods),
+  payerEmail: z.string().trim().email().optional(),
   source: z.string().min(1).default('support-page'),
 })
 

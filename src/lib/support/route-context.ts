@@ -1,25 +1,17 @@
 import type Stripe from 'stripe'
 import { getSupportEnv, getSupportTierBySlug } from '@/lib/support/config'
 import {
-  buildAbacatePixPayload,
   buildStripeDonationCheckoutParams,
   buildStripeSubscriptionCheckoutParams,
   donationRequestSchema,
   subscriptionRequestSchema,
 } from '@/lib/support/schema'
+import { SupportRouteError, resolveSupportRouteError } from '@/lib/support/errors'
 import { ZodError } from 'zod'
 
+export { SupportRouteError, resolveSupportRouteError } from '@/lib/support/errors'
+
 const supportSessionKinds = new Set(['subscription', 'donation-card'])
-
-export class SupportRouteError extends Error {
-  readonly status: number
-
-  constructor(status: number, message: string) {
-    super(message)
-    this.name = 'SupportRouteError'
-    this.status = status
-  }
-}
 
 export async function readJsonBody(request: Request) {
   try {
@@ -125,12 +117,17 @@ export function parsePixDonationRequest(body: unknown) {
 
   requirePaymentMethod(input.paymentMethod, 'pix')
 
+  if (!input.payerEmail) {
+    throw new SupportRouteError(400, 'Informe um e-mail válido para gerar o Pix.')
+  }
+
   return {
     input,
-    payload: buildAbacatePixPayload({
+    providerInput: {
       amountInCents: input.amountInCents,
+      payerEmail: input.payerEmail,
       source: input.source,
-    }),
+    },
   }
 }
 
@@ -140,21 +137,4 @@ export function assertSupportSession(session: Pick<Stripe.Checkout.Session, 'met
   if (!kind || !supportSessionKinds.has(kind)) {
     throw new SupportRouteError(404, 'Sessão não encontrada.')
   }
-}
-
-export function resolveSupportRouteError(
-  error: unknown,
-  fallback: {
-    message: string
-    status: number
-  },
-) {
-  if (error instanceof SupportRouteError) {
-    return {
-      message: error.message,
-      status: error.status,
-    }
-  }
-
-  return fallback
 }

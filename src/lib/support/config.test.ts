@@ -43,12 +43,28 @@ describe('support config', () => {
 
     expect(env.NEXT_PUBLIC_SITE_URL).toBe('https://www.vivenciasazuis.com.br')
     expect(env.STRIPE_SECRET_KEY).toBe('sk_test_123')
+    expect(env.PIX_PROVIDER).toBe('abacate_pay')
+  })
+
+  it('accepts mercado pago as the active pix provider', () => {
+    const env = getSupportEnv({
+      NEXT_PUBLIC_SITE_URL: 'https://www.vivenciasazuis.com.br',
+      STRIPE_SECRET_KEY: 'sk_test_123',
+      STRIPE_PRICE_ID_APOIAR: 'price_apoiar',
+      STRIPE_PRICE_ID_FORTALECER: 'price_fortalecer',
+      STRIPE_PRICE_ID_SUSTENTAR: 'price_sustentar',
+      PIX_PROVIDER: 'mercado_pago',
+      MERCADO_PAGO_ACCESS_TOKEN: 'APP_USR_test_123',
+    })
+
+    expect(env.PIX_PROVIDER).toBe('mercado_pago')
   })
 
   it('rejects missing required payment environment variables', () => {
     expect(() =>
       getSupportEnv({
         NEXT_PUBLIC_SITE_URL: 'https://www.vivenciasazuis.com.br',
+        PIX_PROVIDER: 'abacate_pay',
         STRIPE_PRICE_ID_APOIAR: 'price_apoiar',
         STRIPE_PRICE_ID_FORTALECER: 'price_fortalecer',
         STRIPE_PRICE_ID_SUSTENTAR: 'price_sustentar',
@@ -65,6 +81,7 @@ describe('support config', () => {
         STRIPE_PRICE_ID_APOIAR: 'price_apoiar',
         STRIPE_PRICE_ID_FORTALECER: 'price_fortalecer',
         STRIPE_PRICE_ID_SUSTENTAR: 'price_sustentar',
+        PIX_PROVIDER: 'abacate_pay',
         ABACATE_PAY_API_KEY: 'abacate_test_123',
       }),
     ).toThrow()
