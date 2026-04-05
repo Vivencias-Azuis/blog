@@ -1,6 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const createCheckoutSession = vi.fn()
+const authMock = vi.fn()
+const currentUserMock = vi.fn()
+
+vi.mock('@clerk/nextjs/server', () => ({
+  auth: authMock,
+  currentUser: currentUserMock,
+}))
 
 vi.mock('@/lib/support/stripe', () => ({
   getStripeClient: () => ({
@@ -15,6 +22,10 @@ vi.mock('@/lib/support/stripe', () => ({
 describe('POST /api/support/subscribe', () => {
   beforeEach(() => {
     createCheckoutSession.mockReset()
+    authMock.mockReset()
+    currentUserMock.mockReset()
+    authMock.mockResolvedValue({ userId: 'user_default' })
+    currentUserMock.mockResolvedValue(null)
     process.env.NEXT_PUBLIC_SITE_URL = 'https://www.vivenciasazuis.com.br'
     process.env.STRIPE_SECRET_KEY = 'sk_test_123'
     process.env.STRIPE_PRICE_ID_APOIAR = 'price_apoiar'
@@ -45,11 +56,64 @@ describe('POST /api/support/subscribe', () => {
       expect.objectContaining({
         mode: 'subscription',
         line_items: [{ price: 'price_fortalecer', quantity: 1 }],
-        metadata: {
+        client_reference_id: 'user_default',
+        metadata: expect.objectContaining({
           kind: 'subscription',
           tierSlug: 'fortalecer',
+          clerkUserId: 'user_default',
           source: 'support-page',
-        },
+        }),
+      }),
+    )
+  })
+
+  it('returns 401 when recurring checkout is requested without a signed-in user', async () => {
+    authMock.mockResolvedValue({ userId: null })
+
+    const { POST } = await import('./route')
+    const response = await POST(
+      new Request('http://localhost/api/support/subscribe', {
+        method: 'POST',
+        body: JSON.stringify({ tierSlug: 'apoiar', source: 'support-page' }),
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+
+    expect(response.status).toBe(401)
+    await expect(response.json()).resolves.toEqual({
+      message: 'Faça login para iniciar a assinatura.',
+    })
+    expect(createCheckoutSession).not.toHaveBeenCalled()
+  })
+
+  it('passes clerkUserId and tierSlug into checkout metadata', async () => {
+    authMock.mockResolvedValue({ userId: 'user_123' })
+    currentUserMock.mockResolvedValue({
+      emailAddresses: [{ emailAddress: 'person@example.com' }],
+    })
+    createCheckoutSession.mockResolvedValue({
+      url: 'https://checkout.stripe.com/c/pay/cs_test_123',
+    })
+
+    const { POST } = await import('./route')
+    const response = await POST(
+      new Request('http://localhost/api/support/subscribe', {
+        method: 'POST',
+        body: JSON.stringify({ tierSlug: 'fortalecer', source: 'support-page' }),
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+
+    expect(response.status).toBe(200)
+    expect(createCheckoutSession).toHaveBeenCalledWith(
+      expect.objectContaining({
+        client_reference_id: 'user_123',
+        customer_email: 'person@example.com',
+        metadata: expect.objectContaining({
+          clerkUserId: 'user_123',
+          tierSlug: 'fortalecer',
+          kind: 'subscription',
+        }),
       }),
     )
   })

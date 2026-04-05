@@ -29,23 +29,39 @@ export function buildStripeSubscriptionCheckoutParams({
   siteUrl,
   tierSlug,
   source,
+  clerkUserId,
+  customerEmail,
 }: {
   priceId: string
   siteUrl: string
   tierSlug: SupportTierSlug
   source: string
+  clerkUserId?: string
+  customerEmail?: string
 }): Stripe.Checkout.SessionCreateParams {
+  const metadata = {
+    kind: 'subscription',
+    tierSlug,
+    source,
+    ...(clerkUserId ? { clerkUserId } : {}),
+  }
+
   return {
     mode: 'subscription',
     payment_method_types: ['card'],
     line_items: [{ price: priceId, quantity: 1 }],
+    ...(clerkUserId ? { client_reference_id: clerkUserId } : {}),
+    ...(customerEmail ? { customer_email: customerEmail } : {}),
     success_url: `${siteUrl}/apoie/obrigado?kind=subscription&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${siteUrl}/apoie/cancelado?kind=subscription`,
-    metadata: {
-      kind: 'subscription',
-      tierSlug,
-      source,
-    },
+    metadata,
+    ...(clerkUserId
+      ? {
+          subscription_data: {
+            metadata,
+          },
+        }
+      : {}),
   }
 }
 
