@@ -13,18 +13,27 @@ export async function POST(request: Request) {
     const { providerInput } = parsePixDonationRequest(body)
     const adapter = getPixProviderAdapter()
     const charge = await adapter.createCharge(providerInput)
-    await upsertSupportPixCharge({
-      provider: adapter.provider,
-      providerChargeId: charge.chargeId,
-      source: providerInput.source,
-      payerEmail: providerInput.payerEmail,
-      amountInCents: providerInput.amountInCents,
-      status: charge.status,
-      brCode: charge.brCode,
-      brCodeBase64: charge.brCodeBase64,
-      ticketUrl: charge.ticketUrl,
-      expiresAt: charge.expiresAt,
-    })
+
+    try {
+      await upsertSupportPixCharge({
+        provider: adapter.provider,
+        providerChargeId: charge.chargeId,
+        source: providerInput.source,
+        payerEmail: providerInput.payerEmail,
+        amountInCents: providerInput.amountInCents,
+        status: charge.status,
+        brCode: charge.brCode,
+        brCodeBase64: charge.brCodeBase64,
+        ticketUrl: charge.ticketUrl,
+        expiresAt: charge.expiresAt,
+      })
+    } catch (storeError) {
+      console.error('Failed to persist Pix charge', {
+        provider: adapter.provider,
+        chargeId: charge.chargeId,
+        error: storeError,
+      })
+    }
 
     return NextResponse.json({
       chargeId: charge.chargeId,
@@ -35,6 +44,7 @@ export async function POST(request: Request) {
       ticketUrl: charge.ticketUrl,
     })
   } catch (error) {
+    console.error('Failed to create Pix charge', error)
     const routeError = resolveSupportRouteError(error, {
       message: 'Não foi possível gerar o Pix agora.',
       status: 502,
