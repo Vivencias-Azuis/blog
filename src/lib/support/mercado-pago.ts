@@ -53,7 +53,11 @@ function getMercadoPagoConfig() {
   }
 }
 
-function buildMercadoPagoWebhookUrl(siteUrl: string) {
+function buildMercadoPagoWebhookUrl(siteUrl?: string) {
+  if (!siteUrl) {
+    return undefined
+  }
+
   if (!siteUrl.startsWith('https://')) {
     return undefined
   }

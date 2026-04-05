@@ -47,7 +47,6 @@ describe('support config', () => {
 
   it('accepts mercado pago as the active pix provider', () => {
     const env = getSupportPixEnv({
-      NEXT_PUBLIC_SITE_URL: 'https://www.vivenciasazuis.com.br',
       PIX_PROVIDER: 'mercado_pago',
       MERCADO_PAGO_ACCESS_TOKEN: 'APP_USR_test_123',
     })
@@ -74,5 +73,14 @@ describe('support config', () => {
         ABACATE_PAY_API_KEY: 'abacate_test_123',
       }),
     ).toThrow()
+  })
+
+  it('allows pix config without a public site url', () => {
+    const env = getSupportPixEnv({
+      PIX_PROVIDER: 'mercado_pago',
+      MERCADO_PAGO_ACCESS_TOKEN: 'APP_USR_test_123',
+    })
+
+    expect(env.NEXT_PUBLIC_SITE_URL).toBeUndefined()
   })
 })

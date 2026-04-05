@@ -40,18 +40,16 @@ export const supportTiers = [
 
 export const donationSuggestions = [1000, 2500, 5000] as const
 
-const supportSharedEnvSchema = z.object({
+const supportStripeEnvSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.string().url(),
-})
-
-const supportStripeEnvSchema = supportSharedEnvSchema.extend({
   STRIPE_SECRET_KEY: z.string().min(1),
   STRIPE_PRICE_ID_APOIAR: z.string().min(1),
   STRIPE_PRICE_ID_FORTALECER: z.string().min(1),
   STRIPE_PRICE_ID_SUSTENTAR: z.string().min(1),
 })
 
-const supportPixEnvSchema = supportSharedEnvSchema.extend({
+const supportPixEnvSchema = z.object({
+  NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
   PIX_PROVIDER: z.enum(['abacate_pay', 'mercado_pago']).default('abacate_pay'),
   ABACATE_PAY_API_KEY: z.string().min(1).optional(),
   MERCADO_PAGO_ACCESS_TOKEN: z.string().min(1).optional(),
