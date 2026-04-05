@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 
 import { removeFavorite } from '@/lib/account/favorites'
+import { parseFavoriteSlug } from '../route'
 
 interface RouteContext {
   params: Promise<{ slug: string }>
@@ -15,6 +16,11 @@ export async function DELETE(_request: Request, { params }: RouteContext) {
   }
 
   const { slug } = await params
+
+  if (!parseFavoriteSlug(slug).success) {
+    return NextResponse.json({ error: 'Invalid slug' }, { status: 422 })
+  }
+
   await removeFavorite(userId, slug)
 
   return NextResponse.json({ ok: true })

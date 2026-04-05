@@ -4,9 +4,19 @@ import { z } from 'zod'
 
 import { addFavorite, listFavoriteSlugs } from '@/lib/account/favorites'
 
+const favoriteSlugSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+
 const payloadSchema = z.object({
-  postSlug: z.string().min(1),
+  postSlug: favoriteSlugSchema,
 })
+
+export function parseFavoriteSlug(input: unknown) {
+  return favoriteSlugSchema.safeParse(input)
+}
 
 export async function GET() {
   const { userId } = await auth()
@@ -27,8 +37,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const payload = payloadSchema.parse(await request.json())
-  await addFavorite(userId, payload.postSlug)
+  let body: unknown
+
+  try {
+    body = await request.json()
+  } catch {
+    return NextResponse.json({ error: 'Malformed JSON' }, { status: 400 })
+  }
+
+  const payload = payloadSchema.safeParse(body)
+
+  if (!payload.success) {
+    return NextResponse.json(
+      { error: 'Invalid payload', issues: payload.error.flatten() },
+      { status: 422 },
+    )
+  }
+
+  await addFavorite(userId, payload.data.postSlug)
 
   return NextResponse.json({ ok: true }, { status: 201 })
 }

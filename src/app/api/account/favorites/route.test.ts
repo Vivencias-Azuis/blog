@@ -39,6 +39,17 @@ describe('favorites routes', () => {
     expect(listFavoriteSlugsMock).toHaveBeenCalledWith('user_123')
   })
 
+  it('returns 401 for unauthenticated GET without calling helpers', async () => {
+    authMock.mockResolvedValue({ userId: null })
+
+    const { GET } = await import('./route')
+    const response = await GET()
+
+    expect(response.status).toBe(401)
+    await expect(response.json()).resolves.toEqual({ error: 'Unauthorized' })
+    expect(listFavoriteSlugsMock).not.toHaveBeenCalled()
+  })
+
   it('adds a favorite for the signed-in user', async () => {
     authMock.mockResolvedValue({ userId: 'user_123' })
 
@@ -55,6 +66,59 @@ describe('favorites routes', () => {
     expect(addFavoriteMock).toHaveBeenCalledWith('user_123', 'post-a')
   })
 
+  it('returns 401 for unauthenticated POST without calling helpers', async () => {
+    authMock.mockResolvedValue({ userId: null })
+
+    const { POST } = await import('./route')
+    const request = new Request('http://localhost/api/account/favorites', {
+      method: 'POST',
+      body: JSON.stringify({ postSlug: 'post-a' }),
+    })
+
+    const response = await POST(request)
+
+    expect(response.status).toBe(401)
+    await expect(response.json()).resolves.toEqual({ error: 'Unauthorized' })
+    expect(addFavoriteMock).not.toHaveBeenCalled()
+  })
+
+  it('returns 400 for malformed JSON', async () => {
+    authMock.mockResolvedValue({ userId: 'user_123' })
+
+    const { POST } = await import('./route')
+    const request = new Request('http://localhost/api/account/favorites', {
+      method: 'POST',
+      body: '{',
+    })
+
+    const response = await POST(request)
+
+    expect(response.status).toBe(400)
+    await expect(response.json()).resolves.toEqual({ error: 'Malformed JSON' })
+    expect(addFavoriteMock).not.toHaveBeenCalled()
+  })
+
+  it.each([
+    ['missing postSlug', {}],
+    ['wrong type', { postSlug: 123 }],
+    ['whitespace slug', { postSlug: '   ' }],
+    ['invalid slug', { postSlug: 'post slug' }],
+  ])('returns 422 for %s', async (_label, payload) => {
+    authMock.mockResolvedValue({ userId: 'user_123' })
+
+    const { POST } = await import('./route')
+    const request = new Request('http://localhost/api/account/favorites', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    })
+
+    const response = await POST(request)
+
+    expect(response.status).toBe(422)
+    await expect(response.json()).resolves.toMatchObject({ error: 'Invalid payload' })
+    expect(addFavoriteMock).not.toHaveBeenCalled()
+  })
+
   it('removes a favorite for the signed-in user', async () => {
     authMock.mockResolvedValue({ userId: 'user_123' })
 
@@ -66,5 +130,31 @@ describe('favorites routes', () => {
     expect(response.status).toBe(200)
     await expect(response.json()).resolves.toEqual({ ok: true })
     expect(removeFavoriteMock).toHaveBeenCalledWith('user_123', 'post-a')
+  })
+
+  it('returns 401 for unauthenticated DELETE without calling helpers', async () => {
+    authMock.mockResolvedValue({ userId: null })
+
+    const { DELETE } = await import('./[slug]/route')
+    const response = await DELETE(new Request('http://localhost/api/account/favorites/post-a'), {
+      params: Promise.resolve({ slug: 'post-a' }),
+    })
+
+    expect(response.status).toBe(401)
+    await expect(response.json()).resolves.toEqual({ error: 'Unauthorized' })
+    expect(removeFavoriteMock).not.toHaveBeenCalled()
+  })
+
+  it('returns 422 for invalid DELETE slug', async () => {
+    authMock.mockResolvedValue({ userId: 'user_123' })
+
+    const { DELETE } = await import('./[slug]/route')
+    const response = await DELETE(new Request('http://localhost/api/account/favorites/post%20a'), {
+      params: Promise.resolve({ slug: 'post a' }),
+    })
+
+    expect(response.status).toBe(422)
+    await expect(response.json()).resolves.toEqual({ error: 'Invalid slug' })
+    expect(removeFavoriteMock).not.toHaveBeenCalled()
   })
 })
