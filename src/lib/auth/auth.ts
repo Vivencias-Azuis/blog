@@ -1,4 +1,4 @@
-import { auth, currentUser } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
 export async function requireUser() {
@@ -8,10 +8,7 @@ export async function requireUser() {
     redirect('/sign-in')
   }
 
-  const user = await currentUser()
-
   return {
     userId: session.userId,
-    user,
   }
 }
