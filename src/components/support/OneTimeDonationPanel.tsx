@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useId } from 'react'
 
 function formatCurrency(amountInCents: number) {
   return (amountInCents / 100).toLocaleString('pt-BR', {
@@ -7,12 +7,11 @@ function formatCurrency(amountInCents: number) {
   })
 }
 
-function formatInputValue(rawDigits: string) {
-  if (!rawDigits) {
+function formatInputValue(amountInCents: number) {
+  if (amountInCents <= 0) {
     return ''
   }
 
-  const amountInCents = Number(rawDigits)
   return formatCurrency(amountInCents)
 }
 
@@ -37,7 +36,6 @@ export default function OneTimeDonationPanel({
   onDonate: () => void
   loading: boolean
 }) {
-  const [rawDigits, setRawDigits] = useState('')
   const inputId = useId()
   const emailInputId = useId()
 
@@ -75,14 +73,10 @@ export default function OneTimeDonationPanel({
       </label>
       <input
         id={inputId}
-        value={formatInputValue(rawDigits)}
+        value={formatInputValue(selectedAmount)}
         onChange={(event) => {
           const digits = event.target.value.replace(/\D/g, '')
-          setRawDigits(digits)
-          const numericValue = Number(digits)
-          if (numericValue >= 500) {
-            onAmountChange(numericValue)
-          }
+          onAmountChange(Number(digits) || 0)
         }}
         inputMode="numeric"
         className="mt-2 w-full rounded-card border border-sand-200 px-4 py-3 text-sand-800"
