@@ -75,12 +75,24 @@ function mapMercadoPagoStatus(status: string): PixChargeResult['status'] {
 
 async function parseMercadoPagoError(response: Response) {
   let body: unknown = null
+  let rawBody = ''
 
   try {
-    body = await response.json()
+    if (typeof response.text === 'function') {
+      rawBody = await response.text()
+      body = rawBody ? JSON.parse(rawBody) : null
+    } else if (typeof response.json === 'function') {
+      body = await response.json()
+      rawBody = body ? JSON.stringify(body) : ''
+    }
   } catch {
     body = null
   }
+
+  console.error('Mercado Pago API error response', {
+    status: response.status,
+    body: rawBody || body,
+  })
 
   const parsed = mercadoPagoErrorResponseSchema.safeParse(body)
   const firstError = parsed.success ? parsed.data.errors?.[0] : undefined
@@ -115,7 +127,28 @@ async function mercadoPagoRequest(path: string, init: RequestInit) {
     await parseMercadoPagoError(response)
   }
 
-  return mercadoPagoPaymentResponseSchema.parse(await response.json())
+  try {
+    let parsedBody: unknown = null
+    let rawBody = ''
+
+    if (typeof response.text === 'function') {
+      rawBody = await response.text()
+      parsedBody = rawBody ? JSON.parse(rawBody) : null
+    } else if (typeof response.json === 'function') {
+      parsedBody = await response.json()
+      rawBody = parsedBody ? JSON.stringify(parsedBody) : ''
+    }
+
+    return mercadoPagoPaymentResponseSchema.parse(parsedBody)
+  } catch (error) {
+    console.error('Mercado Pago response parse failure', {
+      path,
+      status: response.status,
+      body: typeof response.text === 'function' ? undefined : 'unavailable-after-consume',
+      error,
+    })
+    throw new SupportRouteError(502, 'Resposta inválida do Mercado Pago para Pix.')
+  }
 }
 
 export async function fetchMercadoPagoPayment(paymentId: string) {
