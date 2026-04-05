@@ -1,4 +1,5 @@
 import { useId } from 'react'
+import { MIN_DONATION_AMOUNT_IN_CENTS } from '@/lib/support/schema'
 
 function formatCurrency(amountInCents: number) {
   return (amountInCents / 100).toLocaleString('pt-BR', {
@@ -38,6 +39,7 @@ export default function OneTimeDonationPanel({
 }) {
   const inputId = useId()
   const emailInputId = useId()
+  const minAmountLabel = formatCurrency(MIN_DONATION_AMOUNT_IN_CENTS)
 
   return (
     <section className="mt-16 rounded-block border border-sand-200 bg-surface p-6 shadow-overlay md:p-8">
@@ -80,8 +82,11 @@ export default function OneTimeDonationPanel({
         }}
         inputMode="numeric"
         className="mt-2 w-full rounded-card border border-sand-200 px-4 py-3 text-sand-800"
-        placeholder="Digite um valor livre"
+        placeholder={`Mínimo ${minAmountLabel}`}
       />
+      <p className="mt-2 text-xs text-sand-500">
+        Mínimo para doação avulsa no cartão: {minAmountLabel}.
+      </p>
 
       <div className="mt-6 flex flex-wrap gap-3">
         <button

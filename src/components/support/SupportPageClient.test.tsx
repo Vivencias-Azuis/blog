@@ -131,4 +131,28 @@ describe('SupportPageClient', () => {
 
     expect(screen.getByLabelText(/outro valor/i)).toHaveValue('R$ 50,00')
   })
+
+  it('blocks card donations below the minimum amount with a clear message', async () => {
+    const user = userEvent.setup()
+    const fetchMock = vi.fn()
+
+    vi.stubGlobal('fetch', fetchMock)
+
+    render(
+      createElement(SupportPageClient, {
+        tiers: supportTiers,
+        donationSuggestions: [1000, 2500, 5000],
+      }),
+    )
+
+    await user.clear(screen.getByLabelText(/outro valor/i))
+    await user.type(screen.getByLabelText(/outro valor/i), '100')
+    await user.click(screen.getByRole('button', { name: /^cartão$/i }))
+    await user.click(screen.getByRole('button', { name: /quero doar uma vez/i }))
+
+    expect(
+      await screen.findByText(/o valor mínimo para doar por cartão é r\$ 5,00\./i),
+    ).toBeInTheDocument()
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
 })

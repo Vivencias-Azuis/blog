@@ -1,6 +1,7 @@
 import type Stripe from 'stripe'
 import { getSupportStripeEnv, getSupportTierBySlug } from '@/lib/support/config'
 import {
+  MIN_DONATION_AMOUNT_IN_CENTS,
   buildStripeDonationCheckoutParams,
   buildStripeSubscriptionCheckoutParams,
   donationRequestSchema,
@@ -12,6 +13,13 @@ import { ZodError } from 'zod'
 export { SupportRouteError, resolveSupportRouteError } from '@/lib/support/errors'
 
 const supportSessionKinds = new Set(['subscription', 'donation-card'])
+
+function formatMinDonationAmount() {
+  return (MIN_DONATION_AMOUNT_IN_CENTS / 100).toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
+}
 
 export async function readJsonBody(request: Request) {
   try {
@@ -82,6 +90,20 @@ export function parseCardDonationRequest(body: unknown) {
     input = donationRequestSchema.parse(body)
   } catch (error) {
     if (error instanceof ZodError) {
+      const amountTooLow = error.issues.some(
+        (issue) =>
+          issue.path[0] === 'amountInCents' &&
+          issue.code === 'too_small' &&
+          issue.minimum === MIN_DONATION_AMOUNT_IN_CENTS,
+      )
+
+      if (amountTooLow) {
+        throw new SupportRouteError(
+          400,
+          `O valor mínimo para doar por cartão é ${formatMinDonationAmount()}.`,
+        )
+      }
+
       throw new SupportRouteError(400, 'Dados inválidos.')
     }
 

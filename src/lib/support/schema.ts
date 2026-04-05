@@ -10,13 +10,15 @@ const supportTierSlugs = [
 
 const paymentMethods = ['card', 'pix'] as const
 
+export const MIN_DONATION_AMOUNT_IN_CENTS = 500
+
 export const subscriptionRequestSchema = z.object({
   tierSlug: z.enum(supportTierSlugs),
   source: z.string().min(1).default('support-page'),
 })
 
 export const donationRequestSchema = z.object({
-  amountInCents: z.number().int().min(500),
+  amountInCents: z.number().int().min(MIN_DONATION_AMOUNT_IN_CENTS),
   paymentMethod: z.enum(paymentMethods),
   payerEmail: z.string().trim().email().optional(),
   source: z.string().min(1).default('support-page'),

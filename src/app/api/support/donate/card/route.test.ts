@@ -78,6 +78,27 @@ describe('POST /api/support/donate/card', () => {
     expect(createCheckoutSession).not.toHaveBeenCalled()
   })
 
+  it('returns 400 with a specific message for values below the minimum', async () => {
+    const { POST } = await import('./route')
+    const response = await POST(
+      new Request('http://localhost/api/support/donate/card', {
+        method: 'POST',
+        body: JSON.stringify({
+          amountInCents: 100,
+          paymentMethod: 'card',
+          source: 'support-page',
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+
+    expect(response.status).toBe(400)
+    await expect(response.json()).resolves.toEqual({
+      message: 'O valor mínimo para doar por cartão é R$ 5,00.',
+    })
+    expect(createCheckoutSession).not.toHaveBeenCalled()
+  })
+
   it('returns 502 when Stripe does not provide a redirect url', async () => {
     createCheckoutSession.mockResolvedValue({ url: null })
 
