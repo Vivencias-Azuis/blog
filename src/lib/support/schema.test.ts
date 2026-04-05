@@ -20,6 +20,15 @@ describe('support schema', () => {
     })
   })
 
+  it('rejects recurring support requests with oversized source', () => {
+    expect(() =>
+      subscriptionRequestSchema.parse({
+        tierSlug: 'fortalecer',
+        source: 'a'.repeat(501),
+      }),
+    ).toThrow()
+  })
+
   it('rejects invalid one-time donation amounts', () => {
     expect(() =>
       donationRequestSchema.parse({

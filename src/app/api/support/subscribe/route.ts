@@ -18,11 +18,19 @@ export async function POST(request: Request) {
       )
     }
 
-    const user = await currentUser()
     const body = await readJsonBody(request)
+    let customerEmail: string | undefined
+
+    try {
+      const user = await currentUser()
+      customerEmail = user?.emailAddresses[0]?.emailAddress
+    } catch {
+      customerEmail = undefined
+    }
+
     const { checkoutParams } = parseSubscriptionRequest(body, {
       clerkUserId: authSession.userId,
-      customerEmail: user?.emailAddresses[0]?.emailAddress,
+      customerEmail,
     })
     const stripe = getStripeClient()
     const checkoutSession = await stripe.checkout.sessions.create(checkoutParams)

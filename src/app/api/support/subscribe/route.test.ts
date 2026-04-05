@@ -118,6 +118,39 @@ describe('POST /api/support/subscribe', () => {
     )
   })
 
+  it('continues checkout when currentUser lookup fails', async () => {
+    authMock.mockResolvedValue({ userId: 'user_123' })
+    currentUserMock.mockRejectedValue(new Error('clerk unavailable'))
+    createCheckoutSession.mockResolvedValue({
+      url: 'https://checkout.stripe.com/c/pay/cs_test_123',
+    })
+
+    const { POST } = await import('./route')
+    const response = await POST(
+      new Request('http://localhost/api/support/subscribe', {
+        method: 'POST',
+        body: JSON.stringify({ tierSlug: 'fortalecer', source: 'support-page' }),
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+
+    expect(response.status).toBe(200)
+    expect(createCheckoutSession).toHaveBeenCalledWith(
+      expect.objectContaining({
+        client_reference_id: 'user_123',
+        metadata: expect.objectContaining({
+          clerkUserId: 'user_123',
+          tierSlug: 'fortalecer',
+        }),
+      }),
+    )
+    expect(createCheckoutSession).toHaveBeenCalledWith(
+      expect.not.objectContaining({
+        customer_email: expect.anything(),
+      }),
+    )
+  })
+
   it('returns 400 for an invalid subscription request body', async () => {
     const { POST } = await import('./route')
     const response = await POST(
