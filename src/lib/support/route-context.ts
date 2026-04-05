@@ -1,5 +1,5 @@
 import type Stripe from 'stripe'
-import { getSupportEnv, getSupportTierBySlug } from '@/lib/support/config'
+import { getSupportStripeEnv, getSupportTierBySlug } from '@/lib/support/config'
 import {
   buildStripeDonationCheckoutParams,
   buildStripeSubscriptionCheckoutParams,
@@ -23,7 +23,7 @@ export async function readJsonBody(request: Request) {
 
 function parseSupportEnv() {
   try {
-    return getSupportEnv()
+    return getSupportStripeEnv()
   } catch (error) {
     if (error instanceof ZodError) {
       throw new SupportRouteError(500, 'Configuração indisponível.')

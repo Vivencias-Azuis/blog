@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
   donationSuggestions,
-  getSupportEnv,
+  getSupportPixEnv,
+  getSupportStripeEnv,
   getSupportTierBySlug,
   supportTiers,
 } from '@/lib/support/config'
@@ -31,28 +32,22 @@ describe('support config', () => {
     expect(donationSuggestions).toEqual([1000, 2500, 5000])
   })
 
-  it('parses the payment environment variables', () => {
-    const env = getSupportEnv({
+  it('parses the stripe environment variables', () => {
+    const env = getSupportStripeEnv({
       NEXT_PUBLIC_SITE_URL: 'https://www.vivenciasazuis.com.br',
       STRIPE_SECRET_KEY: 'sk_test_123',
       STRIPE_PRICE_ID_APOIAR: 'price_apoiar',
       STRIPE_PRICE_ID_FORTALECER: 'price_fortalecer',
       STRIPE_PRICE_ID_SUSTENTAR: 'price_sustentar',
-      ABACATE_PAY_API_KEY: 'abacate_test_123',
     })
 
     expect(env.NEXT_PUBLIC_SITE_URL).toBe('https://www.vivenciasazuis.com.br')
     expect(env.STRIPE_SECRET_KEY).toBe('sk_test_123')
-    expect(env.PIX_PROVIDER).toBe('abacate_pay')
   })
 
   it('accepts mercado pago as the active pix provider', () => {
-    const env = getSupportEnv({
+    const env = getSupportPixEnv({
       NEXT_PUBLIC_SITE_URL: 'https://www.vivenciasazuis.com.br',
-      STRIPE_SECRET_KEY: 'sk_test_123',
-      STRIPE_PRICE_ID_APOIAR: 'price_apoiar',
-      STRIPE_PRICE_ID_FORTALECER: 'price_fortalecer',
-      STRIPE_PRICE_ID_SUSTENTAR: 'price_sustentar',
       PIX_PROVIDER: 'mercado_pago',
       MERCADO_PAGO_ACCESS_TOKEN: 'APP_USR_test_123',
     })
@@ -62,25 +57,19 @@ describe('support config', () => {
 
   it('rejects missing required payment environment variables', () => {
     expect(() =>
-      getSupportEnv({
+      getSupportStripeEnv({
         NEXT_PUBLIC_SITE_URL: 'https://www.vivenciasazuis.com.br',
-        PIX_PROVIDER: 'abacate_pay',
         STRIPE_PRICE_ID_APOIAR: 'price_apoiar',
         STRIPE_PRICE_ID_FORTALECER: 'price_fortalecer',
         STRIPE_PRICE_ID_SUSTENTAR: 'price_sustentar',
-        ABACATE_PAY_API_KEY: 'abacate_test_123',
       } as NodeJS.ProcessEnv),
     ).toThrow()
   })
 
   it('rejects an invalid site URL', () => {
     expect(() =>
-      getSupportEnv({
+      getSupportPixEnv({
         NEXT_PUBLIC_SITE_URL: 'not-a-url',
-        STRIPE_SECRET_KEY: 'sk_test_123',
-        STRIPE_PRICE_ID_APOIAR: 'price_apoiar',
-        STRIPE_PRICE_ID_FORTALECER: 'price_fortalecer',
-        STRIPE_PRICE_ID_SUSTENTAR: 'price_sustentar',
         PIX_PROVIDER: 'abacate_pay',
         ABACATE_PAY_API_KEY: 'abacate_test_123',
       }),

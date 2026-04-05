@@ -1,4 +1,4 @@
-import { getSupportEnv, type PixProvider } from '@/lib/support/config'
+import { getSupportPixEnv, type PixProvider } from '@/lib/support/config'
 import { SupportRouteError } from '@/lib/support/errors'
 import { createTransparentPixCharge, checkTransparentPixCharge } from '@/lib/support/abacate-pay'
 import { mercadoPagoPixAdapter } from '@/lib/support/mercado-pago'
@@ -59,7 +59,7 @@ const abacatePayPixAdapter: PixProviderAdapter = {
 }
 
 export function getPixProviderAdapter(): PixProviderAdapter {
-  const env = getSupportEnv()
+  const env = getSupportPixEnv()
 
   if (env.PIX_PROVIDER === 'abacate_pay') {
     if (!env.ABACATE_PAY_API_KEY) {

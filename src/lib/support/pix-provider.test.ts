@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-const getSupportEnv = vi.hoisted(() => vi.fn())
+const getSupportPixEnv = vi.hoisted(() => vi.fn())
 const createTransparentPixCharge = vi.hoisted(() => vi.fn())
 const checkTransparentPixCharge = vi.hoisted(() => vi.fn())
 
 vi.mock('@/lib/support/config', () => ({
-  getSupportEnv,
+  getSupportPixEnv,
 }))
 
 vi.mock('@/lib/support/abacate-pay', () => ({
@@ -19,7 +19,7 @@ describe('pix provider adapter selection', () => {
   })
 
   it('selects Abacate Pay when PIX_PROVIDER=abacate_pay', async () => {
-    getSupportEnv.mockReturnValue({
+    getSupportPixEnv.mockReturnValue({
       PIX_PROVIDER: 'abacate_pay',
       ABACATE_PAY_API_KEY: 'abacate_test_123',
     })
@@ -47,10 +47,9 @@ describe('pix provider adapter selection', () => {
   })
 
   it('selects Mercado Pago when PIX_PROVIDER=mercado_pago', async () => {
-    getSupportEnv.mockReturnValue({
+    getSupportPixEnv.mockReturnValue({
       PIX_PROVIDER: 'mercado_pago',
       MERCADO_PAGO_ACCESS_TOKEN: 'APP_USR_test_123',
-      MERCADO_PAGO_PIX_PAYER_EMAIL: 'pix@testuser.com',
     })
 
     const { getPixProviderAdapter } = await import('./pix-provider')
@@ -60,7 +59,7 @@ describe('pix provider adapter selection', () => {
   })
 
   it('fails fast when the selected provider is missing required config', async () => {
-    getSupportEnv.mockReturnValue({
+    getSupportPixEnv.mockReturnValue({
       PIX_PROVIDER: 'abacate_pay',
     })
 

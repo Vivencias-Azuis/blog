@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { getSupportEnv } from '@/lib/support/config'
+import { getSupportStripeEnv } from '@/lib/support/config'
 
 let stripeClient: Stripe | null = null
 const stripeClientConfig = {
@@ -8,7 +8,7 @@ const stripeClientConfig = {
 
 export function getStripeClient() {
   if (!stripeClient) {
-    const env = getSupportEnv()
+    const env = getSupportStripeEnv()
     stripeClient = new Stripe(env.STRIPE_SECRET_KEY, stripeClientConfig)
   }
 

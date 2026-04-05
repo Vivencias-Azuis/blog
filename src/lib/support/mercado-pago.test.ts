@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { SupportRouteError } from '@/lib/support/errors'
 
-const getSupportEnv = vi.fn()
+const getSupportPixEnv = vi.fn()
 
 vi.mock('@/lib/support/config', () => ({
-  getSupportEnv,
+  getSupportPixEnv,
 }))
 
 describe('mercado pago pix adapter', () => {
@@ -12,8 +12,8 @@ describe('mercado pago pix adapter', () => {
     vi.restoreAllMocks()
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2026-04-05T11:00:00.000Z'))
-    getSupportEnv.mockReset()
-    getSupportEnv.mockReturnValue({
+    getSupportPixEnv.mockReset()
+    getSupportPixEnv.mockReturnValue({
       NEXT_PUBLIC_SITE_URL: 'https://www.vivenciasazuis.com.br',
       MERCADO_PAGO_ACCESS_TOKEN: 'TEST-token',
     })

@@ -1,4 +1,4 @@
-import { getSupportEnv } from '@/lib/support/config'
+import { getSupportPixEnv } from '@/lib/support/config'
 import type { AbacatePixPayload } from '@/lib/support/schema'
 import { z } from 'zod'
 
@@ -29,7 +29,7 @@ function parseAbacateTransparentChargeResponse(body: unknown) {
 }
 
 export async function createTransparentPixCharge(payload: AbacatePixPayload) {
-  const env = getSupportEnv()
+  const env = getSupportPixEnv()
 
   if (!env.ABACATE_PAY_API_KEY) {
     throw new Error('Abacate Pay Pix create failed')
@@ -56,7 +56,7 @@ export async function createTransparentPixCharge(payload: AbacatePixPayload) {
 }
 
 export async function checkTransparentPixCharge(chargeId: string) {
-  const env = getSupportEnv()
+  const env = getSupportPixEnv()
 
   if (!env.ABACATE_PAY_API_KEY) {
     throw new Error('Abacate Pay Pix status check failed')

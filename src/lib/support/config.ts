@@ -40,19 +40,29 @@ export const supportTiers = [
 
 export const donationSuggestions = [1000, 2500, 5000] as const
 
-const supportEnvSchema = z.object({
+const supportSharedEnvSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.string().url(),
+})
+
+const supportStripeEnvSchema = supportSharedEnvSchema.extend({
   STRIPE_SECRET_KEY: z.string().min(1),
   STRIPE_PRICE_ID_APOIAR: z.string().min(1),
   STRIPE_PRICE_ID_FORTALECER: z.string().min(1),
   STRIPE_PRICE_ID_SUSTENTAR: z.string().min(1),
+})
+
+const supportPixEnvSchema = supportSharedEnvSchema.extend({
   PIX_PROVIDER: z.enum(['abacate_pay', 'mercado_pago']).default('abacate_pay'),
   ABACATE_PAY_API_KEY: z.string().min(1).optional(),
   MERCADO_PAGO_ACCESS_TOKEN: z.string().min(1).optional(),
 })
 
-export function getSupportEnv(env: NodeJS.ProcessEnv = process.env) {
-  return supportEnvSchema.parse(env)
+export function getSupportStripeEnv(env: NodeJS.ProcessEnv = process.env) {
+  return supportStripeEnvSchema.parse(env)
+}
+
+export function getSupportPixEnv(env: NodeJS.ProcessEnv = process.env) {
+  return supportPixEnvSchema.parse(env)
 }
 
 export function getSupportTierBySlug(slug: SupportTierSlug) {

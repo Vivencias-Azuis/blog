@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { z } from 'zod'
-import { getSupportEnv } from '@/lib/support/config'
+import { getSupportPixEnv } from '@/lib/support/config'
 import { SupportRouteError } from '@/lib/support/errors'
 import type {
   PixChargeCreateInput,
@@ -41,7 +41,7 @@ const mercadoPagoErrorResponseSchema = z.object({
 })
 
 function getMercadoPagoConfig() {
-  const env = getSupportEnv()
+  const env = getSupportPixEnv()
 
   if (!env.MERCADO_PAGO_ACCESS_TOKEN) {
     throw new SupportRouteError(500, 'Mercado Pago não configurado para Pix.')
