@@ -1,7 +1,11 @@
 import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 
-import { removeFavorite } from '@/lib/account/favorites'
+import {
+  listFavoriteSlugs,
+  removeFavoriteSlugs,
+  resolveRemovableFavoriteSlugs,
+} from '@/lib/account/favorites'
 import { parseFavoriteSlug } from '@/lib/account/favorite-slug'
 
 interface RouteContext {
@@ -23,7 +27,12 @@ export async function DELETE(_request: Request, { params }: RouteContext) {
     return NextResponse.json({ error: 'Invalid slug' }, { status: 422 })
   }
 
-  await removeFavorite(userId, parsedSlug.data)
+  const removableSlugs = resolveRemovableFavoriteSlugs(
+    await listFavoriteSlugs(userId),
+    parsedSlug.data,
+  )
+
+  await removeFavoriteSlugs(userId, removableSlugs)
 
   return NextResponse.json({ ok: true })
 }

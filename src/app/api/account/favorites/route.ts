@@ -2,7 +2,11 @@ import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 
-import { addFavorite, listFavoriteSlugs } from '@/lib/account/favorites'
+import {
+  addFavorite,
+  canonicalizeFavoriteItems,
+  listFavoriteSlugs,
+} from '@/lib/account/favorites'
 import { favoriteSlugSchema } from '@/lib/account/favorite-slug'
 import { getCanonicalPostSlug } from '@/lib/canonical-posts'
 import { getPostBySlug, normalizeSlug } from '@/lib/posts'
@@ -18,9 +22,9 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const items = await listFavoriteSlugs(userId)
+  const items = canonicalizeFavoriteItems(await listFavoriteSlugs(userId))
 
-  return NextResponse.json({ items })
+  return NextResponse.json(items)
 }
 
 export async function POST(request: Request) {

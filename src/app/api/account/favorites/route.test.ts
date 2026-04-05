@@ -3,7 +3,9 @@ import { describe, expect, beforeEach, it, vi } from 'vitest'
 const authMock = vi.fn()
 const listFavoriteSlugsMock = vi.fn()
 const addFavoriteMock = vi.fn()
-const removeFavoriteMock = vi.fn()
+const removeFavoriteSlugsMock = vi.fn()
+const canonicalizeFavoriteItemsMock = vi.fn()
+const resolveRemovableFavoriteSlugsMock = vi.fn()
 const normalizeSlugMock = vi.fn((slug: string) => slug)
 const getCanonicalPostSlugMock = vi.fn(() => undefined)
 const getPostBySlugMock = vi.fn()
@@ -15,7 +17,9 @@ vi.mock('@clerk/nextjs/server', () => ({
 vi.mock('@/lib/account/favorites', () => ({
   listFavoriteSlugs: listFavoriteSlugsMock,
   addFavorite: addFavoriteMock,
-  removeFavorite: removeFavoriteMock,
+  removeFavoriteSlugs: removeFavoriteSlugsMock,
+  canonicalizeFavoriteItems: canonicalizeFavoriteItemsMock,
+  resolveRemovableFavoriteSlugs: resolveRemovableFavoriteSlugsMock,
 }))
 
 vi.mock('@/lib/posts', () => ({
@@ -32,7 +36,9 @@ describe('favorites routes', () => {
     authMock.mockReset()
     listFavoriteSlugsMock.mockReset()
     addFavoriteMock.mockReset()
-    removeFavoriteMock.mockReset()
+    removeFavoriteSlugsMock.mockReset()
+    canonicalizeFavoriteItemsMock.mockReset()
+    resolveRemovableFavoriteSlugsMock.mockReset()
     normalizeSlugMock.mockClear()
     normalizeSlugMock.mockImplementation((slug: string) => slug)
     getCanonicalPostSlugMock.mockReset()
@@ -41,6 +47,13 @@ describe('favorites routes', () => {
     getPostBySlugMock.mockReturnValue({
       slug: 'post-a',
     })
+    canonicalizeFavoriteItemsMock.mockImplementation((items: unknown) => ({
+      items,
+      unresolvedCount: 0,
+    }))
+    resolveRemovableFavoriteSlugsMock.mockImplementation(
+      (_items: unknown, targetSlug: string) => [targetSlug],
+    )
   })
 
   it('lists favorites for the signed-in user', async () => {
@@ -55,8 +68,35 @@ describe('favorites routes', () => {
     expect(response.status).toBe(200)
     await expect(response.json()).resolves.toEqual({
       items: [{ postSlug: 'post-a', createdAt: '2026-04-05T10:00:00.000Z' }],
+      unresolvedCount: 0,
     })
     expect(listFavoriteSlugsMock).toHaveBeenCalledWith('user_123')
+  })
+
+  it('returns canonicalized favorite items for GET', async () => {
+    authMock.mockResolvedValue({ userId: 'user_123' })
+    listFavoriteSlugsMock.mockResolvedValue([
+      {
+        postSlug: 'post-antigo',
+        createdAt: '2026-04-05T10:00:00.000Z',
+      },
+    ])
+    canonicalizeFavoriteItemsMock.mockReturnValue({
+      items: [{ postSlug: 'post-canonico', createdAt: '2026-04-05T10:00:00.000Z' }],
+      unresolvedCount: 0,
+    })
+
+    const { GET } = await import('./route')
+    const response = await GET()
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toEqual({
+      items: [{ postSlug: 'post-canonico', createdAt: '2026-04-05T10:00:00.000Z' }],
+      unresolvedCount: 0,
+    })
+    expect(canonicalizeFavoriteItemsMock).toHaveBeenCalledWith([
+      { postSlug: 'post-antigo', createdAt: '2026-04-05T10:00:00.000Z' },
+    ])
   })
 
   it('returns 401 for unauthenticated GET without calling helpers', async () => {
@@ -178,6 +218,9 @@ describe('favorites routes', () => {
 
   it('removes a favorite for the signed-in user', async () => {
     authMock.mockResolvedValue({ userId: 'user_123' })
+    listFavoriteSlugsMock.mockResolvedValue([
+      { postSlug: 'post-a', createdAt: '2026-04-05T10:00:00.000Z' },
+    ])
 
     const { DELETE } = await import('./[slug]/route')
     const response = await DELETE(new Request('http://localhost/api/account/favorites/post-a'), {
@@ -186,11 +229,14 @@ describe('favorites routes', () => {
 
     expect(response.status).toBe(200)
     await expect(response.json()).resolves.toEqual({ ok: true })
-    expect(removeFavoriteMock).toHaveBeenCalledWith('user_123', 'post-a')
+    expect(removeFavoriteSlugsMock).toHaveBeenCalledWith('user_123', ['post-a'])
   })
 
   it('trims surrounding spaces before deleting a favorite', async () => {
     authMock.mockResolvedValue({ userId: 'user_123' })
+    listFavoriteSlugsMock.mockResolvedValue([
+      { postSlug: 'post-a', createdAt: '2026-04-05T10:00:00.000Z' },
+    ])
 
     const { DELETE } = await import('./[slug]/route')
     const response = await DELETE(
@@ -202,7 +248,47 @@ describe('favorites routes', () => {
 
     expect(response.status).toBe(200)
     await expect(response.json()).resolves.toEqual({ ok: true })
-    expect(removeFavoriteMock).toHaveBeenCalledWith('user_123', 'post-a')
+    expect(removeFavoriteSlugsMock).toHaveBeenCalledWith('user_123', ['post-a'])
+  })
+
+  it('removes legacy alias rows when deleting a canonical favorite slug', async () => {
+    authMock.mockResolvedValue({ userId: 'user_123' })
+    listFavoriteSlugsMock.mockResolvedValue([
+      {
+        postSlug: 'post-antigo',
+        createdAt: '2026-04-05T10:00:00.000Z',
+      },
+      {
+        postSlug: 'post-canonico',
+        createdAt: '2026-04-04T10:00:00.000Z',
+      },
+    ])
+    resolveRemovableFavoriteSlugsMock.mockReturnValue([
+      'post-antigo',
+      'post-canonico',
+    ])
+
+    const { DELETE } = await import('./[slug]/route')
+    const response = await DELETE(
+      new Request('http://localhost/api/account/favorites/post-canonico'),
+      {
+        params: Promise.resolve({ slug: 'post-canonico' }),
+      },
+    )
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toEqual({ ok: true })
+    expect(resolveRemovableFavoriteSlugsMock).toHaveBeenCalledWith(
+      [
+        { postSlug: 'post-antigo', createdAt: '2026-04-05T10:00:00.000Z' },
+        { postSlug: 'post-canonico', createdAt: '2026-04-04T10:00:00.000Z' },
+      ],
+      'post-canonico',
+    )
+    expect(removeFavoriteSlugsMock).toHaveBeenCalledWith('user_123', [
+      'post-antigo',
+      'post-canonico',
+    ])
   })
 
   it('returns 401 for unauthenticated DELETE without calling helpers', async () => {
@@ -215,7 +301,7 @@ describe('favorites routes', () => {
 
     expect(response.status).toBe(401)
     await expect(response.json()).resolves.toEqual({ error: 'Unauthorized' })
-    expect(removeFavoriteMock).not.toHaveBeenCalled()
+    expect(removeFavoriteSlugsMock).not.toHaveBeenCalled()
   })
 
   it('returns 422 for invalid DELETE slug', async () => {
@@ -228,6 +314,6 @@ describe('favorites routes', () => {
 
     expect(response.status).toBe(422)
     await expect(response.json()).resolves.toEqual({ error: 'Invalid slug' })
-    expect(removeFavoriteMock).not.toHaveBeenCalled()
+    expect(removeFavoriteSlugsMock).not.toHaveBeenCalled()
   })
 })

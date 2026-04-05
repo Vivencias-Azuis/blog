@@ -152,10 +152,10 @@ describe('normalizeFavoriteRows', () => {
   })
 
   it('resolves stored favorite slugs to canonical current slugs', async () => {
-    const { resolveFavoritePostSlugs } = await import('@/lib/account/favorites')
+    const { canonicalizeFavoriteItems } = await import('@/lib/account/favorites')
 
     expect(
-      resolveFavoritePostSlugs([
+      canonicalizeFavoriteItems([
         {
           postSlug: 'melhor-plano-de-saude-para-autismo-guia-completo',
           createdAt: '2026-04-03T10:00:00.000Z',
@@ -170,7 +170,12 @@ describe('normalizeFavoriteRows', () => {
         },
       ]),
     ).toEqual({
-      canonicalSlugs: ['melhores-planos-de-saude-para-criancas-com-autismo'],
+      items: [
+        {
+          postSlug: 'melhores-planos-de-saude-para-criancas-com-autismo',
+          createdAt: '2026-04-03T10:00:00.000Z',
+        },
+      ],
       unresolvedCount: 1,
     })
   })
@@ -267,6 +272,55 @@ describe('favorites persistence', () => {
         postSlug: 'post-a',
       }),
     ])
+  })
+
+  it('removes legacy aliases when unfavoriting a canonical slug', async () => {
+    const tempDb = prepareFreshDb()
+    const {
+      addFavorite,
+      listFavoriteSlugs,
+      canonicalizeFavoriteItems,
+      resolveRemovableFavoriteSlugs,
+      removeFavoriteSlugs,
+      getDb,
+      userFavorites,
+    } = await loadFavoritesRuntime(tempDb.dbUrl)
+
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-04-03T10:00:00.000Z'))
+    await addFavorite(
+      'user_123',
+      'melhor-plano-de-saude-para-autismo-guia-completo',
+    )
+    vi.setSystemTime(new Date('2026-04-02T10:00:00.000Z'))
+    await addFavorite(
+      'user_123',
+      'melhores-planos-de-saude-para-criancas-com-autismo',
+    )
+
+    const storedRows = await listFavoriteSlugs('user_123')
+
+    expect(canonicalizeFavoriteItems(storedRows)).toEqual({
+      items: [
+        {
+          postSlug: 'melhores-planos-de-saude-para-criancas-com-autismo',
+          createdAt: '2026-04-03T10:00:00.000Z',
+        },
+      ],
+      unresolvedCount: 0,
+    })
+
+    await removeFavoriteSlugs(
+      'user_123',
+      resolveRemovableFavoriteSlugs(
+        storedRows,
+        'melhores-planos-de-saude-para-criancas-com-autismo',
+      ),
+    )
+
+    const remainingRows = await getDb().select().from(userFavorites)
+
+    expect(remainingRows).toHaveLength(0)
   })
 
   it('current 0001 upgrades the historical old 0000 layout', async () => {
