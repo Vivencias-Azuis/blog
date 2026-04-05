@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `support_pix_charges` (
+CREATE TABLE `support_pix_charges` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`provider` text NOT NULL,
 	`provider_charge_id` text NOT NULL,
@@ -15,13 +15,4 @@ CREATE TABLE IF NOT EXISTS `support_pix_charges` (
 	`updated_at` text NOT NULL
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX IF NOT EXISTS `support_pix_charges_provider_charge_idx` ON `support_pix_charges` (`provider`,`provider_charge_id`);--> statement-breakpoint
-CREATE TABLE IF NOT EXISTS `user_favorites` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`clerk_user_id` text NOT NULL,
-	`post_slug` text NOT NULL,
-	`created_at` text NOT NULL
-);
---> statement-breakpoint
-CREATE UNIQUE INDEX IF NOT EXISTS `user_favorites_user_slug_idx` ON `user_favorites` (`clerk_user_id`,`post_slug`);--> statement-breakpoint
-CREATE INDEX IF NOT EXISTS `user_favorites_user_idx` ON `user_favorites` (`clerk_user_id`);
+CREATE UNIQUE INDEX `support_pix_charges_provider_charge_idx` ON `support_pix_charges` (`provider`,`provider_charge_id`);

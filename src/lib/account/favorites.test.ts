@@ -1,14 +1,10 @@
 import { currentUser } from '@clerk/nextjs/server'
-import { and, eq } from 'drizzle-orm'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import {
-  addFavorite,
-  listFavoriteSlugs,
-  normalizeFavoriteRows,
-  removeFavorite,
-} from '@/lib/account/favorites'
-import { getDb } from '@/db/client'
-import { userFavorites } from '@/db/schema'
+import { execFileSync } from 'node:child_process'
+import { mkdtempSync, readFileSync } from 'node:fs'
+import path from 'node:path'
+import os from 'node:os'
+import { fileURLToPath } from 'node:url'
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 import {
   getCurrentMemberAccess,
   isMemberFromMetadata,
@@ -18,24 +14,49 @@ vi.mock('@clerk/nextjs/server', () => ({
   currentUser: vi.fn(),
 }))
 
-vi.mock('@/db/client', () => ({
-  getDb: vi.fn(),
-}))
+const currentUserMock = vi.mocked(currentUser)
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../')
+const migrationDir = path.join(repoRoot, 'drizzle')
 
-vi.mock('drizzle-orm', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('drizzle-orm')>()
+function createTempDb() {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'va-favorites-'))
+  return {
+    dir,
+    dbPath: path.join(dir, 'favorites.sqlite'),
+    dbUrl: `file:${path.join(dir, 'favorites.sqlite')}`,
+  }
+}
+
+function applySqliteMigration(dbPath: string, migrationFile: string) {
+  execFileSync('sqlite3', [dbPath], {
+    input: readFileSync(path.join(migrationDir, migrationFile), 'utf8'),
+  })
+}
+
+function prepareFreshDb() {
+  const tempDb = createTempDb()
+
+  applySqliteMigration(tempDb.dbPath, '0000_colorful_slayback.sql')
+  applySqliteMigration(tempDb.dbPath, '0001_condemned_squirrel_girl.sql')
+
+  return tempDb
+}
+
+async function loadFavoritesRuntime(dbUrl: string) {
+  process.env.DATABASE_URL = dbUrl
+  delete process.env.TURSO_AUTH_TOKEN
+  vi.resetModules()
+
+  const favorites = await import('@/lib/account/favorites')
+  const { getDb } = await import('@/db/client')
+  const { userFavorites } = await import('@/db/schema')
 
   return {
-    ...actual,
-    and: vi.fn((...args) => ({ kind: 'and', args })),
-    eq: vi.fn((...args) => ({ kind: 'eq', args })),
+    ...favorites,
+    getDb,
+    userFavorites,
   }
-})
-
-const currentUserMock = vi.mocked(currentUser)
-const getDbMock = vi.mocked(getDb)
-const andMock = vi.mocked(and)
-const eqMock = vi.mocked(eq)
+}
 
 describe('isMemberFromMetadata', () => {
   it('returns true when public metadata marks the user as member', () => {
@@ -74,7 +95,9 @@ describe('getCurrentMemberAccess', () => {
 })
 
 describe('normalizeFavoriteRows', () => {
-  it('sorts favorites by most recent first', () => {
+  it('sorts favorites by most recent first', async () => {
+    const { normalizeFavoriteRows } = await import('@/lib/account/favorites')
+
     const rows = [
       { postSlug: 'older', createdAt: '2026-04-01T10:00:00.000Z' },
       { postSlug: 'newer', createdAt: '2026-04-02T10:00:00.000Z' },
@@ -87,81 +110,96 @@ describe('normalizeFavoriteRows', () => {
   })
 })
 
-describe('favorites persistence helpers', () => {
-  beforeEach(() => {
-    getDbMock.mockReset()
-    andMock.mockClear()
-    eqMock.mockClear()
+describe('favorites persistence', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+    delete process.env.DATABASE_URL
+    delete process.env.TURSO_AUTH_TOKEN
+    vi.resetModules()
   })
 
-  it('addFavorite ignores duplicates by using onConflictDoNothing', async () => {
-    const onConflictDoNothing = vi.fn()
-    const values = vi.fn(() => ({ onConflictDoNothing }))
-    const insert = vi.fn(() => ({ values }))
-    const db = { insert }
-
-    getDbMock.mockReturnValue(db as ReturnType<typeof getDb>)
+  it('addFavorite inserts row', async () => {
+    const tempDb = prepareFreshDb()
+    const { addFavorite, getDb, userFavorites } = await loadFavoritesRuntime(
+      tempDb.dbUrl,
+    )
 
     await addFavorite('user_123', 'post-a')
 
-    expect(insert).toHaveBeenCalledWith(userFavorites)
-    expect(values).toHaveBeenCalledWith({
+    const rows = await getDb().select().from(userFavorites)
+
+    expect(rows).toHaveLength(1)
+    expect(rows[0]).toMatchObject({
       clerkUserId: 'user_123',
       postSlug: 'post-a',
-      createdAt: expect.any(String),
     })
-    expect(onConflictDoNothing).toHaveBeenCalledTimes(1)
+  })
+
+  it('duplicate addFavorite is ignored by unique index', async () => {
+    const tempDb = prepareFreshDb()
+    const { addFavorite, getDb, userFavorites } = await loadFavoritesRuntime(
+      tempDb.dbUrl,
+    )
+
+    await addFavorite('user_123', 'post-a')
+    await addFavorite('user_123', 'post-a')
+
+    const rows = await getDb().select().from(userFavorites)
+
+    expect(rows).toHaveLength(1)
+    expect(rows[0]).toMatchObject({
+      clerkUserId: 'user_123',
+      postSlug: 'post-a',
+    })
   })
 
   it('listFavoriteSlugs returns newest-first for one user', async () => {
-    const rows = [
-      { postSlug: 'older', createdAt: '2026-04-01T10:00:00.000Z' },
-      { postSlug: 'newer', createdAt: '2026-04-02T10:00:00.000Z' },
-    ]
-    const orderBy = vi.fn(async () => rows)
-    const where = vi.fn(() => ({ orderBy }))
-    const from = vi.fn(() => ({ where }))
-    const select = vi.fn(() => ({ from }))
-    const db = { select }
+    const tempDb = prepareFreshDb()
+    const { addFavorite, listFavoriteSlugs } = await loadFavoritesRuntime(
+      tempDb.dbUrl,
+    )
 
-    getDbMock.mockReturnValue(db as ReturnType<typeof getDb>)
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-04-01T10:00:00.000Z'))
+    await addFavorite('user_123', 'older')
+    vi.setSystemTime(new Date('2026-04-02T10:00:00.000Z'))
+    await addFavorite('user_123', 'newer')
 
     await expect(listFavoriteSlugs('user_123')).resolves.toEqual([
       { postSlug: 'newer', createdAt: '2026-04-02T10:00:00.000Z' },
       { postSlug: 'older', createdAt: '2026-04-01T10:00:00.000Z' },
     ])
-
-    expect(select).toHaveBeenCalledWith({
-      postSlug: userFavorites.postSlug,
-      createdAt: userFavorites.createdAt,
-    })
-    expect(from).toHaveBeenCalledWith(userFavorites)
-    expect(where).toHaveBeenCalledWith({ kind: 'eq', args: [userFavorites.clerkUserId, 'user_123'] })
-    expect(orderBy).toHaveBeenCalledTimes(1)
   })
 
-  it('removeFavorite scopes deletion to clerkUserId and postSlug', async () => {
-    const where = vi.fn()
-    const del = vi.fn(() => ({ where }))
-    const db = { delete: del }
+  it('removeFavorite only removes targeted clerkUserId and postSlug', async () => {
+    const tempDb = prepareFreshDb()
+    const { addFavorite, removeFavorite, getDb, userFavorites } =
+      await loadFavoritesRuntime(tempDb.dbUrl)
 
-    getDbMock.mockReturnValue(db as ReturnType<typeof getDb>)
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-04-01T10:00:00.000Z'))
+    await addFavorite('user_123', 'post-a')
+    vi.setSystemTime(new Date('2026-04-02T10:00:00.000Z'))
+    await addFavorite('user_123', 'post-b')
+    vi.setSystemTime(new Date('2026-04-03T10:00:00.000Z'))
+    await addFavorite('user_999', 'post-a')
 
     await removeFavorite('user_123', 'post-a')
 
-    expect(del).toHaveBeenCalledWith(userFavorites)
-    expect(eqMock).toHaveBeenNthCalledWith(1, userFavorites.clerkUserId, 'user_123')
-    expect(eqMock).toHaveBeenNthCalledWith(2, userFavorites.postSlug, 'post-a')
-    expect(andMock).toHaveBeenCalledWith(
-      { kind: 'eq', args: [userFavorites.clerkUserId, 'user_123'] },
-      { kind: 'eq', args: [userFavorites.postSlug, 'post-a'] },
-    )
-    expect(where).toHaveBeenCalledWith({
-      kind: 'and',
-      args: [
-        { kind: 'eq', args: [userFavorites.clerkUserId, 'user_123'] },
-        { kind: 'eq', args: [userFavorites.postSlug, 'post-a'] },
-      ],
-    })
+    const rows = await getDb()
+      .select()
+      .from(userFavorites)
+      .orderBy(userFavorites.clerkUserId, userFavorites.postSlug)
+
+    expect(rows).toEqual([
+      expect.objectContaining({
+        clerkUserId: 'user_123',
+        postSlug: 'post-b',
+      }),
+      expect.objectContaining({
+        clerkUserId: 'user_999',
+        postSlug: 'post-a',
+      }),
+    ])
   })
 })
