@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import PWAStatus from '@/components/PWAStatus'
 import PWAInstallPrompt from '@/components/PWAInstallPrompt'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import SupportPromptPopup from '@/components/SupportPromptPopup'
 
 const manrope = Manrope({ subsets: ['latin'], display: 'swap', variable: '--font-manrope' })
 const sourceSerif = Source_Serif_4({ subsets: ['latin'], display: 'swap', variable: '--font-source-serif' })
@@ -117,6 +118,7 @@ export default function RootLayout({
         <PWAStatus />
         <PWAInstallPrompt />
         <GoogleAnalytics />
+        <SupportPromptPopup />
       </body>
     </html>
   )
