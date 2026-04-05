@@ -29,6 +29,7 @@
     "build:full": "npm run llms && npm run build"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.0.8",
     "@libsql/client": "^0.17.2",
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
