@@ -3,7 +3,7 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import matter from 'gray-matter'
+import { parseFrontmatter, stringifyFrontmatter } from './lib/frontmatter.js'
 import OpenAI from 'openai'
 import { z } from 'zod'
 
@@ -314,10 +314,10 @@ async function main() {
     process.exit(1)
   }
 
-  const parsed = matter(rawMdx)
+  const parsed = parseFrontmatter(rawMdx)
   const fallbackCategory = requestCategoryToFrontmatter(req.category)
   const fm = normalizeFrontmatter(parsed.data, fallbackCategory)
-  const mdx = matter.stringify(parsed.content, fm)
+  const mdx = stringifyFrontmatter(parsed.content, fm)
 
   ensureDir(OUT_DIR)
 

@@ -1,4 +1,4 @@
-import matter from 'gray-matter'
+import { parseFrontmatter } from '@/lib/frontmatter'
 
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -24,7 +24,7 @@ export function validateGeneratedContent(mdxContent: string, mainKeyword: string
   const errors: string[] = []
 
   try {
-    const { data, content } = matter(mdxContent)
+    const { data, content } = parseFrontmatter(mdxContent)
 
     const hasDatetime = Boolean(data.datetime || data.date)
     if (!data.title || !data.excerpt || !data.category || !hasDatetime) {

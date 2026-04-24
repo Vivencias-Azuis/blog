@@ -4,7 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { createHash } from 'crypto'
-import matter from 'gray-matter'
+import { parseFrontmatter, stringifyFrontmatter } from './lib/frontmatter.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -73,7 +73,7 @@ async function processPost(fileName) {
   const fullPath = path.join(postsDirectory, fileName)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   
-  const { data, content } = matter(fileContents)
+  const { data, content } = parseFrontmatter(fileContents)
   
   // Encontrar todas as URLs de imagens externas
   const imageUrls = new Set()
@@ -132,7 +132,7 @@ async function processPost(fileName) {
   
   // Atualizar arquivo se houver mudanças
   if (downloadedImages.length > 0) {
-    const frontmatter = matter.stringify(updatedContent, updatedData)
+    const frontmatter = stringifyFrontmatter(updatedContent, updatedData)
     fs.writeFileSync(fullPath, frontmatter, 'utf8')
     console.log(`   ✓ Post atualizado`)
     return { slug, updated: true, images: downloadedImages }
@@ -199,4 +199,3 @@ main().catch(error => {
   console.error('❌ Erro fatal:', error)
   process.exit(1)
 })
-

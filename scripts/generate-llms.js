@@ -3,7 +3,7 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import matter from 'gray-matter'
+import { parseFrontmatter } from './lib/frontmatter.js'
 
 // Get current file directory
 const __filename = fileURLToPath(import.meta.url)
@@ -30,7 +30,7 @@ function getAllPosts() {
       const slug = fileName.replace(/\.mdx$/, '')
       const fullPath = path.join(POSTS_DIR, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data } = matter(fileContents)
+      const { data } = parseFrontmatter(fileContents)
 
       return {
         slug,

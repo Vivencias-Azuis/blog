@@ -14,8 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
-    "db:generate": "drizzle-kit generate",
-    "db:push": "drizzle-kit push",
+    "db:generate": "npx drizzle-kit generate",
+    "db:push": "npx drizzle-kit push",
     "llms": "node scripts/generate-llms.js",
     "cta:audit": "node scripts/audit-post-cta.js",
     "content:generate": "node scripts/generate-content.js",
@@ -29,17 +29,16 @@
     "build:full": "npm run llms && npm run build"
   },
   "dependencies": {
-    "@clerk/nextjs": "^7.0.8",
-    "@libsql/client": "^0.17.2",
+    "@clerk/nextjs": "^7.2.5",
+    "@libsql/client": "^0.17.3",
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
-    "@next/mdx": "^15.5.12",
+    "@next/mdx": "^15.5.15",
+    "@serwist/next": "^9.5.7",
     "@types/mdx": "^2.0.10",
     "drizzle-orm": "^0.45.2",
-    "gray-matter": "^4.0.3",
-    "next": "^15.5.12",
-    "next-mdx-remote": "^5.0.0",
-    "next-pwa": "^5.6.0",
+    "next": "^15.5.15",
+    "next-mdx-remote": "^6.0.0",
     "openai": "^5.12.2",
     "qrcode": "^1.5.4",
     "react": "^19.2.4",
@@ -47,7 +46,7 @@
     "reading-time": "^1.5.0",
     "remark-gfm": "^4.0.0",
     "stripe": "^18.5.0",
-    "workbox-webpack-plugin": "^7.3.0",
+    "yaml": "^2.8.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -58,15 +57,23 @@
     "@types/qrcode": "^1.5.6",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.0.4",
+    "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.0.1",
-    "drizzle-kit": "^0.31.10",
     "eslint": "^9.39.2",
-    "eslint-config-next": "^15.5.12",
-    "jsdom": "^26.1.0",
+    "eslint-config-next": "^15.5.15",
+    "jsdom": "^29.0.2",
     "postcss": "^8",
+    "serwist": "^9.5.7",
     "tailwindcss": "^3.3.0",
     "typescript": "^5",
-    "vitest": "^4.1.2"
+    "vite": "^8.0.10",
+    "vitest": "^4.1.5"
+  },
+  "overrides": {
+    "flatted": "^3.4.2",
+    "glob": "^13.0.6",
+    "mdast-util-to-hast": "^13.2.1",
+    "picomatch": "^4.0.4",
+    "source-map": "^0.7.6"
   }
 }
