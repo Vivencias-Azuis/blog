@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
 import { normalizeSlug } from '@/lib/posts'
+import { parseFrontmatter } from '@/lib/frontmatter'
 
 export interface AffiliateProduct {
   id: string
@@ -30,6 +30,17 @@ const affiliateHosts = new Set([
   'www.amazon.com.br',
   'amzn.to',
 ])
+
+function getStringField(data: Record<string, unknown>, ...keys: string[]) {
+  for (const key of keys) {
+    const value = data[key]
+    if (typeof value === 'string' && value.trim().length > 0) {
+      return value
+    }
+  }
+
+  return undefined
+}
 
 function inferMerchant(hostname: string): string {
   if (hostname.includes('mercadolivre')) return 'Mercado Livre'
@@ -105,8 +116,8 @@ export function getAffiliateProducts(): AffiliateProduct[] {
   for (const fileName of fs.readdirSync(postsDirectory).filter((entry) => entry.endsWith('.mdx'))) {
     const fullPath = path.join(postsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
-    const { data, content } = matter(fileContents)
-    const datetime = data.datetime || data.date || new Date().toISOString()
+    const { data, content } = parseFrontmatter<Record<string, unknown>>(fileContents)
+    const datetime = getStringField(data, 'datetime', 'date') || new Date().toISOString()
 
     if (new Date(datetime) > today) continue
 
@@ -125,12 +136,12 @@ export function getAffiliateProducts(): AffiliateProduct[] {
         title: normalizeTitle(label, heading, merchant),
         href,
         merchant,
-        description: buildDescription(heading, data.excerpt || '', merchant),
+        description: buildDescription(heading, getStringField(data, 'excerpt') || '', merchant),
         sourcePostSlug,
-        sourcePostTitle: data.title || sourcePostSlug,
-        sourcePostExcerpt: data.excerpt || '',
-        sourcePostCoverImage: data.coverImage || data.image || undefined,
-        category: data.category || 'Geral',
+        sourcePostTitle: getStringField(data, 'title') || sourcePostSlug,
+        sourcePostExcerpt: getStringField(data, 'excerpt') || '',
+        sourcePostCoverImage: getStringField(data, 'coverImage', 'image'),
+        category: getStringField(data, 'category') || 'Geral',
       })
     }
   }

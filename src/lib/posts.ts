@@ -1,10 +1,10 @@
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
 import readingTime from 'reading-time'
 import { normalizeTaxonomyValue } from '@/lib/taxonomy'
 import { isDeprecatedPostSlug } from '@/lib/canonical-posts'
 import { normalizeAuthorName } from '@/lib/editorial'
+import { parseFrontmatter } from '@/lib/frontmatter'
 
 export interface PostMeta {
   slug: string
@@ -45,6 +45,21 @@ export function normalizeSlug(rawSlug: string): string {
     .replace(/-+/g, '-')
 }
 
+function getStringField(data: Record<string, unknown>, ...keys: string[]) {
+  for (const key of keys) {
+    const value = data[key]
+    if (typeof value === 'string' && value.trim().length > 0) {
+      return value
+    }
+  }
+
+  return undefined
+}
+
+function getBooleanField(data: Record<string, unknown>, key: string) {
+  return typeof data[key] === 'boolean' ? data[key] : undefined
+}
+
 export function getAllPosts(): PostMeta[] {
   // Verifica se o diretório existe
   if (!fs.existsSync(postsDirectory)) {
@@ -61,21 +76,21 @@ export function getAllPosts(): PostMeta[] {
       const slug = normalizeSlug(fileName)
       const fullPath = path.join(postsDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data, content } = matter(fileContents)
+      const { data, content } = parseFrontmatter<Record<string, unknown>>(fileContents)
       const stats = readingTime(content)
 
       return {
         slug,
-        title: data.title || slug,
-        excerpt: data.excerpt || '',
-        datetime: data.datetime || data.date || new Date().toISOString(),
+        title: getStringField(data, 'title') || slug,
+        excerpt: getStringField(data, 'excerpt') || '',
+        datetime: getStringField(data, 'datetime', 'date') || new Date().toISOString(),
         updated: data.updated || undefined,
         author: normalizeAuthorName(typeof data.author === 'string' ? data.author : 'Equipe Vivências Azuis'),
-        category: data.category || 'Geral',
+        category: getStringField(data, 'category') || 'Geral',
         tags: Array.isArray(data.tags) ? data.tags : [],
-        featured: data.featured || false,
+        featured: getBooleanField(data, 'featured') || false,
         readingTime: stats.text,
-        coverImage: data.coverImage || data.image || undefined,
+        coverImage: getStringField(data, 'coverImage', 'image'),
       } as PostMeta
     })
     .filter((post) => !isDeprecatedPostSlug(post.slug))
@@ -93,21 +108,21 @@ export function getPostBySlug(slug: string): Post | null {
     const normalizedSlug = normalizeSlug(slug)
     const fullPath = path.join(postsDirectory, `${normalizedSlug}.mdx`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
-    const { data, content } = matter(fileContents)
+    const { data, content } = parseFrontmatter<Record<string, unknown>>(fileContents)
     const stats = readingTime(content)
 
     const post = {
       slug: normalizedSlug,
-      title: data.title || normalizedSlug,
-      excerpt: data.excerpt || '',
-      datetime: data.datetime || data.date || new Date().toISOString(),
-      updated: data.updated || undefined,
+      title: getStringField(data, 'title') || normalizedSlug,
+      excerpt: getStringField(data, 'excerpt') || '',
+      datetime: getStringField(data, 'datetime', 'date') || new Date().toISOString(),
+      updated: getStringField(data, 'updated'),
       author: normalizeAuthorName(typeof data.author === 'string' ? data.author : 'Equipe Vivências Azuis'),
-      category: data.category || 'Geral',
+      category: getStringField(data, 'category') || 'Geral',
       tags: Array.isArray(data.tags) ? data.tags : [],
-      featured: data.featured || false,
+      featured: getBooleanField(data, 'featured') || false,
       readingTime: stats.text,
-      coverImage: data.coverImage || data.image || undefined,
+      coverImage: getStringField(data, 'coverImage', 'image'),
       content,
     }
 

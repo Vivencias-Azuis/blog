@@ -2,7 +2,6 @@ import OpenAI from 'openai'
 import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs/promises'
 import path from 'path'
-import matter from 'gray-matter'
 
 import { requestCategoryToFrontmatter, coerceFrontmatterCategory } from '@/lib/content-factory/categories'
 import { validateRequest, suggestFix } from '@/lib/content-factory/guardrails'
@@ -10,6 +9,7 @@ import { getSystemPrompt, getUserPrompt } from '@/lib/content-factory/prompts'
 import { FrontmatterCategory, GenerateRequestSchema, GeneratedContentSchema } from '@/lib/content-factory/types'
 import { validateGeneratedContent } from '@/lib/content-factory/validator'
 import { normalizeAuthorName } from '@/lib/editorial'
+import { parseFrontmatter, stringifyFrontmatter } from '@/lib/frontmatter'
 
 export const runtime = 'nodejs'
 
@@ -152,10 +152,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Empty model output' }, { status: 502 })
     }
 
-    const parsed = matter(rawMdx)
+    const parsed = parseFrontmatter(rawMdx)
     const fallbackCategory = requestCategoryToFrontmatter(req.category)
     const normalizedFrontmatter = normalizeFrontmatter(parsed.data as any, fallbackCategory)
-    const normalizedMdx = matter.stringify(parsed.content, normalizedFrontmatter)
+    const normalizedMdx = stringifyFrontmatter(parsed.content, normalizedFrontmatter)
 
     const validations = validateGeneratedContent(normalizedMdx, req.mainKeyword)
 
