@@ -18,6 +18,7 @@
     "db:push": "npx drizzle-kit push",
     "llms": "node scripts/generate-llms.js",
     "cta:audit": "node scripts/audit-post-cta.js",
+    "links:audit": "node scripts/audit-internal-links.js",
     "content:generate": "node scripts/generate-content.js",
     "calendar:check": "node scripts/check-publication-calendar.js",
     "normalize-filenames": "node scripts/normalize-filenames.js --dry-run",

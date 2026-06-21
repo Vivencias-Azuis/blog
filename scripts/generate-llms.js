@@ -12,6 +12,50 @@ const __dirname = path.dirname(__filename)
 const BASE_URL = 'https://www.vivenciasazuis.com.br'
 const POSTS_DIR = path.join(__dirname, '../src/content/posts')
 
+const CANONICAL_POST_REDIRECTS = {
+  'melhor-plano-de-saude-para-autismo-guia-completo': 'melhores-planos-de-saude-para-criancas-com-autismo',
+  'melhor-plano-de-saude-para-crianca-autista-checklist-2026': 'melhores-planos-de-saude-para-criancas-com-autismo',
+  'qual-plano-de-saude-cobre-terapia-aba-2026': 'qual-plano-de-saude-cobre-terapia-aba-autismo',
+  'comunicacao-nao-verbal-autismo-o-que-fazer-guia-2026': 'crianca-autista-nao-fala-passo-a-passo-2026',
+  'psicologia-aba-como-funciona-na-pratica-2026': 'aba-para-pais',
+  'lei-berenice-piana-atualizada-2026-pdf-e-direitos': 'lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil',
+  'como-conseguir-vaga-hospitais-clinicas-gratuitas-tea': 'hospitais-e-clinicas-gratuitas-para-autistas-no-br',
+}
+
+const CATEGORY_LABELS = {
+  geral: 'Geral',
+  educacao: 'Educação',
+  dicas: 'Dicas',
+  relatos: 'Relatos',
+  direitos: 'Direitos',
+  saude: 'Saúde',
+  terapias: 'Terapias',
+  comunicacao: 'Comunicação',
+}
+
+function normalizeTaxonomyValue(rawValue) {
+  return rawValue
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+}
+
+function getCanonicalPostSlug(slug) {
+  return CANONICAL_POST_REDIRECTS[slug] || slug
+}
+
+function isDeprecatedPostSlug(slug) {
+  return slug in CANONICAL_POST_REDIRECTS
+}
+
+function getCategoryLabel(category) {
+  const normalized = normalizeTaxonomyValue(category)
+  return CATEGORY_LABELS[normalized] || category
+}
+
 /**
  * Get all blog posts with their metadata
  */
@@ -26,6 +70,7 @@ function getAllPosts() {
 
   const posts = fileNames
     .filter((fileName) => fileName.endsWith('.mdx'))
+    .filter((fileName) => !isDeprecatedPostSlug(fileName.replace(/\.mdx$/, '')))
     .map((fileName) => {
       const slug = fileName.replace(/\.mdx$/, '')
       const fullPath = path.join(POSTS_DIR, fileName)
@@ -33,11 +78,11 @@ function getAllPosts() {
       const { data } = parseFrontmatter(fileContents)
 
       return {
-        slug,
+        slug: getCanonicalPostSlug(slug),
         title: data.title || slug,
         excerpt: data.excerpt || '',
         date: data.datetime || data.date || new Date().toISOString(),
-        category: data.category || 'Geral',
+        category: getCategoryLabel(data.category || 'Geral'),
         tags: Array.isArray(data.tags) ? data.tags : [],
         featured: data.featured || false,
       }
@@ -46,6 +91,7 @@ function getAllPosts() {
       const postDate = new Date(post.date)
       return postDate <= today
     })
+    .filter((post, index, allPosts) => allPosts.findIndex((candidate) => candidate.slug === post.slug) === index)
 
   return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
@@ -141,7 +187,7 @@ function generateLLMsContent() {
     
     // Add category page link if not 'Geral'
     if (categoryName !== 'Geral') {
-      const categorySlug = categoryName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      const categorySlug = normalizeTaxonomyValue(categoryName)
       llmsContent.push(`- [Ver todos os posts de ${categoryName}](${BASE_URL}/blog?categoria=${categorySlug}) — Navegue por todo o conteúdo da categoria ${categoryName}.`)
       llmsContent.push('')
     }

@@ -16,6 +16,29 @@ export const metadata: Metadata = generatePageMetadata({
   keywords: ['autismo', 'TEA', 'inclusão', 'blog', 'experiências', 'apoio', 'família', 'desenvolvimento', 'síndrome de asperger', 'transtorno do espectro autista', 'educação', 'direitos'],
 })
 
+export const revalidate = 3600
+
+const SITE_URL = 'https://www.vivenciasazuis.com.br'
+
+const homeFaqs = [
+  {
+    question: 'O que é o Vivências Azuis?',
+    answer: 'É um portal editorial com guias práticos sobre autismo para famílias, cobrindo direitos, terapias, planos de saúde, escola e rotina, com linguagem simples e fontes públicas.',
+  },
+  {
+    question: 'Para quem o conteúdo foi feito?',
+    answer: 'Para pais, cuidadores, educadores e profissionais que precisam tomar decisões práticas sobre autismo no dia a dia, sem juridiquês ou linguagem técnica excessiva.',
+  },
+  {
+    question: 'Os artigos substituem orientação médica ou jurídica?',
+    answer: 'Não. O portal organiza informação de utilidade prática, mas cada caso exige avaliação individual com profissionais de saúde, educação ou advocacia quando necessário.',
+  },
+  {
+    question: 'Como encontrar o guia certo para o meu problema?',
+    answer: 'Use os hubs da homepage por tema — planos de saúde, direitos e terapias — ou navegue pelo blog por categoria. Cada hub concentra o guia principal e links para checklists e próximos passos.',
+  },
+]
+
 export default function Home() {
   const hubCards = [
     {
@@ -84,8 +107,8 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Vivências Azuis',
-    url: 'https://www.vivenciasazuis.com.br',
-    logo: 'https://www.vivenciasazuis.com.br/new_logo.png',
+    url: SITE_URL,
+    logo: `${SITE_URL}/new_logo.png`,
     description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
   }
 
@@ -93,25 +116,68 @@ export default function Home() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Vivências Azuis',
-    url: 'https://www.vivenciasazuis.com.br',
+    url: SITE_URL,
     inLanguage: 'pt-BR',
     description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
     publisher: {
       '@type': 'Organization',
       name: 'Vivências Azuis',
     },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE_URL}/blog?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
   }
+
+  const webPageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${SITE_URL}/#webpage`,
+    url: SITE_URL,
+    name: 'Autismo na prática: direitos, terapias e planos de saúde',
+    description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
+    inLanguage: 'pt-BR',
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      name: 'Vivências Azuis',
+      url: SITE_URL,
+    },
+    about: ['autismo', 'direitos', 'terapias', 'planos de saúde', 'educação inclusiva'],
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/og-image.png`,
+    },
+  }
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: homeFaqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  }
+
+  const jsonLdScripts = [organizationJsonLd, websiteJsonLd, webPageJsonLd, faqJsonLd]
 
   return (
     <div className="overflow-x-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, '\\u003c') }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, '\\u003c') }}
-      />
+      {jsonLdScripts.map((schema) => (
+        <script
+          key={schema['@type']}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\\u003c') }}
+        />
+      ))}
       <Hero />
       <section className="bg-page">
         <div className="container-custom py-12 md:py-16 scroll-mt-24">
@@ -282,16 +348,37 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <FeaturedBlock
               label="Guia essencial"
-              title="Conheca o Vivencias Azuis e nossa missao"
-              description="Entenda por que criamos este espaco e como queremos apoiar familias e profissionais com informacao confiavel."
+              title="Conheça o Vivências Azuis e nossa missão"
+              description="Entenda por que criamos este espaço e como queremos apoiar famílias e profissionais com informação confiável."
               href="/sobre"
+              linkLabel="Conhecer o Vivências Azuis e nossa missão"
             />
             <CTA
               title="Fale com a equipe"
-              description="Tem uma duvida ou sugestao? Estamos prontos para ouvir voce."
+              description="Tem uma dúvida ou sugestão? Estamos prontos para ouvir você."
               actionLabel="Entrar em contato"
               href="/contato"
             />
+          </div>
+        </div>
+      </section>
+      <section className="bg-page">
+        <div className="container-custom py-12 md:py-16">
+          <div className="rounded-block border border-sand-200 bg-surface/95 p-6 md:p-8 shadow-overlay">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-link mb-3">
+              Perguntas frequentes
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-sand-900 mb-6">
+              Dúvidas comuns sobre o portal
+            </h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {homeFaqs.map((faq) => (
+                <article key={faq.question} className="rounded-card border border-sand-200 bg-white p-5 shadow-card">
+                  <h3 className="text-lg font-bold text-sand-900 mb-2">{faq.question}</h3>
+                  <p className="text-sm text-sand-700 leading-relaxed">{faq.answer}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>

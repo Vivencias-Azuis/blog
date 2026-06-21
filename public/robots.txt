@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.vivenciasazuis.com.br/sitemap.xml
+# LLMs: https://www.vivenciasazuis.com.br/llms.txt
