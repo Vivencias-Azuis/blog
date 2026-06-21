@@ -5,9 +5,10 @@ interface FeaturedBlockProps {
   title: string
   description?: string
   href: string
+  linkLabel?: string
 }
 
-export default function FeaturedBlock({ label, title, description, href }: FeaturedBlockProps) {
+export default function FeaturedBlock({ label, title, description, href, linkLabel }: FeaturedBlockProps) {
   return (
     <section className="rounded-block border border-brand/30 bg-brand-soft p-6">
       {label && (
@@ -23,7 +24,7 @@ export default function FeaturedBlock({ label, title, description, href }: Featu
       {description && <p className="mt-2 text-sm text-sand-700">{description}</p>}
       <div className="mt-4">
         <Link href={href} className="text-sm font-semibold text-link hover:text-link-hover">
-          Saiba mais
+          {linkLabel || title}
         </Link>
       </div>
     </section>

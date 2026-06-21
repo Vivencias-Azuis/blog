@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { getAllAuthorProfiles } from '@/lib/editorial'
 import { getAllPosts } from '@/lib/posts'
 
 const BASE_URL = 'https://www.vivenciasazuis.com.br'
@@ -78,7 +79,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
+    {
+      url: `${BASE_URL}/apoie`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    },
+    {
+      url: `${BASE_URL}/metodologia-editorial`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/politica-de-privacidade`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/termos-de-uso`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.5,
+    },
   ]
+
+  const authorPages = getAllAuthorProfiles().map((author) => ({
+    url: `${BASE_URL}/autores/${author.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.65,
+  }))
 
   // Dynamic blog post pages
   const blogPosts = posts.map((post) => {
@@ -91,5 +123,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   })
 
-  return [...staticPages, ...blogPosts]
+  return [...staticPages, ...authorPages, ...blogPosts]
 }
