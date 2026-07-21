@@ -8,6 +8,37 @@ Runbook operacional para o Vivências Azuis, cobrindo o que foi implementado no 
 - Nome atual da propriedade: `Vivencias Azuil`
 - Search Console: `sc-domain:vivenciasazuis.com.br`
 
+## Ritual GSC pós-otimização SEO (Performance)
+
+**Filtros padrão de análise:** Pesquisa Web · **Brasil** · últimos 28 dias · comparar com 28 anteriores.
+
+Baseline de referência (export 20/04–19/07/2026, global Web):
+
+| Métrica | Baseline 3m | Meta 30d | Meta 90d |
+|---------|------------:|---------:|---------:|
+| Cliques | 191 | 260 | 400–500 |
+| CTR (BR) | ~1,5% | ≥2,0% | ≥2,5% |
+| Páginas com ≥10 cliques | ~6 | 8 | ≥12 |
+| Pos. média top 3 páginas | 6–9 | ≤7 | ≤6 |
+
+### Calendário
+
+1. **Dia 0 (deploy):** anotar data no GA4; no GSC, inspecionar e solicitar indexação das URLs prioritárias (ABA valor, planos, níveis, PECS, dicionário, aba-para-pais, Berenice).
+2. **Dia 7:** CTR e impressões das 6 URLs top (sem esperar posição).
+3. **Dia 28:** cliques totais BR, CTR, contagem de páginas ≥10 cliques.
+4. **Dia 90:** validar metas da tabela.
+
+### Alertas
+
+- **Sucesso parcial:** CTR de níveis / aba-para-pais sobe sem queda forte de impressões; Berenice sai de 0 cliques; impressões de ABA valor estáveis com mais cliques.
+- **Problema:** queda >30% de impr em hub após rewrite → reverter title; duas URLs ABA competindo nas mesmas queries → reforçar descanibalização.
+
+### Higiene de subdomínios (impressões sem valor)
+
+- `clerk.vivenciasazuis.com.br` — auth; não deve rankear (configurar noindex no Clerk Dashboard / hosting se aparecer no GSC).
+- `jogos.vivenciasazuis.com.br` — app de jogos; preferir `noindex` se o SEO do domínio principal for prioridade (repo `autism-games`).
+- Analisar KPIs com filtro **Brasil** para reduzir ruído de impressões EUA (~0% CTR).
+
 ## Contrato de eventos implementado
 
 Eventos principais:
