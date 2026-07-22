@@ -9,12 +9,41 @@ import FeaturedBlock from '@/components/design-system/FeaturedBlock'
 import EbookLeadPopup from '@/components/EbookLeadPopup'
 import NewsletterSignup from '@/components/NewsletterSignup'
 
-export const metadata: Metadata = generatePageMetadata({
-  title: 'Autismo na prática: direitos, terapias e planos de saúde',
-  description: 'Guias práticos sobre autismo para famílias: direitos, terapias e planos de saúde com conteúdo atualizado e linguagem simples.',
+const homeMetadata = generatePageMetadata({
+  title: 'Autismo na prática: direitos, terapias e planos',
+  description:
+    'Portal Vivências Azuis: guias práticos sobre autismo para famílias — direitos, terapias ABA, planos de saúde e rotina, em linguagem simples.',
   path: '/',
-  keywords: ['autismo', 'TEA', 'inclusão', 'blog', 'experiências', 'apoio', 'família', 'desenvolvimento', 'síndrome de asperger', 'transtorno do espectro autista', 'educação', 'direitos'],
+  keywords: [
+    'vivências azuis',
+    'autismo',
+    'TEA',
+    'inclusão',
+    'blog',
+    'apoio',
+    'família',
+    'terapia ABA',
+    'planos de saúde',
+    'direitos',
+    'transtorno do espectro autista',
+  ],
 })
+
+// absolute evita " | Vivências Azuis" duplicado (template do layout)
+export const metadata: Metadata = {
+  ...homeMetadata,
+  title: {
+    absolute: 'Vivências Azuis | Autismo na prática: direitos, terapias e planos',
+  },
+  openGraph: {
+    ...homeMetadata.openGraph,
+    title: 'Vivências Azuis | Autismo na prática: direitos, terapias e planos',
+  },
+  twitter: {
+    ...homeMetadata.twitter,
+    title: 'Vivências Azuis | Autismo na prática: direitos, terapias e planos',
+  },
+}
 
 export const revalidate = 3600
 
