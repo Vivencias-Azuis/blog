@@ -67,8 +67,37 @@ const config: Config = {
           warning: '#C48A1B',
           error: '#C6453B',
         },
+        // Camada editorial "caderno". Existe em paralelo a paleta antiga acima, que
+        // segue valendo nas telas ainda nao migradas. Neutros puxados para o quente,
+        // azul de tinta (a marca e azul, entao o azul fica) e um acento terracota
+        // reservado para "proximo passo".
+        paper: {
+          DEFAULT: '#FAF7F2',
+          deep: '#F2EDE4',
+        },
+        ink: {
+          DEFAULT: '#1A1714',
+          soft: '#4A423A',
+          mute: '#6E6357',
+        },
+        rule: {
+          DEFAULT: '#E3DCD0',
+          strong: '#C9BFAD',
+        },
+        azul: {
+          DEFAULT: '#1A5680',
+          deep: '#0E2E47',
+          mid: '#3D80A8',
+          soft: '#C6DCEA',
+          wash: '#EDF4F8',
+        },
+        clay: {
+          DEFAULT: '#9C4A1E',
+          soft: '#F3E3D7',
+        },
       },
       fontFamily: {
+        display: ['var(--font-fraunces)', 'Georgia', 'Times New Roman', 'serif'],
         sans: ['var(--font-manrope)', 'ui-sans-serif', 'system-ui'],
         serif: ['var(--font-source-serif)', 'Georgia', 'Times New Roman', 'serif'],
         mono: ['JetBrains Mono', 'SFMono-Regular', 'Menlo', 'monospace'],

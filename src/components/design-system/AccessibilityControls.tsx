@@ -16,6 +16,11 @@ type AccessibilityControlsProps = {
   onContrastModeChange?: (mode: ContrastMode) => void
 }
 
+const toggleBase =
+  'rounded-sm px-2 py-1 font-sans text-xs font-semibold transition-colors duration-150'
+const toggleActive = 'bg-azul text-paper'
+const toggleIdle = 'text-ink-soft hover:bg-azul-wash hover:text-azul'
+
 export default function AccessibilityControls({
   fontScale,
   contrastMode,
@@ -73,9 +78,9 @@ export default function AccessibilityControls({
   }, [activeContrastMode, hasLoadedPreferences, isControlled])
 
   return (
-    <div className="flex items-center gap-3 rounded-pill border border-sand-200 bg-surface px-4 py-2 shadow-card">
+    <div className="flex items-center gap-3 rounded-sm border border-rule bg-paper px-3 py-1.5">
       <div className="flex items-center gap-2">
-        <span className="text-xs font-semibold text-sand-700">Fonte</span>
+        <span className="font-sans text-xs text-ink-mute">Fonte</span>
         <div className="flex items-center gap-1">
           {(['base', 'lg', 'xl'] as FontScale[]).map((scale) => (
             <button
@@ -89,10 +94,8 @@ export default function AccessibilityControls({
 
                 setInternalFontScale(scale)
               }}
-              className={`rounded-pill px-2 py-1 text-xs font-semibold transition-colors ${
-                activeFontScale === scale
-                  ? 'bg-brand text-white'
-                  : 'bg-sand-100 text-sand-700 hover:bg-brand-soft'
+              className={`${toggleBase} ${
+                activeFontScale === scale ? toggleActive : toggleIdle
               }`}
               aria-pressed={activeFontScale === scale}
             >
@@ -102,22 +105,20 @@ export default function AccessibilityControls({
         </div>
       </div>
 
-      <div className="h-5 w-px bg-sand-200" aria-hidden="true" />
+      <div className="h-5 w-px bg-rule" aria-hidden="true" />
 
       <button
-      type="button"
-      onClick={() => {
-        if (isControlled) {
-          onContrastModeChange?.(activeContrastMode === 'high' ? 'default' : 'high')
-          return
-        }
+        type="button"
+        onClick={() => {
+          if (isControlled) {
+            onContrastModeChange?.(activeContrastMode === 'high' ? 'default' : 'high')
+            return
+          }
 
           setInternalContrastMode(activeContrastMode === 'high' ? 'default' : 'high')
         }}
-        className={`rounded-pill px-3 py-1 text-xs font-semibold transition-colors ${
-          activeContrastMode === 'high'
-            ? 'bg-brand text-white'
-            : 'bg-sand-100 text-sand-700 hover:bg-brand-soft'
+        className={`${toggleBase} ${
+          activeContrastMode === 'high' ? toggleActive : toggleIdle
         }`}
         aria-pressed={activeContrastMode === 'high'}
       >

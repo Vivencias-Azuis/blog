@@ -79,10 +79,10 @@ export default function FavoriteToggleButton({
         disabled={loading}
         aria-label={favorited ? 'Remover dos favoritos' : 'Salvar nos favoritos'}
         aria-pressed={favorited}
-        className={`inline-flex items-center gap-2 rounded-pill border px-3 py-2 text-sm font-semibold transition-colors ${
+        className={`inline-flex items-center gap-2 rounded-sm border px-3 py-2 font-sans text-sm font-semibold transition-colors duration-150 ${
           favorited
-            ? 'border-brand bg-brand-soft text-brand-dark'
-            : 'border-sand-300 bg-surface text-sand-700 hover:border-brand/50 hover:text-link'
+            ? 'border-azul bg-azul-wash text-azul'
+            : 'border-rule bg-paper text-ink-soft hover:border-azul hover:text-azul'
         } disabled:cursor-wait disabled:opacity-70`}
       >
         <span aria-hidden="true">{favorited ? '♥' : '♡'}</span>
@@ -90,7 +90,7 @@ export default function FavoriteToggleButton({
       </button>
 
       {error ? (
-        <p className="text-sm text-red-700" role="status">
+        <p className="font-sans text-sm text-clay" role="status">
           {error}
         </p>
       ) : null}

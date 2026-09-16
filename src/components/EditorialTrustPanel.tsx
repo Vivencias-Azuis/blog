@@ -6,6 +6,10 @@ interface EditorialTrustPanelProps {
   post: Pick<PostMeta, 'author' | 'category' | 'updated' | 'datetime'>
 }
 
+const entry = 'border-b border-rule py-3'
+const term = 'font-sans text-xs uppercase tracking-[0.14em] text-ink-mute'
+const detail = 'mt-1 font-serif text-sm leading-relaxed text-ink-soft'
+
 export default function EditorialTrustPanel({ post }: EditorialTrustPanelProps) {
   const trust = getPostTrustSignals(post)
   const reviewDate = new Date(post.updated || post.datetime).toLocaleDateString('pt-BR', {
@@ -15,54 +19,55 @@ export default function EditorialTrustPanel({ post }: EditorialTrustPanelProps) 
   })
 
   return (
-    <aside className="rounded-3xl border border-sand-200 bg-surface p-6 md:p-8 shadow-card">
-      <div className="flex flex-wrap items-center gap-3 mb-4">
-        <span className="rounded-pill bg-blue-900 text-white px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-          Transparência editorial
-        </span>
-        {trust.isSensitiveTopic && (
-          <span className="rounded-pill bg-brand-soft text-blue-900 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-            Tema sensível
-          </span>
-        )}
-      </div>
+    <aside className="border-t-2 border-azul pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+      <p className="eyebrow">Transparência editorial</p>
+      {trust.isSensitiveTopic ? (
+        <p className="mt-2 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-clay">
+          Tema sensível
+        </p>
+      ) : null}
 
-      <div className="grid gap-5 md:grid-cols-2">
-        <div>
-          <p className="text-sm font-semibold text-sand-900 mb-1">Autoria</p>
-          <p className="text-sand-700 leading-relaxed">
-            <Link href={`/autores/${trust.author.slug}`} className="text-link hover:text-link-hover underline">
+      <dl className="mt-5">
+        <div className={entry}>
+          <dt className={term}>Autoria</dt>
+          <dd className={detail}>
+            <Link
+              href={`/autores/${trust.author.slug}`}
+              className="text-azul underline decoration-rule-strong decoration-1 underline-offset-4 transition-colors hover:decoration-azul"
+            >
               {trust.author.name}
-            </Link>{' '}
-            • {trust.author.role}
-          </p>
+            </Link>
+            {' · '}
+            {trust.author.role}
+          </dd>
         </div>
 
-        <div>
-          <p className="text-sm font-semibold text-sand-900 mb-1">Revisão</p>
-          <p className="text-sand-700 leading-relaxed">
-            {trust.reviewLabel}. Última revisão editorial em {reviewDate}.
-          </p>
+        <div className={entry}>
+          <dt className={term}>Revisão</dt>
+          <dd className={detail}>
+            {trust.reviewLabel}. Última revisão em {reviewDate}.
+          </dd>
         </div>
 
-        <div>
-          <p className="text-sm font-semibold text-sand-900 mb-1">Metodologia</p>
-          <p className="text-sand-700 leading-relaxed">
-            Conteúdo produzido com curadoria de fontes públicas, atualização periódica e linguagem voltada a famílias.
-          </p>
+        <div className={entry}>
+          <dt className={term}>Metodologia</dt>
+          <dd className={detail}>
+            Curadoria de fontes públicas, atualização periódica e linguagem voltada a
+            famílias.
+          </dd>
         </div>
 
-        <div>
-          <p className="text-sm font-semibold text-sand-900 mb-1">Aviso importante</p>
-          <p className="text-sand-700 leading-relaxed">{trust.disclaimer}</p>
+        <div className={entry}>
+          <dt className={term}>Aviso</dt>
+          <dd className={detail}>{trust.disclaimer}</dd>
         </div>
-      </div>
+      </dl>
 
-      <div className="mt-5 flex flex-wrap gap-4 text-sm">
-        <Link href={`/autores/${trust.author.slug}`} className="text-link hover:text-link-hover underline">
+      <div className="mt-5 flex flex-col items-start gap-2">
+        <Link href={`/autores/${trust.author.slug}`} className="link-rule">
           Ver perfil editorial
         </Link>
-        <Link href="/metodologia-editorial" className="text-link hover:text-link-hover underline">
+        <Link href="/metodologia-editorial" className="link-rule">
           Como este conteúdo é produzido
         </Link>
       </div>

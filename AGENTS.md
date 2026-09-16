@@ -49,11 +49,11 @@ Quando a tarefa mexer com conteúdo ou slugs, considere também:
 
 Em ordem de prioridade. Nenhum é imposto pelo ESLint — não há `max-lines` nem regra de complexidade configurada, então a disciplina é sua.
 
-- Arquivos: alvo 200–300 linhas, teto 500. Nenhum arquivo passa do teto hoje; os maiores são `src/app/blog/[slug]/page.tsx` (492), `src/app/termos-de-uso/page.tsx` (451) e `src/app/page.tsx` (418) — quebre antes de crescer, não depois.
+- Arquivos: alvo 200–300 linhas, teto 500. Nenhum arquivo passa do teto; os maiores são `src/app/page.tsx` (489), `src/app/blog/[slug]/page.tsx` (466) e `src/app/termos-de-uso/page.tsx` (451) — quebre antes de crescer, não depois.
 - Página grande vira composição, não um componente só: `src/app/politica-de-privacidade/` é o modelo — `page.tsx` apenas monta, conteúdo em `sections/`, primitivos visuais em `privacy-layout.tsx`.
 - Funções: 4–20 linhas, uma responsabilidade cada.
 - Nomes grep-únicos e de domínio. Sem `Manager`, `Service`, `util`, `helper` como nome principal. Se `rg <nome>` devolve lixo, renomeie.
-- Tipos explícitos na fronteira pública; sem `any`. Exceção atual: o mapa de componentes MDX em `src/app/blog/[slug]/page.tsx` (13 ocorrências).
+- Tipos explícitos na fronteira pública; sem `any`. O mapa de componentes MDX em `src/app/blog/[slug]/page.tsx` usa `ComponentPropsWithoutRef` como referência. Restam 2 exceções: `src/app/api/content/generate/route.ts` e `src/components/PWAStatus.tsx`.
 - Máximo 2 níveis de control flow; use guard clause com early return.
 - Erros carregam o valor ofensor, não só o que falhou — status, id ou payload. Padrão a seguir em `src/lib/support/abacate-pay.ts`: `` `Abacate Pay Pix create failed: status ${response.status}` ``.
 - I/O (cliente HTTP, DB, relógio) entra por parâmetro — nunca hardcoded no fundo do módulo.

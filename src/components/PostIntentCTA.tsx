@@ -114,14 +114,16 @@ function getActions(
 
 export default function PostIntentCTA({ intent, placement, tone = 'light', post }: PostIntentCTAProps) {
   const actions = getActions(intent, placement, post)
+  const buttonBase =
+    'inline-flex items-center justify-center rounded-sm px-6 py-3 font-sans text-sm font-semibold transition-colors duration-150'
   const primaryClass =
     tone === 'dark'
-      ? 'inline-flex items-center justify-center rounded-card bg-white px-6 py-3 text-sm font-semibold text-link hover:bg-brand-soft transition-colors'
-      : 'inline-flex items-center justify-center rounded-card bg-link px-5 py-3 text-sm font-semibold text-white hover:bg-link-hover transition-colors'
+      ? `${buttonBase} border border-paper bg-paper text-azul-deep hover:bg-azul-soft`
+      : `${buttonBase} border border-azul bg-azul text-paper hover:border-azul-deep hover:bg-azul-deep`
   const secondaryClass =
     tone === 'dark'
-      ? 'inline-flex items-center justify-center rounded-card border border-white/30 bg-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/30 transition-colors'
-      : 'inline-flex items-center justify-center rounded-card border border-brand/40 bg-surface px-5 py-3 text-sm font-semibold text-sand-900 hover:bg-brand/10 transition-colors'
+      ? `${buttonBase} border border-paper/40 bg-transparent text-paper hover:bg-paper/10`
+      : `${buttonBase} border border-ink bg-transparent text-ink hover:bg-ink hover:text-paper`
 
   return (
     <div className="flex flex-col sm:flex-row gap-3 justify-center">

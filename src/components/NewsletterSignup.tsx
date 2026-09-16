@@ -90,7 +90,7 @@ export default function NewsletterSignup({
       }
 
       setSubmitStatus('success')
-      setSubmitMessage('Inscrição confirmada! Você começará a receber nossas novidades em breve. 💙')
+      setSubmitMessage('Inscrição confirmada. Você vai receber as próximas edições por e-mail.')
       const pathname = window.location.pathname
       trackEvent('lead_submit', {
         origem,
@@ -117,35 +117,42 @@ export default function NewsletterSignup({
 
   return (
     <div className={className}>
-      <form onSubmit={handleSubmit} action={LEAD_ENDPOINT} method="POST" className="flex flex-col sm:flex-row gap-4">
+      <form onSubmit={handleSubmit} action={LEAD_ENDPOINT} method="POST">
         <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" />
         <input type="hidden" name="origem" value={origem} />
-        <input
-          id={inputId}
-          name="email"
-          type="email"
-          required
-          value={email}
-          onFocus={trackFormStart}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Seu melhor e-mail"
-          className="flex-1 rounded-card border border-white/30 bg-white/90 px-6 py-4 text-sand-900 placeholder-sand-500 focus:outline-none focus:ring-2 focus:ring-white/60"
-          aria-label="Seu e-mail"
-        />
-        <button
-          type="submit"
-          data-cta="newsletter_submit"
-          data-cta-location={ctaLocation || origem}
-          disabled={isSubmitting}
-          className="rounded-card bg-surface px-8 py-4 font-semibold text-link transition-colors hover:bg-brand-soft disabled:cursor-not-allowed disabled:opacity-60"
+        <label
+          htmlFor={inputId}
+          className="block font-sans text-xs font-semibold uppercase tracking-[0.2em] text-azul-soft"
         >
-          {isSubmitting ? 'Enviando…' : 'Inscrever-se'}
-        </button>
+          Seu e-mail
+        </label>
+        <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+          <input
+            id={inputId}
+            name="email"
+            type="email"
+            required
+            value={email}
+            onFocus={trackFormStart}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="nome@email.com"
+            className="w-full rounded-sm border border-paper/30 bg-paper px-4 py-3 text-base text-ink placeholder-ink-mute transition-colors duration-150 focus:border-clay sm:flex-1"
+          />
+          <button
+            type="submit"
+            data-cta="newsletter_submit"
+            data-cta-location={ctaLocation || origem}
+            disabled={isSubmitting}
+            className="shrink-0 rounded-sm border border-paper bg-paper px-6 py-3 font-sans text-sm font-semibold text-azul-deep transition-colors duration-150 hover:bg-azul-soft disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isSubmitting ? 'Enviando…' : 'Inscrever-se'}
+          </button>
+        </div>
       </form>
 
       {submitMessage && (
         <p
-          className={`mt-4 text-sm ${submitStatus === 'success' ? 'text-blue-100' : 'text-red-200'}`}
+          className={`mt-4 font-sans text-sm ${submitStatus === 'success' ? 'text-azul-soft' : 'text-clay-soft'}`}
           role={submitStatus === 'error' ? 'alert' : 'status'}
           aria-live="polite"
         >

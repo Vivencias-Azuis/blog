@@ -164,69 +164,73 @@ html[data-contrast='high'] a {
   animation: slideInRight 0.8s ease-out;
 }
 
-/* Base styles para MDX */
+/* Leitura de artigo (MDX). Medida entre 60-76ch; hierarquia por tipo e fio. */
 .prose {
-  @apply max-w-none font-serif text-sand-800;
+  @apply max-w-none font-serif text-ink-soft;
 }
 
 .prose h1 {
-  @apply text-3xl md:text-4xl font-bold text-sand-900 mb-6 mt-8 font-sans;
+  @apply font-display text-3xl font-semibold leading-tight text-ink mb-6 mt-10;
 }
 
 .prose h2 {
-  @apply text-2xl md:text-3xl font-semibold text-sand-900 mb-4 mt-6 font-sans;
+  @apply font-display text-2xl font-semibold leading-tight text-ink mb-4 mt-12;
 }
 
 .prose h3 {
-  @apply text-xl md:text-2xl font-medium text-sand-900 mb-3 mt-5 font-sans;
+  @apply font-display text-xl font-semibold leading-tight text-ink mb-3 mt-8;
 }
 
 .prose p {
-  @apply text-sand-800 leading-relaxed mb-4;
+  @apply text-ink-soft leading-relaxed mb-5;
 }
 
 .prose ul, .prose ol {
-  @apply text-sand-800 mb-4 ml-6;
+  @apply text-ink-soft mb-5 ml-6;
 }
 
 .prose li {
   @apply mb-2;
 }
 
+.prose strong {
+  @apply font-semibold text-ink;
+}
+
 .prose a {
-  @apply text-link hover:text-link-hover transition-colors underline;
+  @apply text-azul underline decoration-rule-strong decoration-1 underline-offset-4 transition-colors hover:decoration-azul;
 }
 
 .prose blockquote {
-  @apply border-l-4 border-brand/60 pl-4 italic text-sand-700 my-6;
+  @apply border-l-2 border-clay pl-5 italic text-ink-soft my-8;
 }
 
 .prose code {
-  @apply bg-sand-200 px-2 py-1 rounded text-sm font-mono;
+  @apply rounded-sm bg-paper-deep px-1.5 py-0.5 text-sm font-mono text-ink;
 }
 
 .prose pre {
-  @apply bg-gray-800 text-white p-4 rounded-lg overflow-x-auto my-6;
+  @apply overflow-x-auto rounded-sm bg-ink p-5 text-paper my-8;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-paper;
 }
 
 .prose img {
-  @apply rounded-lg shadow-md my-6 w-full h-auto;
+  @apply my-8 h-auto w-full rounded-sm;
 }
 
 .prose table {
-  @apply w-full text-sm border-collapse my-6 border border-sand-200;
+  @apply my-8 w-full border-collapse border-t border-ink/15 text-sm;
 }
 
 .prose thead th {
-  @apply bg-sand-100 text-sand-900 text-left font-semibold border border-sand-200 px-4 py-3;
+  @apply border-b border-ink/15 px-4 py-3 text-left font-sans text-xs font-semibold uppercase tracking-[0.14em] text-ink-mute;
 }
 
 .prose tbody td {
-  @apply border border-sand-200 px-4 py-3 align-top;
-}
-
-.prose tbody tr:nth-child(even) {
-  @apply bg-sand-100;
+  @apply border-b border-rule px-4 py-3 align-top;
 }
 
 /* Componentes customizados */
@@ -334,5 +338,64 @@ html[data-contrast='high'] a {
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(to bottom, #17528C, #0B2342);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Linguagem editorial "caderno" — home.
+   Tokens em tailwind.config.ts (paper/ink/rule/azul/clay).
+
+   Regras da camada: fio de 1px no lugar de sombra, nenhum gradiente, nenhum
+   transform no hover. O movimento aqui e troca de cor em 150ms; a pagina se
+   comporta como papel impresso e nao pula, nao escala e nao flutua.
+--------------------------------------------------------------------------- */
+
+@layer components {
+  .eyebrow {
+    @apply font-sans text-xs font-semibold uppercase tracking-[0.2em] text-azul;
+  }
+
+  .display {
+    @apply font-display font-semibold leading-[1.08] tracking-[-0.015em] text-ink;
+  }
+
+  .lede {
+    @apply font-serif text-lg leading-relaxed text-ink-soft md:text-xl;
+  }
+
+  .btn-ink {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-azul bg-azul px-6 py-3 font-sans text-sm font-semibold text-paper transition-colors duration-150 hover:border-azul-deep hover:bg-azul-deep;
+  }
+
+  .btn-line {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-ink bg-transparent px-6 py-3 font-sans text-sm font-semibold text-ink transition-colors duration-150 hover:bg-ink hover:text-paper;
+  }
+
+  .link-rule {
+    @apply font-sans text-sm font-semibold text-azul underline decoration-rule-strong decoration-1 underline-offset-4 transition-colors duration-150 hover:decoration-azul;
+  }
+}
+
+/* Visibilidade de foco. Regra global e fora de @layer para vencer por ordem de
+   origem o focus:outline-none herdado de telas antigas. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #9c4a1e;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
