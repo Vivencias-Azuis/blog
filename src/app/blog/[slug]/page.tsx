@@ -1,4 +1,5 @@
 import { notFound, permanentRedirect } from 'next/navigation'
+import type { ComponentPropsWithoutRef } from 'react'
 import { getAllPosts, getPostBySlug, getRelatedPosts, normalizeSlug } from '@/lib/posts'
 import { generateCanonicalUrl, generateImageUrl, generatePostMetadata, generatePostUrl } from '@/lib/metadata'
 import { getCanonicalPostSlug } from '@/lib/canonical-posts'
@@ -10,13 +11,14 @@ import { Metadata } from 'next'
 import { auth } from '@clerk/nextjs/server'
 
 import FavoriteToggleButton from '@/components/account/FavoriteToggleButton'
-import PostCard from '@/components/PostCard'
+import EditorialPostRow from '@/components/EditorialPostRow'
 import PostTracking from '@/components/PostTracking'
 import PostIntentCTA from '@/components/PostIntentCTA'
 import EditorialTrustPanel from '@/components/EditorialTrustPanel'
 import { getPostTrustSignals } from '@/lib/editorial'
 import { detectOperationalCluster } from '@/lib/analytics-contract'
 import { listFavoriteSlugs, resolveFavoritePostSlugs } from '@/lib/account/favorites'
+import { formatReadingTime } from '@/lib/reading-time-label'
 
 interface PostPageProps {
   params: Promise<{
@@ -52,7 +54,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const normalizedSlug = normalizeSlug(slug)
   const canonicalSlug = getCanonicalPostSlug(normalizedSlug)
   const post = getPostBySlug(canonicalSlug || normalizedSlug)
-  
+
   if (!post) {
     return {
       title: 'Post não encontrado | Vivências Azuis',
@@ -77,72 +79,72 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 }
 
 const components = {
-  h1: ({ children, ...props }: any) => (
-    <h1 className="text-3xl md:text-4xl font-bold text-sand-900 mb-6 mt-8 font-sans" {...props}>
+  h1: ({ children, ...props }: ComponentPropsWithoutRef<'h1'>) => (
+    <h1 className="mb-6 mt-10 font-display text-3xl font-semibold leading-tight text-ink" {...props}>
       {children}
     </h1>
   ),
-  h2: ({ children, ...props }: any) => (
-    <h2 className="text-2xl md:text-3xl font-semibold text-sand-900 mb-4 mt-6 font-sans" {...props}>
+  h2: ({ children, ...props }: ComponentPropsWithoutRef<'h2'>) => (
+    <h2 className="mb-4 mt-12 font-display text-2xl font-semibold leading-tight text-ink" {...props}>
       {children}
     </h2>
   ),
-  h3: ({ children, ...props }: any) => (
-    <h3 className="text-xl md:text-2xl font-medium text-sand-900 mb-3 mt-5 font-sans" {...props}>
+  h3: ({ children, ...props }: ComponentPropsWithoutRef<'h3'>) => (
+    <h3 className="mb-3 mt-8 font-display text-xl font-semibold leading-tight text-ink" {...props}>
       {children}
     </h3>
   ),
-  p: ({ children, ...props }: any) => (
-    <p className="text-sand-800 leading-relaxed mb-4" {...props}>
+  p: ({ children, ...props }: ComponentPropsWithoutRef<'p'>) => (
+    <p className="mb-5 leading-relaxed text-ink-soft" {...props}>
       {children}
     </p>
   ),
-  ul: ({ children, ...props }: any) => (
-    <ul className="text-sand-800 mb-4 ml-6 list-disc" {...props}>
+  ul: ({ children, ...props }: ComponentPropsWithoutRef<'ul'>) => (
+    <ul className="mb-5 ml-6 list-disc text-ink-soft" {...props}>
       {children}
     </ul>
   ),
-  ol: ({ children, ...props }: any) => (
-    <ol className="text-sand-800 mb-4 ml-6 list-decimal" {...props}>
+  ol: ({ children, ...props }: ComponentPropsWithoutRef<'ol'>) => (
+    <ol className="mb-5 ml-6 list-decimal text-ink-soft" {...props}>
       {children}
     </ol>
   ),
-  li: ({ children, ...props }: any) => (
+  li: ({ children, ...props }: ComponentPropsWithoutRef<'li'>) => (
     <li className="mb-2" {...props}>
       {children}
     </li>
   ),
-  a: ({ children, href, ...props }: any) => (
-    <a 
-      href={href} 
-      className="text-link hover:text-link-hover transition-colors underline" 
+  a: ({ children, href, ...props }: ComponentPropsWithoutRef<'a'>) => (
+    <a
+      href={href}
+      className="text-azul underline decoration-rule-strong decoration-1 underline-offset-4 transition-colors hover:decoration-azul"
       {...props}
     >
       {children}
     </a>
   ),
-  blockquote: ({ children, ...props }: any) => (
-    <blockquote className="border-l-4 border-brand/60 pl-4 italic text-sand-700 my-6" {...props}>
+  blockquote: ({ children, ...props }: ComponentPropsWithoutRef<'blockquote'>) => (
+    <blockquote className="my-8 border-l-2 border-clay pl-5 italic text-ink-soft" {...props}>
       {children}
     </blockquote>
   ),
-  code: ({ children, ...props }: any) => (
-    <code className="bg-sand-200 px-2 py-1 rounded text-sm font-mono" {...props}>
+  code: ({ children, ...props }: ComponentPropsWithoutRef<'code'>) => (
+    <code className="rounded-sm bg-paper-deep px-1.5 py-0.5 font-mono text-sm text-ink" {...props}>
       {children}
     </code>
   ),
-  pre: ({ children, ...props }: any) => (
-    <pre className="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto my-6" {...props}>
+  pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => (
+    <pre className="my-8 overflow-x-auto rounded-sm bg-ink p-5 text-paper" {...props}>
       {children}
     </pre>
   ),
-  img: ({ alt, src, width, height, ...props }: any) => {
+  img: ({ alt, src, width, height, ...props }: ComponentPropsWithoutRef<'img'>) => {
     if (typeof src !== 'string') return null
 
     const parsedWidth = typeof width === 'string' ? Number.parseInt(width, 10) : width
     const parsedHeight = typeof height === 'string' ? Number.parseInt(height, 10) : height
-    const imageWidth = Number.isFinite(parsedWidth) && parsedWidth > 0 ? parsedWidth : 1200
-    const imageHeight = Number.isFinite(parsedHeight) && parsedHeight > 0 ? parsedHeight : 800
+    const imageWidth = typeof parsedWidth === 'number' && parsedWidth > 0 ? parsedWidth : 1200
+    const imageHeight = typeof parsedHeight === 'number' && parsedHeight > 0 ? parsedHeight : 800
 
     return (
       <Image
@@ -151,7 +153,7 @@ const components = {
         width={imageWidth}
         height={imageHeight}
         sizes="(max-width: 768px) 100vw, 768px"
-        className="w-full h-auto rounded-card shadow-card my-6"
+        className="my-8 h-auto w-full rounded-sm"
         {...props}
       />
     )
@@ -254,6 +256,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const relatedPosts = getRelatedPosts(post.slug, 3)
   const earlyRelated = relatedPosts.slice(0, 2)
   const remainingRelated = relatedPosts.slice(2)
+  const relatedToRender = remainingRelated.length > 0 ? remainingRelated : relatedPosts
   const commercialSignals = ['plano', 'cobertura', 'unimed', 'valor', 'preco', 'preço', 'comparativo', 'clinica', 'clínica']
   const normalizedTags = post.tags.map((tag) => tag.toLowerCase())
   const isCommercialIntent =
@@ -261,6 +264,7 @@ export default async function PostPage({ params }: PostPageProps) {
     commercialSignals.some((signal) => normalizedTags.some((tag) => tag.includes(signal)))
   const intent = isCommercialIntent ? 'commercial' : 'informational'
   const operationalCluster = detectOperationalCluster(post)
+  const readingLabel = formatReadingTime(post.readingTime || '')
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -271,20 +275,9 @@ export default async function PostPage({ params }: PostPageProps) {
     })
   }
 
-  const getCategoryColor = (category: string) => {
-    const colors: { [key: string]: string } = {
-      'dicas': 'bg-brand-soft text-brand-dark',
-      'relatos': 'bg-sand-200 text-sand-800',
-      'educacao': 'bg-brand text-white',
-      'direitos': 'bg-blue-800 text-white',
-      'geral': 'bg-sand-200 text-sand-700'
-    }
-    return colors[category.toLowerCase()] || colors['geral']
-  }
-
   return (
     <article
-      className="min-h-screen bg-page"
+      className="min-h-screen bg-paper"
       data-post-article={post.slug}
       data-post-category={post.category}
       data-traffic-intent={intent}
@@ -299,140 +292,114 @@ export default async function PostPage({ params }: PostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
-      {/* Enhanced Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-blue-800 via-brand to-blue-900 text-white">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute inset-0">
-          <div className="absolute top-16 left-8 w-48 h-48 bg-brand-soft/20 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute bottom-16 right-8 w-64 h-64 bg-blue-300/20 rounded-full blur-3xl animate-float-delayed"></div>
-        </div>
-        
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          {/* Navigation */}
-          <nav className="mb-8 animate-fade-in-up">
-            <Link 
-              href="/blog" 
-              className="inline-flex items-center gap-2 text-blue-100 hover:text-white transition-colors bg-white/10 backdrop-blur-sm px-4 py-2 rounded-pill hover:bg-white/20"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Voltar ao Blog
-            </Link>
+
+      <header className="border-b border-rule bg-paper">
+        <div className="container-custom">
+          <nav aria-label="Trilha de navegação" className="border-b border-rule py-4 pt-6">
+            <ol className="flex flex-wrap items-center gap-x-2 font-sans text-xs uppercase tracking-[0.2em] text-ink-mute">
+              <li>
+                <Link href="/" className="transition-colors duration-150 hover:text-azul">
+                  Início
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link href="/blog" className="transition-colors duration-150 hover:text-azul">
+                  Blog
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li className="text-ink">{post.category}</li>
+            </ol>
           </nav>
 
-          <div className="mb-6 text-sm text-blue-100/90 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            <Link href="/" className="hover:text-white transition-colors">
-              Inicio
-            </Link>
-            <span className="mx-2 text-blue-100/60">/</span>
-            <Link href="/blog" className="hover:text-white transition-colors">
-              Blog
-            </Link>
-            <span className="mx-2 text-blue-100/60">/</span>
-            <span className="text-blue-100/80">{post.category}</span>
-            <span className="mx-2 text-blue-100/60">/</span>
-            <span className="text-blue-100/80">{post.title}</span>
-          </div>
-          
-          {/* Category and Featured Badge */}
-          <div className="mb-8 flex flex-wrap items-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <span className={`px-4 py-2 rounded-pill text-sm font-semibold shadow-card backdrop-blur-sm ${getCategoryColor(post.category)}`}>
-              {post.category}
-            </span>
-            {post.featured && (
-              <div className="bg-gradient-to-r from-brand-soft to-blue-200 text-blue-900 px-4 py-2 rounded-pill text-sm font-bold flex items-center gap-2 shadow-card">
-                <span className="animate-pulse">✨</span>
-                Post em Destaque
+          <div className="grid gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-16 lg:py-16">
+            <div>
+              <p className="eyebrow">
+                {post.category}
+                {post.featured ? ' · Destaque' : ''}
+              </p>
+
+              <h1 className="display mt-4 text-3xl sm:text-4xl lg:text-5xl">{post.title}</h1>
+
+              <p className="lede mt-6 max-w-[58ch]">{post.excerpt}</p>
+
+              <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-t border-rule pt-5">
+                <div>
+                  <dt className="font-sans text-xs uppercase tracking-[0.14em] text-ink-mute">
+                    Autor
+                  </dt>
+                  <dd className="mt-1 font-sans text-sm text-ink">{post.author}</dd>
+                </div>
+                <div>
+                  <dt className="font-sans text-xs uppercase tracking-[0.14em] text-ink-mute">
+                    Publicado
+                  </dt>
+                  <dd className="mt-1 font-sans text-sm text-ink">{formatDate(post.datetime)}</dd>
+                </div>
+                {readingLabel ? (
+                  <div>
+                    <dt className="font-sans text-xs uppercase tracking-[0.14em] text-ink-mute">
+                      Leitura
+                    </dt>
+                    <dd className="mt-1 font-sans text-sm text-ink">{readingLabel}</dd>
+                  </div>
+                ) : null}
+              </dl>
+
+              <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+                <FavoriteToggleButton
+                  postSlug={post.slug}
+                  initialFavorited={favoriteSlugs.has(post.slug)}
+                />
+                {post.tags.length > 0 ? (
+                  <ul className="flex flex-wrap gap-x-4 gap-y-2">
+                    {post.tags.map((tag) => (
+                      <li
+                        key={tag}
+                        className="font-sans text-xs uppercase tracking-[0.14em] text-ink-mute"
+                      >
+                        #{tag}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
-            )}
-          </div>
-
-          {/* Title */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-8 leading-tight animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            {post.title}
-          </h1>
-
-          {/* Meta Information */}
-          <div className="flex flex-wrap items-center gap-6 text-blue-100 mb-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">
-                  {post.author.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                </span>
-              </div>
-              <span className="font-medium">Por {post.author}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span>{formatDate(post.datetime)}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>{post.readingTime}</span>
-            </div>
-          </div>
 
-          <div className="mb-8 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-            <FavoriteToggleButton
-              postSlug={post.slug}
-              initialFavorited={favoriteSlugs.has(post.slug)}
-            />
-          </div>
-
-          <div className="mt-10 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
             <EditorialTrustPanel post={post} />
           </div>
-
-          {/* Tags */}
-          {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-3 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
-              {post.tags.map((tag, index) => (
-                <span key={index} className="text-sm bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-pill hover:bg-white/30 transition-colors cursor-pointer">
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
-      </div>
+      </header>
 
-      {/* Enhanced Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-surface/90 backdrop-blur-sm rounded-block shadow-overlay border border-sand-200 p-8 md:p-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
+      <div className="container-custom py-12 md:py-16">
+        <div className="max-w-[68ch]">
           {earlyRelated.length > 0 && (
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-2 h-2 bg-brand rounded-full"></div>
-                <p className="text-sm font-semibold text-sand-900 uppercase tracking-wide">Leia também</p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <section className="mb-10 border-y border-rule py-6">
+              <p className="eyebrow">Leia também</p>
+              <ul className="mt-4 grid gap-x-8">
                 {earlyRelated.map((item) => (
-                  <Link
-                    key={item.slug}
-                    href={`/blog/${item.slug}`}
-                    className="block rounded-card border border-sand-200 bg-sand-100 px-4 py-3 hover:border-brand hover:bg-brand/5 transition-colors"
-                  >
-                    <p className="text-sm text-sand-900 font-semibold line-clamp-2">{item.title}</p>
-                    <p className="text-xs text-sand-600 line-clamp-2 mt-1">{item.excerpt}</p>
-                  </Link>
+                  <li key={item.slug} className="border-b border-rule py-3 last:border-b-0">
+                    <Link
+                      href={`/blog/${item.slug}`}
+                      className="font-display text-base text-ink transition-colors duration-150 hover:text-azul"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
           )}
 
-          <div className="mb-8 rounded-card border border-brand/30 bg-brand/5 p-5">
-            <p className="text-sm font-semibold uppercase tracking-wide text-sand-700 mb-3">
-              Próximo Passo
-            </p>
-            <PostIntentCTA intent={intent} placement="mid" tone="light" post={post} />
-          </div>
+          <section className="mb-10 border-l-2 border-clay pl-5">
+            <p className="eyebrow text-clay">Próximo passo</p>
+            <div className="mt-4">
+              <PostIntentCTA intent={intent} placement="mid" tone="light" post={post} />
+            </div>
+          </section>
 
-          <div className="prose prose-lg max-w-none prose-headings:text-sand-900 prose-a:text-link prose-a:no-underline hover:prose-a:underline prose-strong:text-sand-900 prose-blockquote:border-l-brand prose-blockquote:bg-sand-100 prose-blockquote:p-6 prose-blockquote:rounded-card">
+          <div className="prose">
             <MDXRemote
               source={rewriteInlineJsonLdScripts(stripLeadingMarkdownH1(post.content))}
               components={components}
@@ -440,53 +407,56 @@ export default async function PostPage({ params }: PostPageProps) {
             />
           </div>
         </div>
+      </div>
 
-        {/* Enhanced Call to Action */}
-        <div className="mt-16 animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
-          <div className="bg-gradient-to-r from-blue-800 to-brand rounded-block p-8 md:p-12 text-white text-center">
-            <div className="max-w-3xl mx-auto">
-              <div className="inline-block p-4 bg-white/10 rounded-card mb-6">
-                <span className="text-4xl">💙</span>
-              </div>
-              <h3 className="text-3xl md:text-4xl font-bold mb-6">
-                Gostou deste conteúdo?
-              </h3>
-              <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-                Explore mais artigos sobre autismo, inclusão e experiências que podem ajudar você e sua família.
+      <section className="border-y border-rule bg-azul-deep">
+        <div className="container-custom py-14 md:py-16">
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-azul-soft">
+                Continue
               </p>
+              <h2 className="display mt-4 text-2xl text-paper sm:text-3xl">
+                Gostou deste conteúdo?
+              </h2>
+              <p className="mt-4 max-w-[46ch] font-serif text-base leading-relaxed text-azul-soft">
+                Explore mais guias sobre autismo, inclusão e direitos que podem ajudar você e
+                sua família.
+              </p>
+            </div>
+            <div className="self-center">
               <PostIntentCTA intent={intent} placement="end" tone="dark" post={post} />
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Related Posts Section */}
-        {(remainingRelated.length > 0 || relatedPosts.length > 0) && (
-          <div className="mt-16 animate-fade-in-up" style={{ animationDelay: '1.4s' }}>
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-sand-900 mb-4">
-                Posts Relacionados
-              </h3>
-              <p className="text-sand-700 text-lg">
-                Continue explorando conteúdos que podem interessar você
-              </p>
+      {relatedToRender.length > 0 && (
+        <section className="border-b border-rule bg-paper">
+          <div className="container-custom py-14 md:py-16">
+            <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-b border-ink/15 pb-6">
+              <div>
+                <p className="eyebrow">Continue lendo</p>
+                <h2 className="display mt-3 text-2xl sm:text-3xl">Guias relacionados</h2>
+              </div>
+              <Link href="/blog" className="link-rule">
+                Ver todos os guias
+              </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {(remainingRelated.length > 0 ? remainingRelated : relatedPosts).map((relatedPost, index) => (
-                <div 
-                  key={relatedPost.slug} 
-                  className="animate-fade-in-up"
-                  style={{ animationDelay: `${1.5 + index * 0.1}s` }}
-                >
-                  <PostCard
-                    post={relatedPost}
-                    initialFavorited={favoriteSlugs.has(relatedPost.slug)}
-                  />
-                </div>
+
+            <div>
+              {relatedToRender.map((relatedPost, index) => (
+                <EditorialPostRow
+                  key={relatedPost.slug}
+                  post={relatedPost}
+                  position={index}
+                  initialFavorited={favoriteSlugs.has(relatedPost.slug)}
+                />
               ))}
             </div>
           </div>
-        )}
-      </div>
+        </section>
+      )}
     </article>
   )
 }
