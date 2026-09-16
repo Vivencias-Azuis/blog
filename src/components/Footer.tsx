@@ -4,7 +4,6 @@ const navigateLinks = [
   { href: '/', label: 'Início' },
   { href: '/blog', label: 'Blog' },
   { href: '/sobre', label: 'Sobre' },
-  { href: '/lojinha', label: 'Lojinha' },
   { href: '/apoie', label: 'Apoie' },
   { href: '/contato', label: 'Contato' },
 ]

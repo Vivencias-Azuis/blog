@@ -10,7 +10,6 @@ const navItems = [
   { href: '/', label: 'Início' },
   { href: '/blog', label: 'Blog' },
   { href: '/sobre', label: 'Sobre' },
-  { href: '/lojinha', label: 'Lojinha' },
   { href: 'https://jogos.vivenciasazuis.com.br/', label: 'Jogos sensoriais', external: true },
   { href: '/apoie', label: 'Apoie' },
   { href: '/contato', label: 'Contato' },
