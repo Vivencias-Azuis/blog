@@ -8,10 +8,10 @@ export const CANONICAL_POST_REDIRECTS: Record<string, string> = {
   'como-conseguir-vaga-hospitais-clinicas-gratuitas-tea': 'hospitais-e-clinicas-gratuitas-para-autistas-no-br',
 }
 
-export function getCanonicalPostSlug(slug: string) {
+export function getCanonicalPostSlug(slug: string): string | undefined {
   return CANONICAL_POST_REDIRECTS[slug]
 }
 
-export function isDeprecatedPostSlug(slug: string) {
+export function isDeprecatedPostSlug(slug: string): boolean {
   return slug in CANONICAL_POST_REDIRECTS
 }

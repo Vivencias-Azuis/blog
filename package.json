@@ -14,6 +14,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
     "db:generate": "npx drizzle-kit generate",
     "db:push": "npx drizzle-kit push",
     "llms": "node scripts/generate-llms.js",

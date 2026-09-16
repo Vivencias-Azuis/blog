@@ -69,7 +69,7 @@ describe('support config', () => {
         STRIPE_PRICE_ID_APOIAR: 'price_apoiar',
         STRIPE_PRICE_ID_FORTALECER: 'price_fortalecer',
         STRIPE_PRICE_ID_SUSTENTAR: 'price_sustentar',
-      } as NodeJS.ProcessEnv),
+      }),
     ).toThrow()
   })
 

@@ -73,6 +73,7 @@ describe('abacate pay support client', () => {
       .fn()
       .mockResolvedValueOnce({
         ok: false,
+        status: 502,
         json: vi.fn(),
       })
       .mockResolvedValueOnce({
@@ -121,7 +122,7 @@ describe('abacate pay support client', () => {
           },
         },
       }),
-    ).rejects.toThrow('Abacate Pay Pix create failed')
+    ).rejects.toThrow('Abacate Pay Pix create failed: status 502')
 
     await expect(
       createTransparentPixCharge({
