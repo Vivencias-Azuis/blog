@@ -32,7 +32,9 @@ export async function createTransparentPixCharge(payload: AbacatePixPayload) {
   const env = getSupportPixEnv()
 
   if (!env.ABACATE_PAY_API_KEY) {
-    throw new Error('Abacate Pay Pix create failed')
+    throw new Error(
+      'Abacate Pay Pix create failed: ABACATE_PAY_API_KEY is not configured',
+    )
   }
 
   const response = await fetch(
@@ -49,7 +51,7 @@ export async function createTransparentPixCharge(payload: AbacatePixPayload) {
   )
 
   if (!response.ok) {
-    throw new Error('Abacate Pay Pix create failed')
+    throw new Error(`Abacate Pay Pix create failed: status ${response.status}`)
   }
 
   return parseAbacateTransparentChargeResponse(await response.json())
@@ -59,7 +61,9 @@ export async function checkTransparentPixCharge(chargeId: string) {
   const env = getSupportPixEnv()
 
   if (!env.ABACATE_PAY_API_KEY) {
-    throw new Error('Abacate Pay Pix status check failed')
+    throw new Error(
+      'Abacate Pay Pix status check failed: ABACATE_PAY_API_KEY is not configured',
+    )
   }
 
   const response = await fetch(
@@ -73,7 +77,9 @@ export async function checkTransparentPixCharge(chargeId: string) {
   )
 
   if (!response.ok) {
-    throw new Error('Abacate Pay Pix status check failed')
+    throw new Error(
+      `Abacate Pay Pix status check failed: status ${response.status} for charge ${chargeId}`,
+    )
   }
 
   return parseAbacateTransparentChargeResponse(await response.json())

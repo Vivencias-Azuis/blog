@@ -15,6 +15,13 @@ vi.mock('@clerk/nextjs/server', () => ({
 }))
 
 const currentUserMock = vi.mocked(currentUser)
+
+// Clerk's User type requires ~40 fields, but getCurrentMemberAccess only reads publicMetadata.
+// Build the stub from that shape and cast once here instead of at every call site.
+function stubClerkUser(publicMetadata: Record<string, unknown>) {
+  return { publicMetadata } as unknown as Awaited<ReturnType<typeof currentUser>>
+}
+
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../')
 const migrationDir = path.join(repoRoot, 'drizzle')
 const historical0000Sql = `
@@ -116,11 +123,11 @@ describe('getCurrentMemberAccess', () => {
   })
 
   it('returns member access when the current user metadata marks the user as member', async () => {
-    currentUserMock.mockResolvedValue({
-      publicMetadata: {
+    currentUserMock.mockResolvedValue(
+      stubClerkUser({
         isMember: true,
-      },
-    } as Awaited<ReturnType<typeof currentUser>>)
+      }),
+    )
 
     await expect(getCurrentMemberAccess()).resolves.toEqual({
       isMember: true,

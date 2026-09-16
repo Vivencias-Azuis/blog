@@ -7,7 +7,9 @@ const removeFavoriteSlugsMock = vi.fn()
 const canonicalizeFavoriteItemsMock = vi.fn()
 const resolveRemovableFavoriteSlugsMock = vi.fn()
 const normalizeSlugMock = vi.fn((slug: string) => slug)
-const getCanonicalPostSlugMock = vi.fn(() => undefined)
+const getCanonicalPostSlugMock = vi.fn<(slug: string) => string | undefined>(
+  () => undefined,
+)
 const getPostBySlugMock = vi.fn()
 
 vi.mock('@clerk/nextjs/server', () => ({
