@@ -91,7 +91,7 @@ Em ordem de prioridade. Nenhum é imposto pelo ESLint — não há `max-lines` n
 - Não reintroduza texto genérico de template no README ou em páginas institucionais.
 - Não assuma que `scripts/README.md` é a fonte da verdade; confira `package.json` e os scripts reais.
 - Peça antes de: dropar tabela, force-push, mexer em CI/CD (`amplify.yml`, `.github/`) ou publicar conteúdo.
-- Não edite artefatos gerados (`llms.txt`, `.next-dev/`, `tsconfig.tsbuildinfo`); regenere com `npm run llms`.
+- Não edite nem versione artefatos gerados (`next-env.d.ts`, `llms.txt`, `.next-dev/`, `tsconfig.tsbuildinfo`); `next dev` / `next build` e `npm run llms` regeneram.
 - Não introduza retry, circuit breaker ou rate limit por conta própria — o projeto não pediu essas categorias; trate como mudança explícita.
 - Não remova comentários de intenção ou proveniência ao refatorar: eles são contexto para a próxima sessão.
 - Não remova redirects antigos sem confirmar que a URL já não recebe tráfego.
