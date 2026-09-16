@@ -32,6 +32,13 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        // Rota /lojinha removida. O indice do blog e o destino mais proximo do
+        // que ela oferecia, e o 301 preserva quem ja linkou ou indexou a URL.
+        source: '/lojinha',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
         source: '/blog/CIPTEA-carteira-de-identificacao-da-pessoa-com-transtorno-do-espectro-autista',
         destination: '/blog/ciptea-carteira-identificacao-pessoa-tea',
         permanent: true,
