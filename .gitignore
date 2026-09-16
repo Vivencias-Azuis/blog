@@ -13,6 +13,11 @@ out/
 build/
 dist/
 
+# Gerado pelo Next a cada `next dev` / `next build`. Como o distDir alterna entre
+# .next e .next-dev, a linha de referencia muda conforme o ultimo comando rodado —
+# versionar isso so gera churn. O tsconfig ja cobre os dois caminhos.
+next-env.d.ts
+
 # Production
 /build
 
