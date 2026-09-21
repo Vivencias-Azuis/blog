@@ -10,7 +10,7 @@
     "dev": "NEXT_DIST_DIR=.next-dev next dev",
     "dev:external": "NEXT_DIST_DIR=.next-dev next dev -H 0.0.0.0",
     "build": "next build",
-    "start": "next start",
+    "start": "node .next/standalone/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
