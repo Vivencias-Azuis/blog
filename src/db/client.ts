@@ -4,18 +4,25 @@ import { drizzle } from 'drizzle-orm/libsql'
 let database: ReturnType<typeof drizzle> | null = null
 
 function getLibsqlClientConfig() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL is not configured.')
+  const filePath = process.env.DATABASE_PATH?.trim()
+  const url = filePath
+    ? filePath.startsWith('file:')
+      ? filePath
+      : `file:${filePath}`
+    : process.env.DATABASE_URL || process.env.TURSO_DATABASE_URL
+
+  if (!url) {
+    throw new Error(
+      'DATABASE_PATH, DATABASE_URL or TURSO_DATABASE_URL is not configured.',
+    )
   }
 
-  if (process.env.DATABASE_URL.startsWith('file:')) {
-    return {
-      url: process.env.DATABASE_URL,
-    }
+  if (url.startsWith('file:') || url === ':memory:') {
+    return { url }
   }
 
   return {
-    url: process.env.DATABASE_URL,
+    url,
     authToken: process.env.TURSO_AUTH_TOKEN,
   }
 }
