@@ -74,6 +74,12 @@ const quickRoutes = [
     cta: 'home_decision_planos',
   },
   {
+    label: 'Preciso saber o custo',
+    title: 'Quanto custa terapia ABA em 2026?',
+    href: '/blog/terapia-aba-valor-2026-preco-sessoes-e-reembolso',
+    cta: 'home_decision_aba_valor',
+  },
+  {
     label: 'Preciso cobrar um direito',
     title: 'O que pedir para escola, SUS ou plano',
     href: '/blog/lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil',
