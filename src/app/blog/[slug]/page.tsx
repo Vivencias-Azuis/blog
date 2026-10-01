@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { Metadata } from 'next'
 import { auth } from '@clerk/nextjs/server'
 
+import AbaMonthlyCostCalculator from '@/components/AbaMonthlyCostCalculator'
 import FavoriteToggleButton from '@/components/account/FavoriteToggleButton'
 import EditorialPostRow from '@/components/EditorialPostRow'
 import PostTracking from '@/components/PostTracking'
@@ -158,6 +159,7 @@ const components = {
       />
     )
   },
+  AbaMonthlyCostCalculator,
 }
 
 export default async function PostPage({ params }: PostPageProps) {
