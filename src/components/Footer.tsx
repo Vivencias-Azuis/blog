@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { FOOTER_GUIDE_LINKS } from '@/lib/search-hubs'
 
 const navigateLinks = [
   { href: '/', label: 'Início' },
@@ -6,13 +7,6 @@ const navigateLinks = [
   { href: '/sobre', label: 'Sobre' },
   { href: '/apoie', label: 'Apoie' },
   { href: '/contato', label: 'Contato' },
-]
-
-const themeLinks = [
-  { href: '/blog?categoria=dicas', label: 'Dicas práticas' },
-  { href: '/blog?categoria=relatos', label: 'Relatos' },
-  { href: '/blog?categoria=educacao', label: 'Educação' },
-  { href: '/blog?categoria=direitos', label: 'Direitos' },
 ]
 
 const legalLinks = [
@@ -55,12 +49,12 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <nav aria-labelledby="footer-temas">
-            <h2 id="footer-temas" className={footerHeading}>
-              Temas
+          <nav aria-labelledby="footer-guias">
+            <h2 id="footer-guias" className={footerHeading}>
+              Guias
             </h2>
             <ul className="mt-5 space-y-3">
-              {themeLinks.map((link) => (
+              {FOOTER_GUIDE_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className={footerLink}>
                     {link.label}

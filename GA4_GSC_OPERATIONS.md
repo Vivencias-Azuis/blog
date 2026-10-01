@@ -21,6 +21,10 @@ Baseline de referência (export 20/04–19/07/2026, global Web):
 | Páginas com ≥10 cliques | ~6 | 8 | ≥12 |
 | Pos. média top 3 páginas | 6–9 | ≤7 | ≤6 |
 
+### Queda por domínio vencido (ago–set 2026)
+
+O domínio venceu em 03/08/2026, congelou ~17/08 e só foi republicado em 16/09. O GSC zerou cliques de 28/08 a 16/09. Depois disso, priorize recrawl das URLs de dinheiro (ABA valor, planos, PECS, dicionário, níveis). Ping de sitemap do Google está descontinuado; usar Inspeção de URL no GSC e IndexNow (`node scripts/submit-indexnow.js` após o deploy).
+
 ### Calendário
 
 1. **Dia 0 (deploy):** anotar data no GA4; no GSC, inspecionar e solicitar indexação das URLs prioritárias (ABA valor, planos, níveis, PECS, dicionário, aba-para-pais, Berenice).

@@ -5,6 +5,7 @@ import { normalizeTaxonomyValue } from '@/lib/taxonomy'
 import { isDeprecatedPostSlug } from '@/lib/canonical-posts'
 import { normalizeAuthorName } from '@/lib/editorial'
 import { parseFrontmatter } from '@/lib/frontmatter'
+import { HOME_FEATURED_SLUGS } from '@/lib/search-hubs'
 
 export interface PostMeta {
   slug: string
@@ -142,8 +143,12 @@ export function getPostBySlug(slug: string): Post | null {
 }
 
 export function getFeaturedPosts(): PostMeta[] {
-  const allPosts = getAllPosts()
-  return allPosts.filter(post => post.featured).slice(0, 3)
+  const postsBySlug = new Map(getAllPosts().map((post) => [post.slug, post]))
+
+  return HOME_FEATURED_SLUGS.flatMap((slug) => {
+    const post = postsBySlug.get(slug)
+    return post ? [post] : []
+  })
 }
 
 export function getPostsByCategory(category: string): PostMeta[] {

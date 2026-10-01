@@ -25,11 +25,14 @@ type EventContext = {
 }
 
 export const PRIORITY_PAGE_PATHS = [
+  '/blog/terapia-aba-valor-2026-preco-sessoes-e-reembolso',
   '/blog/melhores-planos-de-saude-para-criancas-com-autismo',
-  '/blog/aba-para-pais',
-  '/blog/niveis-de-suporte-no-tea-e-seu-papel-no-diagnostic',
-  '/blog/lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil',
   '/blog/como-funciona-picture-exchange-communication-system-pecs',
+  '/blog/dicionario-para-pais-de-criancas-autistas',
+  '/blog/niveis-de-suporte-no-tea-e-seu-papel-no-diagnostic',
+  '/blog/checklist-primeira-consulta-autismo',
+  '/blog/aba-para-pais',
+  '/blog/lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil',
 ] as const
 
 export function inferPageType(pathname: string): AnalyticsPageType {
