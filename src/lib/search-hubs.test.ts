@@ -12,10 +12,13 @@ const PLANOS = 'melhores-planos-de-saude-para-criancas-com-autismo'
 const PECS = 'como-funciona-picture-exchange-communication-system-pecs'
 const DICIONARIO = 'dicionario-para-pais-de-criancas-autistas'
 const NIVEIS = 'niveis-de-suporte-no-tea-e-seu-papel-no-diagnostic'
+const DOCUMENTOS = 'documentos-essenciais-familias-pessoas-autistas-laudos-relatorios-beneficios'
 
 describe('search hubs', () => {
   it('keeps the Search Console money pages as hubs', () => {
-    expect(SEARCH_HUB_SLUGS).toEqual(expect.arrayContaining([ABA_VALOR, PLANOS, PECS, DICIONARIO, NIVEIS]))
+    expect(SEARCH_HUB_SLUGS).toEqual(
+      expect.arrayContaining([ABA_VALOR, PLANOS, PECS, DICIONARIO, NIVEIS, DOCUMENTOS]),
+    )
   })
 
   it('gives hub priority 0.9 even when the post is old', () => {

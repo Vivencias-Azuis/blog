@@ -14,6 +14,8 @@ const paths = [
   '/blog/hospitais-e-clinicas-gratuitas-para-autistas-no-br',
   '/blog/aba-para-pais',
   '/blog/lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil',
+  '/blog/documentos-essenciais-familias-pessoas-autistas-laudos-relatorios-beneficios',
+  '/blog/10-curiosidades-sobre-o-autismo-que-voce-precisa-saber',
 ]
 
 const body = {

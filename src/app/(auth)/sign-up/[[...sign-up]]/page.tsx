@@ -1,4 +1,11 @@
 import { SignUp } from '@clerk/nextjs'
+import { generatePageMetadata } from '@/lib/metadata'
+
+export const metadata = generatePageMetadata({
+  title: 'Criar conta',
+  description: 'Crie sua conta no Vivências Azuis.',
+  path: '/sign-up',
+})
 
 export default function SignUpPage() {
   return (

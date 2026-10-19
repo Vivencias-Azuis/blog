@@ -9,6 +9,7 @@ export const SEARCH_HUB_SLUGS = [
   'aba-para-pais',
   'lei-berenice-piana-marco-legal-dos-direitos-dos-autistas-no-brasil',
   'hipersensibilidade-sensorial-autismo-guia-pratico-2026',
+  'documentos-essenciais-familias-pessoas-autistas-laudos-relatorios-beneficios',
 ] as const
 
 export const HOME_FEATURED_SLUGS = [
