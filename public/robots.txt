@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /minha-area
 
 Sitemap: https://www.vivenciasazuis.com.br/sitemap.xml
 # LLMs: https://www.vivenciasazuis.com.br/llms.txt

@@ -3,6 +3,30 @@ import { getAuthorProfile } from '@/lib/editorial'
 
 const baseUrl = 'https://www.vivenciasazuis.com.br'
 const defaultSocialImage = '/og-image.png'
+const PRIVATE_PATH_PREFIXES = ['/sign-in', '/sign-up', '/minha-area'] as const
+
+export function isPrivateSeoPath(path: string): boolean {
+  const normalized = path.startsWith('/') ? path : `/${path}`
+  return PRIVATE_PATH_PREFIXES.some(
+    (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
+  )
+}
+
+function robotsForPath(path: string) {
+  const index = !isPrivateSeoPath(path)
+
+  return {
+    index,
+    follow: true,
+    googleBot: {
+      index,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large' as const,
+      'max-snippet': -1,
+    },
+  }
+}
 
 function inferImageType(imagePath: string): string {
   const normalizedPath = imagePath.toLowerCase()
@@ -29,17 +53,7 @@ export function generateImageUrl(imagePath: string): string {
 export function generateDefaultMetadata(): Partial<Metadata> {
   return {
     metadataBase: new URL(baseUrl),
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
+    robots: robotsForPath('/'),
     openGraph: {
       type: 'website',
       locale: 'pt_BR',
@@ -151,6 +165,7 @@ export function generatePageMetadata({
     title,
     description,
     keywords: ['autismo', 'TEA', 'inclusão', 'blog', 'experiências', 'apoio', ...keywords],
+    robots: robotsForPath(path),
     alternates: {
       canonical: pageUrl,
     },
